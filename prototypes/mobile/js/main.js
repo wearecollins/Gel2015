@@ -24,13 +24,13 @@ var App = function(){
 		app_name = app_name + ' ' + random_id.substring(random_id.length-4);
 
 		log(0, "Setting up spacebrew connection");
-		sb = new Spacebrew.Client("192.168.88.161");
+		sb = new Spacebrew.Client("192.168.0.4");
 
 		sb.name(app_name);
 
 		// configure the publication and subscription feeds
 		sb.addPublish("touch", "point2d", "{\"x\":0,\"y\":0}");
-		sb.addPublish("announce", "color", "{\"r\":0,\"g\":0,\"b\":0,}");
+		sb.addPublish("announce", "announce", "{\"id\":\"\",\"r\":0,\"g\":0,\"b\":0,}");
 
 		// maybe color will be a publish?
 		sb.addSubscribe("color", "color");
@@ -76,7 +76,8 @@ var App = function(){
 	function sendTouch( index, x, y ){
 		x = x / window.innerWidth;
 		y = y / window.innerHeight;
-		sb.send("touch", "point2d", JSON.stringify({x:x, y:y, index:index, id:app_name}));
+		var t = {x:""+x, y:""+y, index:index, id:app_name, color: color};
+		sb.send("touch", "point2d", JSON.stringify(t));
 	}
 
 	/**
@@ -107,6 +108,7 @@ var App = function(){
 			$("#touch").css("left", e.touches[0].clientX - touchWidth/2. + "px");
 			$("#touch").css("top", e.touches[0].clientY - touchWidth/2. + "px");
 			sendTouch(0, e.touches[0].clientX, e.touches[0].clientY)
+			log(0, "sending tuch");
 		}
 	}
 
@@ -130,7 +132,8 @@ var App = function(){
 
 	// @begin 	Spacebrew events
 	function onOpen(){
-		sb.send("announce", "color", JSON.stringify(color));
+		var o = {r:color.r, g:color.g, b:color.b, id:app_name};
+		sb.send("announce", "announce", JSON.stringify(o));
 	}
 
 	function onClose(){}

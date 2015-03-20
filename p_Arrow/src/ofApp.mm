@@ -3,8 +3,6 @@
 
 static int profileIndex = 0;
 
-ofMesh m;
-
 //--------------------------------------------------------------
 ofApp::ofApp( string settings ){
 }
@@ -13,15 +11,18 @@ ofApp::ofApp( string settings ){
 void ofApp::setup(){
     [MSA::ofxCocoa::glWindow() setCollectionBehavior:NSWindowCollectionBehaviorStationary|NSWindowCollectionBehaviorCanJoinAllSpaces|NSWindowCollectionBehaviorFullScreenAuxiliary];
     
-    ofBoxPrimitive arrow;
-    arrow.set(100., 100., 200);
-    
-    m.addVertices( arrow.getMesh().getVertices() );
-    m.addIndices( arrow.getMesh().getIndices() );
-    
     
     ofBackground( ofColor(0,0,0,0) );
 	ofSetFrameRate(60);
+    
+    string server   = "127.0.0.1";
+    string name     = "Gel master";
+    
+    spacebrew.addSubscribe("touch", "point2d");
+    spacebrew.addSubscribe("announce", "announce");
+    
+    spacebrew.connect( server, name, "");
+    ofAddListener(spacebrew.onMessageEvent, this, &ofApp::onMessage);
 }
 
 //--------------------------------------------------------------
@@ -32,25 +33,55 @@ void ofApp::exit(){
 void ofApp::update(){
 }
 
-ofLight light;
-
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofEnableDepthTest();
-    
-    light.enable();
-    light.setPosition(ofGetWidth()/2.0, ofGetHeight()/2.0, 100);
-    ofTranslate(mouseX, mouseY);
-//    arrow.getMesh().draw();
-//    ofRect(mouseX,mouseY,50,50);
-    
-    ofVec2f dir(mouseX,mouseY);
-    ofVec2f c(ofGetWidth()/2.0, ofGetHeight()/2.0);
-    
-    ofRotateZ(ofGetElapsedTimeMillis() * .01);
-    ofRotateX(ofGetElapsedTimeMillis() * .001);
-    ofRotateY(ofGetElapsedTimeMillis() * .05);
-    m.draw();
+    for ( auto & i : particles ) {
+        i.second.draw();
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::onMessage(Spacebrew::Message & m){
+    static Json::Reader reader;
+    Json::Value root;
+    if ( m.name == "announce" ){
+        ofStringReplace(m.value, "\\", "");
+        bool b = reader.parse( m.value, root);
+        if ( root.isObject() && !root.isNull()){
+            if ( !root["id"].isNull()){
+                string ID = root["id"].asString();
+                particles[ID] = SbParticle();
+                particles[ID].color.r = root["r"].asInt();
+                particles[ID].color.g = root["g"].asInt();
+                particles[ID].color.b = root["b"].asInt();
+            }
+        } else {
+            
+        }
+    } else if (m.name == "touch"){
+        ofStringReplace(m.value, "\\", "");
+        bool b = reader.parse( m.value, root);
+        if ( b ){
+            if ( root.isObject() && root.isMember("id") ){
+                string ID = root["id"].asString();
+                if ( particles.count(ID) == 0 ){
+                    particles[ID] = SbParticle();
+                }
+                if ( !root["x"].isNull() ){
+                    particles[ID].x = ofToFloat(root["x"].asString()) * ofGetWidth();
+                    particles[ID].y = ofToFloat(root["y"].asString()) * ofGetHeight();
+                    cout << particles[ID].x << endl;
+                } else {
+                }
+                if ( root["color"].isObject()){
+                    particles[ID].color.set(root["color"]["r"].asInt(), root["color"]["g"].asInt(), root["color"]["b"].asInt());
+                }
+            } else {
+            }
+        } else {
+        }
+    } else {
+    }
 }
 
 //--------------------------------------------------------------

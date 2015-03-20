@@ -8,6 +8,10 @@
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
 
+#include "ofxSpacebrew.h"
+
+#include "SbParticle.h"
+
 /****************************************************
 	ofApp
 ****************************************************/
@@ -31,6 +35,12 @@ public:
 	void windowResized(int w, int h);
     
     string type;
+    
+    Spacebrew::Connection spacebrew;
+    
+    void onMessage( Spacebrew::Message & m );
+    
+    map<string, SbParticle> particles;
     
 private:
     void setupQuad();
