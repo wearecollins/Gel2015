@@ -4,6 +4,33 @@ window.onload = function(){
 	app = new App();
 }
 
+function get_local_url()
+{
+	var pcol = "";
+	var u = document.URL;
+
+	/*
+	 * We open the websocket encrypted if this page came on an
+	 * https:// url itself, otherwise unencrypted
+	 */
+
+	if (u.substring(0, 5) == "https") {
+
+		u = u.substr(8);
+	} else {
+		if (u.substring(0, 4) == "http")
+			u = u.substr(7);
+	}
+
+	u = u.split('/');
+
+	u = u[0];
+	var p = u.indexOf(":");
+	u = u.substr(0, p);
+
+	return pcol + u;
+}
+
 var App = function(){
 	/** @type {Spacebrew.Client} */
 	var sb;
@@ -24,7 +51,9 @@ var App = function(){
 		app_name = app_name + ' ' + random_id.substring(random_id.length-4);
 
 		log(0, "Setting up spacebrew connection");
-		sb = new Spacebrew.Client("192.168.0.4");
+		sb = new Spacebrew.Client(get_local_url());
+
+		//window.alert(get_local_url());
 
 		sb.name(app_name);
 
