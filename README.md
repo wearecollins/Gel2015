@@ -13,8 +13,10 @@
 	* Make sure the following persistent routes exist:
 		* 	``` 
 				.*,touch,.*,touch
-					* .*,announce,.*,announce
-					* .*,average,.*,average
+
+				* .*,announce,.*,announce
+				
+				* .*,average,.*,average
 			```
 * Open Skype and call somebody
 * Run GelOuput.app
