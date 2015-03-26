@@ -110,7 +110,7 @@ void InputProcessor::update( ofEventArgs & e ){
         bShouldSend = false;
         // drift back to 0
         currentValue.x = currentValue.x * .9;
-        currentValue.y = currentValue.y * .9 + -1 * .1;
+        currentValue.y = currentValue.y * .9;// + -1 * .1;
     }
 }
 

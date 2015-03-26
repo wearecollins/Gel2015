@@ -108,7 +108,7 @@ var App = function(){
 	function sendTouch( index, x, y ){
 		console.log(x, window.innerWidth, (x - window.innerWidth/2.0) / (window.innerWidth/2.0)) ;
 		x = (x - window.innerWidth/2.0) / (window.innerWidth/2.0);
-		y = (y - window.innerHeight/2.0) / window.innerHeight/2.0;
+		y = (y - window.innerHeight/2.0) / (window.innerHeight/2.0);
 		var t = {x:""+x, y:""+y, index:index, id:app_name, color: color};
 		sb.send("touch", "gelpoint", JSON.stringify(t));
 	}

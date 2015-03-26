@@ -12,17 +12,17 @@
 class Meter : public LiveInput {
 public:
     
-    Meter(){
+    Meter() : LiveInput(){
         setup();
     }
     
     void setup();
-    void draw();
+    void render();
     
 protected:
     
-    ofImage meter, fuzzy, overlay;
-    ofShader render;
+    ofImage meter, fuzzy;
+    ofShader renderShader;
     ofFbo   renderTexture;
     ofColor fillColor;
 };

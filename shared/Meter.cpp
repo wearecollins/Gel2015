@@ -13,8 +13,7 @@ void Meter::setup(){
     // load shader + image
     meter.loadImage("graphics/level1_meter.png");
     fuzzy.loadImage("graphics/fuzzy.png");
-    overlay.loadImage("graphics/overlay.png");
-    render.load("","shaders/meterRender.frag");
+    renderShader.load("","shaders/meterRender.frag");
     
     renderTexture.allocate(meter.width, meter.height);
     
@@ -23,7 +22,7 @@ void Meter::setup(){
 }
 
 //--------------------------------------------------------------
-void Meter::draw(){
+void Meter::render(){
     // draw output to FBO
     fillColor.setHue(ofWrap(ofSignedNoise(ofGetElapsedTimeMillis() * .001) * 255., 0, 255));
     fillColor.setBrightness(255);
@@ -50,12 +49,11 @@ void Meter::draw(){
     
     float scale = ofGetWidth() /renderTexture.getWidth() ;
     
-    overlay.draw(0,0,overlay.width * scale, overlay.height * scale);
     ofSetColor(255);
     
-    render.begin();
-    render.setUniformTexture("alpha", meter.getTextureReference(), 2);
-    render.setUniformTexture("render", renderTexture.getTextureReference(), 3);
+    renderShader.begin();
+    renderShader.setUniformTexture("alpha", meter.getTextureReference(), 2);
+    renderShader.setUniformTexture("render", renderTexture.getTextureReference(), 3);
     renderTexture.draw(0,0, renderTexture.getWidth() * scale, renderTexture.getHeight() * scale );
-    render.end();
+    renderShader.end();
 }

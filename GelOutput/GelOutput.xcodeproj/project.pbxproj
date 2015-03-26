@@ -15,6 +15,7 @@
 		016D224E1AAA6823003840C7 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 016D22461AAA6823003840C7 /* main.mm */; };
 		016D224F1AAA6823003840C7 /* ofApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 016D22481AAA6823003840C7 /* ofApp.mm */; };
 		016D22531AAA6953003840C7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016D22521AAA6953003840C7 /* Carbon.framework */; };
+		017D04B91AC45D5E003E75F7 /* GridMeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 017D04B71AC45D5E003E75F7 /* GridMeter.cpp */; };
 		019DF13C1AC3017C0028D667 /* NoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019DF12B1AC3017C0028D667 /* NoWindow.xib */; };
 		019DF13D1AC3017C0028D667 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 019DF12C1AC3017C0028D667 /* README.txt */; };
 		019DF13E1AC3017C0028D667 /* WithWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019DF12D1AC3017C0028D667 /* WithWindow.xib */; };
@@ -133,7 +134,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		010F33371ABB329400413531 /* SbParticle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SbParticle.h; path = ../../shared/SbParticle.h; sourceTree = "<group>"; };
 		012B26941AC1A5E10026D2EA /* src_colors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = src_colors.cpp; sourceTree = "<group>"; };
 		012B26951AC1A5E10026D2EA /* svgtiny.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgtiny.cpp; sourceTree = "<group>"; };
 		012B26961AC1A5E10026D2EA /* svgtiny.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = svgtiny.h; sourceTree = "<group>"; };
@@ -146,6 +146,9 @@
 		016D22471AAA6823003840C7 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofApp.h; sourceTree = "<group>"; };
 		016D22481AAA6823003840C7 /* ofApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofApp.mm; sourceTree = "<group>"; };
 		016D22521AAA6953003840C7 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = ../../../../../../../../../System/Library/Frameworks/Carbon.framework; sourceTree = "<group>"; };
+		017D04B71AC45D5E003E75F7 /* GridMeter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GridMeter.cpp; path = ../../shared/GridMeter.cpp; sourceTree = "<group>"; };
+		017D04B81AC45D5E003E75F7 /* GridMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridMeter.h; path = ../../shared/GridMeter.h; sourceTree = "<group>"; };
+		017D04BA1AC46520003E75F7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../../shared/Constants.h; sourceTree = "<group>"; };
 		019DF12B1AC3017C0028D667 /* NoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoWindow.xib; sourceTree = "<group>"; };
 		019DF12C1AC3017C0028D667 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		019DF12D1AC3017C0028D667 /* WithWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WithWindow.xib; sourceTree = "<group>"; };
@@ -343,14 +346,12 @@
 		010F33381ABB329800413531 /* shared */ = {
 			isa = PBXGroup;
 			children = (
-				010F33371ABB329400413531 /* SbParticle.h */,
-				019DF1451AC302080028D667 /* InputProcessor.h */,
-				019DF1461AC302C60028D667 /* InputProcessor.cpp */,
-				019DF1491AC316950028D667 /* Meter.cpp */,
-				019DF14A1AC316950028D667 /* Meter.h */,
-				019DF14C1AC316B50028D667 /* LiveInput.h */,
-				019DF14D1AC3181E0028D667 /* GameController.cpp */,
+				017D04BB1AC47A96003E75F7 /* overlays */,
+				017D04B61AC45D1E003E75F7 /* process_input */,
+				017D04B51AC45D0E003E75F7 /* live_meter */,
 				019DF14E1AC3181E0028D667 /* GameController.h */,
+				019DF14D1AC3181E0028D667 /* GameController.cpp */,
+				017D04BA1AC46520003E75F7 /* Constants.h */,
 			);
 			name = shared;
 			sourceTree = "<group>";
@@ -402,6 +403,34 @@
 			);
 			name = src;
 			path = ../../../addons/ofxSvg/src;
+			sourceTree = "<group>";
+		};
+		017D04B51AC45D0E003E75F7 /* live_meter */ = {
+			isa = PBXGroup;
+			children = (
+				019DF1491AC316950028D667 /* Meter.cpp */,
+				019DF14A1AC316950028D667 /* Meter.h */,
+				019DF14C1AC316B50028D667 /* LiveInput.h */,
+				017D04B71AC45D5E003E75F7 /* GridMeter.cpp */,
+				017D04B81AC45D5E003E75F7 /* GridMeter.h */,
+			);
+			name = live_meter;
+			sourceTree = "<group>";
+		};
+		017D04B61AC45D1E003E75F7 /* process_input */ = {
+			isa = PBXGroup;
+			children = (
+				019DF1451AC302080028D667 /* InputProcessor.h */,
+				019DF1461AC302C60028D667 /* InputProcessor.cpp */,
+			);
+			name = process_input;
+			sourceTree = "<group>";
+		};
+		017D04BB1AC47A96003E75F7 /* overlays */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = overlays;
 			sourceTree = "<group>";
 		};
 		019DF1291AC3016D0028D667 /* ofxCocoa */ = {
@@ -939,6 +968,7 @@
 				3D4EA8E172D3E4A30FEFA969 /* ofxUIImage.cpp in Sources */,
 				7F2CD93F681F3C1547B3BF2C /* ofxUIImageButton.cpp in Sources */,
 				FBD0CD0AFE3849C14E829CAF /* ofxUIImageSampler.cpp in Sources */,
+				017D04B91AC45D5E003E75F7 /* GridMeter.cpp in Sources */,
 				019DF14B1AC316950028D667 /* Meter.cpp in Sources */,
 				26874B150C8535AEA0F24C8C /* ofxUIImageSlider.cpp in Sources */,
 				FB8AA9FA6535767BE31806BC /* ofxUIImageToggle.cpp in Sources */,

@@ -11,14 +11,17 @@
 #include "ofMain.h"
 
 // utils
-
+#include "ofxSpacebrew.h"
+#include "Constants.h"
 #include "InputProcessor.h"
 
 // inputs
 #include "LiveInput.h"
 #include "Meter.h"
+#include "GridMeter.h"
 
 class GameController {
+    friend class Spacebrew::Connection;
 public:
     
     enum Level {
@@ -29,7 +32,7 @@ public:
     
     GameController();
     
-    void setup( InputProcessor & input );
+    void setup( InputProcessor & input, Spacebrew::Connection & spacebrew );
     void update( ofEventArgs & e );
     void draw();
     
@@ -52,4 +55,8 @@ protected:
     // internal mechanics
     InputProcessor * inputProcessor;
     void setLevel ( Level level );
+    
+    // connection to controller app
+    Spacebrew::Connection * spacebrew;
+    void onMessage( Spacebrew::Message & message );
 };

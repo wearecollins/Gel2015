@@ -14,10 +14,6 @@
 #include "InputProcessor.h"
 #include "GameController.h"
 
-#include "SbParticle.h"
-
-#define ParticleType ImageParticle
-
 /****************************************************
 	ofApp
 ****************************************************/

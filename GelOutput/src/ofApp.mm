@@ -30,7 +30,7 @@ void ofApp::setup(){
     spacebrew.addPublish("average", "point2d");
     
     processor.setup(spacebrew);
-    gameController.setup(processor);
+    gameController.setup(processor,spacebrew);
     
     spacebrew.connect( server, name, "");
     ofAddListener(spacebrew.onMessageEvent, this, &ofApp::onMessage);
@@ -50,10 +50,6 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    // debug
-//    ofTranslate(ofGetWidth()/2.0, ofGetHeight()/2.0);
-//    ofEllipse( processor.getCurrentValue() * ofVec2f(ofGetWidth()/2.0, ofGetHeight()/2.0), 20, 20);
-    
     gameController.draw();
 }
 

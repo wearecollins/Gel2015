@@ -8,15 +8,8 @@
 
 #pragma once
 
+#include "Constants.h"
 #include "ofxSpacebrew.h"
-#include "Poco/LocalDateTime.h"
-
-struct PointMessage {
-    Poco::LocalDateTime time;
-    ofVec2f point;
-    string uniqueId;
-    ofColor color;
-};
 
 class InputProcessor {
     friend class Spacebrew::Connection;
