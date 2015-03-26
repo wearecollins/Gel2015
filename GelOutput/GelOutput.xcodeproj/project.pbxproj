@@ -340,7 +340,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		010F33381ABB329800413531 /* hared */ = {
+		010F33381ABB329800413531 /* shared */ = {
 			isa = PBXGroup;
 			children = (
 				010F33371ABB329400413531 /* SbParticle.h */,
@@ -352,7 +352,7 @@
 				019DF14D1AC3181E0028D667 /* GameController.cpp */,
 				019DF14E1AC3181E0028D667 /* GameController.h */,
 			);
-			name = hared;
+			name = shared;
 			sourceTree = "<group>";
 		};
 		012B26901AC1A5A80026D2EA /* ofxSvg */ = {
@@ -791,7 +791,7 @@
 			isa = PBXGroup;
 			children = (
 				019DF1501AC31E7B0028D667 /* shaders */,
-				010F33381ABB329800413531 /* hared */,
+				010F33381ABB329800413531 /* shared */,
 				016D22461AAA6823003840C7 /* main.mm */,
 				016D22471AAA6823003840C7 /* ofApp.h */,
 				016D22481AAA6823003840C7 /* ofApp.mm */,
@@ -811,9 +811,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* Bar */ = {
+		E4B69B5A0A3A1756003C02F2 /* GelOutput */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "Bar" */;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "GelOutput" */;
 			buildPhases = (
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
@@ -826,7 +826,7 @@
 			dependencies = (
 				E4EEB9AC138B136A00A80321 /* PBXTargetDependency */,
 			);
-			name = Bar;
+			name = GelOutput;
 			productName = myOFApp;
 			productReference = E4B69B5B0A3A1756003C02F2 /* BarDebug.app */;
 			productType = "com.apple.product-type.application";
@@ -839,7 +839,7 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 			};
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Bar" */;
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "GelOutput" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -860,7 +860,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E4B69B5A0A3A1756003C02F2 /* Bar */,
+				E4B69B5A0A3A1756003C02F2 /* GelOutput */,
 			);
 		};
 /* End PBXProject section */
@@ -1177,7 +1177,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 				);
-				PRODUCT_NAME = BarDebug;
+				PRODUCT_NAME = GelOutputDebug;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1262,7 +1262,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_50)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 				);
-				PRODUCT_NAME = Bar;
+				PRODUCT_NAME = GelOutput;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1270,7 +1270,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Bar" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "GelOutput" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,
@@ -1279,7 +1279,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "Bar" */ = {
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "GelOutput" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B600A3A1757003C02F2 /* Debug */,
