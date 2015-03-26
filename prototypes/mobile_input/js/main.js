@@ -51,14 +51,14 @@ var App = function(){
 		app_name = app_name + ' ' + random_id.substring(random_id.length-4);
 
 		log(0, "Setting up spacebrew connection");
-		sb = new Spacebrew.Client(get_local_url());
+		sb = new Spacebrew.Client("spacebrew.robotconscience.com");// get_local_url());
 
 		//window.alert(get_local_url());
 
 		sb.name(app_name);
 
 		// configure the publication and subscription feeds
-		sb.addPublish("touch", "point2d", "{\"x\":0,\"y\":0}");
+		sb.addPublish("touch", "gelpoint", "{\"x\":0,\"y\":0}");
 		sb.addPublish("announce", "announce", "{\"id\":\"\",\"r\":0,\"g\":0,\"b\":0,}");
 
 		// maybe color will be a publish?
@@ -84,9 +84,12 @@ var App = function(){
 	}
 
 	function setupEvents( el ){
+		el.addEventListener("mousedown", touchStart, false);
 		el.addEventListener("touchstart", touchStart, false);
 		el.addEventListener("touchmove", touchMove, false);
+		el.addEventListener("mousemove", touchMove, false);
 		el.addEventListener("touchend", touchEnd, false);
+		el.addEventListener("mouseup", touchEnd, false);
 		el.addEventListener("touchcancel", touchCancel, false);
 		el.addEventListener("touchleave", touchEnd, false);
 	}
@@ -103,10 +106,11 @@ var App = function(){
 	 * @param  {[type]} y     [description]
 	 */
 	function sendTouch( index, x, y ){
-		x = x / window.innerWidth;
-		y = y / window.innerHeight;
+		console.log(x, window.innerWidth, (x - window.innerWidth/2.0) / (window.innerWidth/2.0)) ;
+		x = (x - window.innerWidth/2.0) / (window.innerWidth/2.0);
+		y = (y - window.innerHeight/2.0) / window.innerHeight/2.0;
 		var t = {x:""+x, y:""+y, index:index, id:app_name, color: color};
-		sb.send("touch", "point2d", JSON.stringify(t));
+		sb.send("touch", "gelpoint", JSON.stringify(t));
 	}
 
 	/**
@@ -132,11 +136,18 @@ var App = function(){
 	 */
 	function touchMove( e ){
 		// to-do only send moved touch
-		if ( e.touches.length > 0 ){
+		if ( e.touches && e.touches.length > 0 ){
 			$("#touch").css("opacity", 1);
 			$("#touch").css("left", e.touches[0].clientX - touchWidth/2. + "px");
 			$("#touch").css("top", e.touches[0].clientY - touchWidth/2. + "px");
 			sendTouch(0, e.touches[0].clientX, e.touches[0].clientY)
+			log(0, "sending tuch");
+		} else {
+
+			$("#touch").css("opacity", 1);
+			$("#touch").css("left", e.clientX - touchWidth/2. + "px");
+			$("#touch").css("top", e.clientY - touchWidth/2. + "px");
+			sendTouch(0, e.clientX, e.clientY)
 			log(0, "sending tuch");
 		}
 	}
