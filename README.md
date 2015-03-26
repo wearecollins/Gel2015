@@ -11,9 +11,11 @@
 # Running
 * Run spacebrew persistent admin, pointed to spacebrew.robotconscience.com
 	* Make sure the following persistent routes exist:
-		* .*,touch,.*,touch
-		* .*,announce,.*,announce
-		* .*,average,.*,average
+		* 	``` 
+				.*,touch,.*,touch
+					* .*,announce,.*,announce
+					* .*,average,.*,average
+			```
 * Open Skype and call somebody
 * Run GelOuput.app
 * Run Mobile output and input on separate devices
