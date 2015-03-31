@@ -6,9 +6,15 @@
 //
 //
 
-#ifndef __GelOutput__LevelOverlay__
-#define __GelOutput__LevelOverlay__
+#pragma once
 
-#include <stdio.h>
+#include "ofMain.h"
+#include "Overlay.h"
 
-#endif /* defined(__GelOutput__LevelOverlay__) */
+class LevelOverlay : public Overlay {
+public:
+    
+    LevelOverlay();
+    
+protected:
+};

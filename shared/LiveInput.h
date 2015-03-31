@@ -40,10 +40,7 @@ public:
     
     void draw(){
         ofSetColor(255);
-        
-        float scale = (float) ofGetWidth() / overlay.getWidth();
-        overlay.draw(0,0,overlay.width * scale, overlay.height * scale);
-        
+        overlay.draw(0,0,overlay.width, overlay.height);
         
         render();
     }

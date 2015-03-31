@@ -16,9 +16,13 @@
 #include "InputProcessor.h"
 
 // inputs
-#include "LiveInput.h"
 #include "Meter.h"
 #include "GridMeter.h"
+#include "DropMeter.h"
+
+// overlays
+#include "LevelOverlay.h"
+#include "CelebrationOverlay.h"
 
 class GameController {
     friend class Spacebrew::Connection;
@@ -37,20 +41,21 @@ public:
     void draw();
     
     // events
+    void triggerNextLevel();
+    void triggerLive();
     void triggerCelebration();
-    void triggernextLevel();
     
 protected:
     
     Level currentLevel;
     
-    // LevelOverlay *       currentIntro;
-    LiveInput *             currentLive;
-    // CelebrationOverlay * currentOutro;
+    LevelOverlay *         currentIntro;
+    LiveInput *            currentLive;
+    CelebrationOverlay *   currentOutro;
     
-    //map<Level, LevelOverlay *>        levelOverlays;
+    map<Level, LevelOverlay *>          levelIntros;
     map<Level, LiveInput *>             levelInputs;
-    //map<Level, CelebrationOverlay *>  levelOutros;
+    map<Level, CelebrationOverlay *>    levelOutros;
     
     // internal mechanics
     InputProcessor * inputProcessor;

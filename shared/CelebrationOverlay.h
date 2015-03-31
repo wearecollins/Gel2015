@@ -6,9 +6,11 @@
 //
 //
 
-#ifndef __GelOutput__CelebrationOverlay__
-#define __GelOutput__CelebrationOverlay__
+#pragma once
 
-#include <stdio.h>
+#include "Overlay.h"
 
-#endif /* defined(__GelOutput__CelebrationOverlay__) */
+class CelebrationOverlay : public Overlay {
+public:
+    
+};

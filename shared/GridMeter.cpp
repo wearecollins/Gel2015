@@ -26,9 +26,9 @@ void GridPoint::draw(){
     ofSetColor(color);
     ofCircle(*this, radius);
     
-    ofSetColor(255);
-    ofNoFill();
-    ofCircle(*this, radius);
+//    ofSetColor(255);
+//    ofNoFill();
+//    ofCircle(*this, radius);
     
     ofPopMatrix();
     ofPopStyle();
@@ -74,21 +74,19 @@ void GridMeter::setup(){
 //--------------------------------------------------------------
 void GridMeter::render(){
     ofPushMatrix();
-    float renderScale = (float) ofGetWidth() / getProjectorWidth();
-    ofScale(renderScale, renderScale);
     
     // activate based on value
     ofVec2f pnt;
-    pnt.x = ofMap(value.x, -1., 1.0, 0, ofGetWidth());
-    pnt.y = ofMap(value.y, -1., 1.0, 0, ofGetHeight());
+    pnt.x = ofMap(value.x, -1., 1.0, 0, getProjectorWidth());
+    pnt.y = ofMap(value.y, -1., 1.0, 0, getProjectorHeight());
     float rad = 100;
     
     if ( messages != NULL ){
         for (auto & g : grid ){
             for ( auto & m : *messages ){
                 ofVec2f pnt2;
-                pnt2.x = ofMap(m.second.point.x, -1., 1.0, 0, ofGetWidth());
-                pnt2.y = ofMap(m.second.point.y, -1., 1.0, 0, ofGetHeight());
+                pnt2.x = ofMap(m.second.point.x, -1., 1.0, 0, getProjectorWidth());
+                pnt2.y = ofMap(m.second.point.y, -1., 1.0, 0, getProjectorHeight());
                 if ( abs( g.distance(pnt2)) < rad/4. && bActive ){
                     g.activate(50);
                 }

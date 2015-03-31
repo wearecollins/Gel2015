@@ -6,9 +6,32 @@
 //
 //
 
-#ifndef __GelOutput__DropMeter__
-#define __GelOutput__DropMeter__
+#pragma once 
 
-#include <stdio.h>
+#include "LiveInput.h"
 
-#endif /* defined(__GelOutput__DropMeter__) */
+class DropPoint : public ofVec2f {
+public:
+    DropPoint();
+    void draw();
+    void activate( float level=255);
+    
+    float   radius;
+    ofColor color;
+    
+protected:
+    vector<ofVec3f> rings;
+};
+
+
+class DropMeter : public LiveInput {
+public:
+    
+    DropMeter();
+    
+    void setup();
+    void render();
+    
+protected:
+    vector<DropPoint> grid;
+};

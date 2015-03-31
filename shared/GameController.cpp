@@ -10,7 +10,7 @@
 
 //--------------------------------------------------------------
 GameController::GameController(){
-    currentLevel = LEVEL_TWO; // debug!
+    currentLevel = LEVEL_ONE; // debug!
 }
 
 //--------------------------------------------------------------
@@ -20,7 +20,19 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     // setup each overlay
     levelInputs[LEVEL_ONE] = new Meter();
     levelInputs[LEVEL_TWO] = new GridMeter();
-    //levelInputs[LEVEL_THREE] = new Meter();
+    levelInputs[LEVEL_THREE] = new DropMeter();
+    
+    levelIntros[LEVEL_ONE] = new LevelOverlay();
+    levelIntros[LEVEL_TWO] = new LevelOverlay();
+    levelIntros[LEVEL_THREE] = new LevelOverlay();
+    
+    int index = 1;
+    
+    for ( auto & it : levelIntros ){
+        string o = "graphics/level" + ofToString(index) +"_overlay.png";
+        it.second->load(o);
+        index++;
+    }
     
     // setup connection to control app
     this->spacebrew = &sb;
@@ -46,7 +58,7 @@ void GameController::update( ofEventArgs & e ){
 void GameController::draw(){
     currentLive->draw();
     
-//    currentIntro->draw();
+    currentIntro->draw();
 //    currentOutro->draw();
 }
 
@@ -57,14 +69,31 @@ void GameController::triggerCelebration(){
 }
 
 //--------------------------------------------------------------
-void GameController::triggernextLevel(){
+void GameController::triggerNextLevel(){
+    Level next = currentLevel;
+    next = (Level) ((int) currentLevel + 1);
     
+    cout << next << endl;
+    
+    if ( next > LEVEL_THREE ){
+        next = LEVEL_THREE;
+    }
+    setLevel(next);
+}
+
+//--------------------------------------------------------------
+void GameController::triggerLive(){
+    currentIntro->deactivate();
 }
 
 //--------------------------------------------------------------
 void GameController::setLevel ( Level level ){
     currentLevel = level;
     currentLive = levelInputs[ currentLevel ];
+    currentIntro = levelIntros[ currentLevel ];
+    currentIntro->activate( 200 );
+    
+//    currentOutro = levelOutros[ currentLevel ];
 }
 
 //--------------------------------------------------------------

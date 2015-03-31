@@ -7,3 +7,9 @@
 //
 
 #include "LevelOverlay.h"
+
+
+//--------------------------------------------------------------
+LevelOverlay::LevelOverlay() : Overlay(){
+    
+}

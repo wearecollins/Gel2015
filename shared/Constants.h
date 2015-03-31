@@ -25,3 +25,33 @@ struct PointMessage {
     string uniqueId;
     ofColor color;
 };
+
+class Settings {
+public:
+    
+    static Settings& get()
+    {
+        static Settings instance; // Guaranteed to be destroyed.
+        static bool bInstance = false;
+        
+        if ( !bInstance ){
+            ofXml settings;
+            settings.load("settings.xml");
+            
+            bInstance = true;
+        }
+        
+        return instance;
+    }
+    
+private:
+    
+    Settings(){};
+    
+    // C++ 11
+    // =======
+    // We can use the better technique of deleting the methods
+    // we don't want.
+    //Settings(Settings const&)               = delete;
+    //void operator=(Settings const&)  = delete;
+};

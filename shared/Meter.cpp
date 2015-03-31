@@ -47,13 +47,11 @@ void Meter::render(){
     renderTexture.end();
     ofSetColor(255);
     
-    float scale = ofGetWidth() /renderTexture.getWidth() ;
-    
     ofSetColor(255);
     
     renderShader.begin();
     renderShader.setUniformTexture("alpha", meter.getTextureReference(), 2);
     renderShader.setUniformTexture("render", renderTexture.getTextureReference(), 3);
-    renderTexture.draw(0,0, renderTexture.getWidth() * scale, renderTexture.getHeight() * scale );
+    renderTexture.draw(0,0 );
     renderShader.end();
 }

@@ -17,7 +17,7 @@ ofApp::ofApp( string settings ){
 void ofApp::setup(){
     [MSA::ofxCocoa::glWindow() setCollectionBehavior:NSWindowCollectionBehaviorStationary|NSWindowCollectionBehaviorCanJoinAllSpaces|NSWindowCollectionBehaviorFullScreenAuxiliary];
     
-    [MSA::ofxCocoa::glWindow() setIgnoresMouseEvents:YES];
+//    [MSA::ofxCocoa::glWindow() setIgnoresMouseEvents:YES];
 //    [MSA::ofxCocoa::glView() setSyncToDisplayLink:YES];
     
     ofBackground( ofColor(0,0,0,0) );
@@ -34,6 +34,8 @@ void ofApp::setup(){
     
     spacebrew.connect( server, name, "");
     ofAddListener(spacebrew.onMessageEvent, this, &ofApp::onMessage);
+    
+    ofSetCircleResolution(300);
 }
 
 //--------------------------------------------------------------
@@ -50,15 +52,29 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofPushMatrix();
+    
+    float renderScale = (float) ofGetWidth() / getProjectorWidth();
+    ofScale(renderScale, renderScale);
     gameController.draw();
+    
+    ofPopMatrix();
 }
 
 //--------------------------------------------------------------
 void ofApp::onMessage(Spacebrew::Message & m){
+    // these are handled in gamecontroller and inputprocessor
 }
 
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key){}
+void ofApp::keyPressed(int key){
+    // debugging
+    if ( key == 'l'){
+        gameController.triggerLive();
+    } else if ( key == 'n'){
+        gameController.triggerNextLevel();
+    }
+}
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){}
