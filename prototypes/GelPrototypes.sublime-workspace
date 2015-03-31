@@ -1,0 +1,826 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"effect",
+				"effectType"
+			],
+			[
+				"ge",
+				"geometries"
+			],
+			[
+				"ba",
+				"background"
+			],
+			[
+				"backg",
+				"background-image"
+			],
+			[
+				"ease",
+				"ease-in-out"
+			],
+			[
+				"trans",
+				"transition"
+			],
+			[
+				"webkit-tra",
+				"-webkit-transition"
+			],
+			[
+				"tras",
+				"transition"
+			],
+			[
+				"inner",
+				"innerHeight"
+			],
+			[
+				"is",
+				"isVideo"
+			],
+			[
+				"suppo",
+				"supports_crossorigin"
+			],
+			[
+				"ssl_",
+				"ssl_key"
+			],
+			[
+				"ssl",
+				"ssl"
+			],
+			[
+				"visib",
+				"visibility"
+			],
+			[
+				"clas",
+				"classList"
+			],
+			[
+				"ran",
+				"randomize"
+			],
+			[
+				"class",
+				"classDivs"
+			],
+			[
+				"backgr",
+				"background-color"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"onSbO",
+				"onSbOpenEvent"
+			],
+			[
+				"sma",
+				"samples"
+			],
+			[
+				"rend",
+				"renderMesh"
+			],
+			[
+				"webcam",
+				"webcamslits"
+			],
+			[
+				"web",
+				"webcamslits"
+			],
+			[
+				"pro",
+				"proto	Prototype"
+			],
+			[
+				"back",
+				"backgroundFlipped"
+			],
+			[
+				"backgro",
+				"backgroundFlipped"
+			],
+			[
+				"bac",
+				"backgroundFlipped"
+			],
+			[
+				"p",
+				"proto	Prototype"
+			],
+			[
+				"setV",
+				"setVolume"
+			],
+			[
+				"font-s",
+				"font-size"
+			],
+			[
+				"le",
+				"length"
+			],
+			[
+				"per",
+				"percentLoaded"
+			],
+			[
+				"playV",
+				"playVideos"
+			],
+			[
+				"change",
+				"changeInterval"
+			],
+			[
+				"d",
+				"document"
+			],
+			[
+				"b",
+				"bottom"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"margi",
+				"margin-top"
+			],
+			[
+				"p5",
+				"p5Element"
+			],
+			[
+				"sub",
+				"subtitleElement"
+			],
+			[
+				"bi",
+				"bind"
+			],
+			[
+				"subT",
+				"subtitleElement"
+			],
+			[
+				"videoC",
+				"videoContrller"
+			],
+			[
+				"su",
+				"subtitles"
+			],
+			[
+				"sof",
+				"softNoise"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"erro",
+				"errorCallback"
+			],
+			[
+				"Map",
+				"mapLinear"
+			],
+			[
+				"z",
+				"zIndex"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"hal",
+				"halfUv"
+			],
+			[
+				"cu",
+				"currentVid"
+			],
+			[
+				"cur",
+				"currentResults"
+			],
+			[
+				"resul",
+				"resultObj"
+			],
+			[
+				"resu",
+				"resultObj"
+			],
+			[
+				"onSearcH",
+				"onSearchResults"
+			],
+			[
+				"res",
+				"resultHandler"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"doc",
+				"documents"
+			],
+			[
+				"getWe",
+				"getWeatherByWOEID"
+			],
+			[
+				"lastL",
+				"lastLong"
+			],
+			[
+				"face",
+				"facetracker"
+			],
+			[
+				"lef",
+				"leftEye"
+			],
+			[
+				"po",
+				"positions"
+			],
+			[
+				"win",
+				"window"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "mobine_input_sound/index.html",
+			"settings":
+			{
+				"buffer_size": 3415,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "mobine_input_sound/js/main.js",
+			"settings":
+			{
+				"buffer_size": 18,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Pac",
+				"Package Control: Disable Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Discover Packages"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"--help",
+			"help",
+			"license",
+			"register",
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/apps/Gel2015/prototypes/mobine_input_sound",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/apps/Gel2015/prototypes/mobine_input_sound/js",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/apps/Gel2015/prototypes/mobine_input_sound/js/vendor",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/apps/Gel2015/prototypes/mobile_output"
+	],
+	"file_history":
+	[
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/distribution/ColladaLoader-12/download/ColladaLoader/src/colladaLoader/xmlMapping/Effect.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/LoadingHelper.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/distribution/ColladaLoader-12/download/ColladaLoader/src/colladaLoader/LoadingHelper.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/LoadingHelper.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/distribution/ColladaLoader-12/download/ColladaLoader/src/colladaLoader/xmlMapping/ColladaRawLoader.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/ColladaRawLoader.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Library_Geometries.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Lines.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/NewParam.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Source.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Triangles.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Vertices.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Visual_Scene_sketchup7.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Visual_Scene_sketchup8.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Lines.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/NewParam.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Source.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Triangles.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Vertices.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Visual_Scene_sketchup7.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Visual_Scene_sketchup8.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Effect.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Geometry.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Image.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Library_Effects.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Library_Images.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Library_Materials.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Library_visual_scenes.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/xmlMapping/Material.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/ColladaRawLoader.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Effect.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Geometry.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Image.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Library_Effects.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Library_Geometries.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Library_Images.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Library_Materials.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Library_visual_scenes.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/xmlMapping/Material.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/src/colladaLoader/Viewer.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/tmp/ColladaLoader/src/colladaLoader/Viewer.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/libraries/colladaLoader/src/colladaLoader/xmlMapping/ColladaRawLoader.java",
+		"/Users/brettrenfer/Dropbox/Code/Processing/Collada_Library/resources/build.properties",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/apps/Gel2015/prototypes/mobile_output/css/main.css",
+		"/private/var/folders/n1/19bc3chs009ctqshth8ks2440000gn/T/810c1350-94a2-4e2d-b119-ab02a1b7474b/v5/js/main.js",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/apps/Gel2015/prototypes/mobile/css/main.css",
+		"/Users/brettrenfer/Dropbox/Code/spacebrew/spacebrew.js/spacebrew_slider/index.html",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/apps/Gel2015/prototypes/mobile/js/plugins.js",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/html/js/main.js",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/app.yaml",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/html/index.html",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/html/css/style.css",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/html_v2/index.html",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/html_v2/js/MirrorVideoController.js",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/html_v2/js/TextTexture.js",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/html_v2/js/WebCam.js",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/html/js/MirrorVideoController.js",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/html/js/includes/headtrackr.js",
+		"/Users/brettrenfer/Dropbox/Teaching/IneractiveResources/Readme.md",
+		"/Users/brettrenfer/Downloads/SurfaceMapper/resources/library.properties",
+		"/Users/brettrenfer/Downloads/SurfaceMapper/resources/build.properties",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_vs_release/apps/SamFalls/libs/celestial_navigation_pi/src/astrolabe/astrolabe.hpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_vs_release/apps/SamFalls/libs/celestial_navigation_pi/src/astrolabe/globals.cpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_vs_release/apps/SamFalls/libs/celestial_navigation_pi/src/astrolabe/nutation.cpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_vs_release/apps/SamFalls/libs/celestial_navigation_pi/src/astrolabe/riseset.cpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_vs_release/apps/SamFalls/libs/celestial_navigation_pi/src/astrolabe/util.cpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_vs_release/apps/SamFalls/libs/celestial_navigation_pi/src/astrolabe/equinox.cpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_vs_release/apps/SamFalls/libs/celestial_navigation_pi/src/astrolabe/elp2000.cpp",
+		"/Users/brettrenfer/Dropbox/Code/spacebrew/_spacebrew_gettingstarted/spacebrew.js/spacebrew_slider/index.html",
+		"/Users/brettrenfer/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/brettrenfer/Dropbox/Teaching/2014_01_NewSchool_Spacebrew/Code/Class_001/RouteRandomizer/js/sb-1.3.0.js",
+		"/Users/brettrenfer/Dropbox/Teaching/2014_01_NewSchool_Spacebrew/Code/Class_001/RouteRandomizer/index.html",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/html_v2/js/main.js",
+		"/Users/brettrenfer/Dropbox/Code/spacebrew/spacebrew_rc/spacebrew_live_persist.js",
+		"/Users/brettrenfer/Dropbox/Code/spacebrew/examples/spacebrew-JSON-examples/javascript/spacebrew_custom_object/index.html",
+		"/Users/brettrenfer/Dropbox/Teaching/2015_01_Parsons_InteractiveSpaces/Code/Demos/Class 001/Randomizer/Client/index.html",
+		"/Users/brettrenfer/Dropbox/Teaching/2015_01_parsons_interactivespaces/Code/Demos/Class 001/Randomizer/Client/css/style.css",
+		"/Users/brettrenfer/Dropbox/Teaching/2015_01_parsons_interactivespaces/Code/Demos/Class 001/Randomizer/Master/css/style.css",
+		"/Users/brettrenfer/Dropbox/Teaching/2015_01_Parsons_InteractiveSpaces/Code/Demos/Class 001/Randomizer/Client/js/main.js",
+		"/Users/brettrenfer/Dropbox/Teaching/2015_01_Parsons_InteractiveSpaces/Code/Demos/Class 001/Randomizer/Master/css/style.css",
+		"/Users/brettrenfer/Dropbox/Teaching/2015_01_parsons_interactivespaces/Code/Demos/Class 001/Randomizer/Master/css/reset.css",
+		"/Users/brettrenfer/Dropbox/Code/spacebrew/spacebrew.js/spacebrew_string/index.html",
+		"/Users/brettrenfer/Desktop/RenderAll.rvb",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/apps/Archade/CollinsC/bin/data/video.xml",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_64bit/apps/SamFalls/libs/lunar/lunardll.mak",
+		"/Users/brettrenfer/Dropbox/Code/Native/dlib-18.11/tools/imglab/build/muppets.xml",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/MMI/ImageScraper/search.py",
+		"/Applications/Ableton Live 9 Suite.app/Contents/App-Resources/MIDI Remote Scripts/MackieControl/MackieControl.pyc",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/apps/YuleLog/MagicEye/bin/data/settings.xml",
+		"/Users/brettrenfer/Dropbox/LAB/Contacts/contacts.vcf",
+		"/Users/brettrenfer/Dropbox/Code/spacebrew/_spacebrew_gettingstarted/spacebrew.js/spacebrew_image/index.html",
+		"/Users/brettrenfer/Dropbox/Code/spacebrew/examples/spacebrew-JSON-examples/javascript/spacebrew_custom_object/js/sb-1.4.1.js",
+		"/Users/brettrenfer/Dropbox/Teaching/2014_SFPC/Code/RouteRandomizer/js/main.js",
+		"/Users/brettrenfer/Dropbox/Code/Web/p5.js/lib/addons/p5.sound.js",
+		"/Users/brettrenfer/Dropbox/Code/Web/p5.js/lib/addons/p5.dom.js",
+		"/Users/brettrenfer/Dropbox/Code/spacebrew/spacebrewP5/library/spacebrew/src/lab/spacebrew/Spacebrew.js",
+		"/Users/brettrenfer/Dropbox/Code/P5.js/p5.spacebrew.js/spacebrew_button/index.html",
+		"/Users/brettrenfer/Dropbox/Code/P5.js/p5.spacebrew.js/library/p5.spacebrew.js",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Server.cpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/example_client_sharedcanvas/src/Drawing.h",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/example_server_sharedcanvas/src/Drawing.h",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets/Client.h",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets/Connection.h",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets/Events.h",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets/Protocol.h",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets/Reactor.h",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets/Server.h",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/include/ofxLibwebsockets/Util.h",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Client.cpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Connection.cpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Events.cpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Protocol.cpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/libs/ofxLibwebsockets/src/Reactor.cpp",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxSpacebrew/README.md",
+		"/Users/brettrenfer/Library/Group Containers/QA2G25RMZ4.com.wunderkinder/Wunderlist/feature-6.json",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.X.X_github/openTSPS/addons/ofxCv/update-projects.py",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.0_osx_release/apps/myApps/ChromatcCapture/src/testApp.mm",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.0_osx_release/apps/Chromatc/ofxChromatc/src/Manager.h",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/example_server_binary/bin/data/web/js/main.js",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/addon_config.mk",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxLibwebsockets/extras/ios_libwebsockets/toolchain/iOS.cmake",
+		"/Users/brettrenfer/Dropbox/Code/Native/libwebsockets/lib/lws-plat-unix.c",
+		"/Users/brettrenfer/Dropbox/Code/Native/libwebsockets/README.coding",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.3_ios_release/addons/ofxLibwebsockets/addon_config.mk",
+		"/Users/brettrenfer/Dropbox/Code/OF/of_v0.8.4_osx_release/addons/ofxKinectV2/addon_config.mk",
+		"/Users/brettrenfer/Library/Application Support/McNeel/Rhinoceros/Scripts/samples/DrawParametricCurve.py",
+		"/Users/brettrenfer/Dropbox/Code/Python/rhino/test.py",
+		"/Users/brettrenfer/Dropbox/Code/Collins/2014/Mirror/html/js/SlitShader.js"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"",
+			"/Users/brettrenfer/Dropbox/Code/Web/three.js",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			".toString()",
+			"assembleTriangles",
+			"getGeometries",
+			"assembleTriangles",
+			"diffuse",
+			"effect",
+			"PApplet.loadXML",
+			"PApplet",
+			"loadxml(",
+			"loadxml",
+			"new XML",
+			"loadxml",
+			"startxmlmapping",
+			"useDOCkml",
+			"println",
+			"log",
+			"pathName",
+			"colladaLoader.LoadingHelper",
+			"colladaLoader.LoadingHelper.useDOCkml",
+			"new XML",
+			"import processing.xml.XML",
+			"import processing.xml.*",
+			"processing.data.xml",
+			"XMLElement",
+			"processing.xml.XMLElement",
+			"setDampingFactor",
+			"applet",
+			"new XML",
+			"XML",
+			"XMLElement",
+			"processing.xml.XMLElement",
+			"setDampingFactor",
+			"peasy",
+			"XML",
+			"XMLElement",
+			"xmlelement",
+			"touches[0].",
+			"touchMove",
+			"mousemove",
+			"touch",
+			"map",
+			"touch",
+			"point2d",
+			"alert",
+			"safetify",
+			"touch",
+			"color",
+			"\\",
+			"stringify",
+			"announce",
+			"logLevel",
+			"send",
+			"announce",
+			"#touch",
+			"body",
+			"ui-mobile-viewport ui-overlay-a",
+			"scroll",
+			"color",
+			"requestAnimationFrame",
+			"calltoaction",
+			"nonChromeFallback",
+			"HAS_WEBGL",
+			"Modernizr.webgl",
+			"HAS_WEBGL",
+			"isChrome",
+			"loaded",
+			"loader",
+			"youtube",
+			"dot",
+			"login",
+			"smallTop",
+			"lyrics",
+			"smallleft",
+			"top:",
+			"smallLeft",
+			"cloud",
+			"smallLeft",
+			"scalevidmesh",
+			"5",
+			"scaleVidMesh",
+			"a href",
+			"css",
+			"cloud",
+			"fullShown",
+			"credits",
+			"cursor",
+			"lyrics",
+			"play",
+			"success\"",
+			"success",
+			"zIndex",
+			"z-index",
+			"still",
+			"play",
+			"seek",
+			"pause",
+			"webm",
+			"AB_1_Left_1_2",
+			"AB_1_Down_1",
+			"AB_1_Straight_1_1",
+			"preload",
+			"this.video",
+			"mp4",
+			"AB_1_Left_1_2",
+			"mp4",
+			"fmt",
+			"webm",
+			"touchmove",
+			"onmousemove",
+			"touchstart",
+			"mouse",
+			"touch",
+			"crossorigin",
+			"Ascpect",
+			"aspect",
+			"vidAscpect",
+			"aspect",
+			"vidAspect",
+			"this.vidAspect",
+			"this.videoFiles",
+			"texture",
+			"this.texture",
+			".video.",
+			"AzealiaVideoObject",
+			"this.isVideo",
+			"videoElement",
+			"loadVideo",
+			"loadvideo"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"PApplet.loadXML",
+			"import processing.data.XML;",
+			"XML",
+			"processing.xml.XML",
+			"XML",
+			"processing.xml.XML",
+			"XML",
+			"",
+			"AB_1_Left",
+			"AB_1_Down",
+			"AB_1_Straight",
+			"html_v2/",
+			"</file>\n<file>",
+			"<file>",
+			" ",
+			"xn(e.detail.name, e.detail.value);",
+			" ",
+			"case '",
+			".mp3",
+			"GL_RGBA32F_ARB",
+			".\" + fmt",
+			"",
+			"window.textDivs",
+			" --> ",
+			" -->",
+			"login",
+			" ",
+			"@namespace SUD",
+			"sud_container",
+			"SUD JS BASE APP",
+			"sudObj",
+			"sudjs",
+			"SUD.",
+			"SUD = SUD || {};",
+			"\"",
+			"clmtrackr"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "mobine_input_sound/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3415,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2760,
+								2760
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 313.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "mobine_input_sound/js/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 18,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								17,
+								17
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "GelPrototypes.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 253.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

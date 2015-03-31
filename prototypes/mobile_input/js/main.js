@@ -32,8 +32,7 @@ function get_local_url()
 }
 
 var App = function(){
-	/** @type {Spacebrew.Client} */
-	var sb;
+	var sender = new Sender();
 
 	/** @type {String} Name in Spacebrew */
 	var app_name = "gel_client_";
@@ -46,12 +45,8 @@ var App = function(){
 	var logLevel = 0; // 0 = debug, 1 = error, 2 = none
 
 	function setup(){
-		var random_id = "0000" + Math.floor(Math.random() * 10000);
 
-		app_name = app_name + ' ' + random_id.substring(random_id.length-4);
-
-		log(0, "Setting up spacebrew connection");
-		sb = new Spacebrew.Client("spacebrew.robotconscience.com");// get_local_url());
+		sender.setup("spacebrew.robotconscience.com", app_name);// get_local_url());
 
 		//window.alert(get_local_url());
 
@@ -109,8 +104,16 @@ var App = function(){
 		console.log(x, window.innerWidth, (x - window.innerWidth/2.0) / (window.innerWidth/2.0)) ;
 		x = (x - window.innerWidth/2.0) / (window.innerWidth/2.0);
 		y = (y - window.innerHeight/2.0) / (window.innerHeight/2.0);
-		var t = {x:""+x, y:""+y, index:index, id:app_name, color: color};
-		sb.send("touch", "gelpoint", JSON.stringify(t));
+
+		var dir = map(x, -1, 1, 0, 2);
+
+		if ( dir == 1 ){
+			if ( y > 0 ){
+				// dir = 3;
+			}
+		}
+
+		sender.send(dir);
 	}
 
 	/**
@@ -171,13 +174,6 @@ var App = function(){
 	}
 
 	// @begin 	Spacebrew events
-	function onOpen(){
-		var o = {r:color.r, g:color.g, b:color.b, id:app_name};
-		sb.send("announce", "announce", JSON.stringify(o));
-	}
-
-	function onClose(){}
-
 	function onCustomMessage( name, type, value ){
 		if ( name == "color" ){
 			// do somethng
