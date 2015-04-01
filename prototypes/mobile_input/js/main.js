@@ -50,19 +50,19 @@ var App = function(){
 
 		//window.alert(get_local_url());
 
-		sb.name(app_name);
+		// sb.name(app_name);
 
-		// configure the publication and subscription feeds
-		// sb.addPublish("touch", "gelpoint", "{\"x\":0,\"y\":0}");
-		// sb.addPublish("announce", "announce", "{\"id\":\"\",\"r\":0,\"g\":0,\"b\":0,}");
+		// // configure the publication and subscription feeds
+		// // sb.addPublish("touch", "gelpoint", "{\"x\":0,\"y\":0}");
+		// // sb.addPublish("announce", "announce", "{\"id\":\"\",\"r\":0,\"g\":0,\"b\":0,}");
 
-		// maybe color will be a publish?
-		sb.addSubscribe("color", "color");
+		// // maybe color will be a publish?
+		// sb.addSubscribe("color", "color");
 
-		// override Spacebrew events - this is how you catch events coming from Spacebrew
-		sb.onCustomMessage = onCustomMessage;
-		sb.onOpen = onOpen;
-		sb.onClose = onClose;
+		// // override Spacebrew events - this is how you catch events coming from Spacebrew
+		// sb.onCustomMessage = onCustomMessage;
+		// sb.onOpen = onOpen;
+		// sb.onClose = onClose;
 
 		color.r = Math.floor(Math.random() * 255.);
 		color.g = Math.floor(Math.random() * 255.);
@@ -73,7 +73,7 @@ var App = function(){
 
 
 		// connect to spacbrew
-		sb.connect();
+		// sb.connect();
 		setupEvents( document.body );
 		// all done
 	}
