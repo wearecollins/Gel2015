@@ -53,8 +53,8 @@ var App = function(){
 		sb.name(app_name);
 
 		// configure the publication and subscription feeds
-		sb.addPublish("touch", "gelpoint", "{\"x\":0,\"y\":0}");
-		sb.addPublish("announce", "announce", "{\"id\":\"\",\"r\":0,\"g\":0,\"b\":0,}");
+		// sb.addPublish("touch", "gelpoint", "{\"x\":0,\"y\":0}");
+		// sb.addPublish("announce", "announce", "{\"id\":\"\",\"r\":0,\"g\":0,\"b\":0,}");
 
 		// maybe color will be a publish?
 		sb.addSubscribe("color", "color");
@@ -121,7 +121,7 @@ var App = function(){
 		x = (x - window.innerWidth/2.0) / (window.innerWidth/2.0);
 		y = (y - window.innerHeight/2.0) / (window.innerHeight/2.0);
 		var t = {x:""+x, y:""+y, index:index, id:app_name, color: color};
-		sb.send("touch", "gelpoint", JSON.stringify(t));
+		sender.getSpacebrew().send("touch", "gelpoint", JSON.stringify(t));
 	}
 
 	/**

@@ -28,7 +28,7 @@ var Sender = function(){
 		sb.name(app_name);
 
 		// configure the publication and subscription feeds
-		// sb.addPublish("touch", "gelpoint", "{\"x\":0,\"y\":0}");
+		sb.addPublish("touch", "gelpoint", "{\"x\":0,\"y\":0}");
 		sb.addPublish("direction", "pad", "0"); // 0-3, URDL
 		sb.addPublish("announce", "announce", "{\"id\":\"\",\"r\":0,\"g\":0,\"b\":0,}");
 
