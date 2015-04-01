@@ -6,39 +6,66 @@ window.onload = function(){
 
 var App = function(){
 	var gestures = new GestureHandler();
-	var osc1 = new Tone.Oscillator(440, "sawtooth");
-	var osc2 = new Tone.Oscillator(440, "sawtooth");
+	var synth = new Tone.DuoSynth();
+
+	var register = 4;
+	var notesA = ["B","G","D"];
+	var notesB = ["B","G","D"];
+
+	var volume = 0.;
 
 	function setup(){
 		gestures.setup( onGesturesSetup.bind(this), onGesturesFailed.bind(this) );
 
-		// setup synth
-		osc1.toMaster();
-		osc1.volume.value = 0;
+		// // setup synth
+		// osc1.toMaster();
+		// osc1.volume.value = 0;
 
-		osc2.toMaster();
-		osc2.volume.value = 0;
+		// osc2.toMaster();
+		// osc2.volume.value = 0;
 
 		var element = document.body;
 
-		var button = $("<div>").attr("id", "Button")
-			.text("\u25B6")
-			.on("touchstart", function(e){
-				e.preventDefault();
-				Tone.startMobile();
-				osc1.start();
-				osc2.start();
-				element.remove();
-			})
-			.appendTo(element);  
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+			var button = $("<div>").attr("id", "Button")
+				.text("\u25B6")
+				.on("touchstart", function(e){
+					e.preventDefault();
+					Tone.startMobile();
+					synth.toMaster();
+					button.remove();
+					synth.start();
+				})
+				.appendTo(element);  
+		} else {
+			synth.start();
+		}
 	}
 
 	function draw(){
 		window.requestAnimationFrame(draw.bind(this));
 
+		var indexA = Math.floor(mapRounded( gestures.getState().gyro.gamma, 0, 1024, 0, 2 ));
+		var indexB = Math.floor(mapRounded( gestures.getState().gyro.beta, 0, 1024, 0, 2 ));
+
+		var r1 = indexA == 1 ? register :(register +1);
+		var r2 = indexB == 0 ? (register+1) :(register+2);
+
+		var total = Math.abs( gestures.getState().accel.x ) + Math.abs( gestures.getState().accel.y ) + Math.abs( gestures.getState().accel.z );
+
+		if ( total > 2.0 || indexA != 1 || indexB != 1 ){
+			synth.voice0.triggerAttack(notesA[indexA] + r1);
+			synth.voice1.triggerAttack(notesB[indexB] + r2);
+		} else {
+			synth.voice0.triggerRelease();
+			synth.voice1.triggerRelease();
+		}
+		$("#output").html(JSON.stringify(gestures.getState().gyro) +"<br><br>"+JSON.stringify(gestures.getState().accel));
+			
+
 		//console.log( osc1.value );
-		osc1.frequency.value = gestures.getState().accel.y;//mapRounded( state.accel.x, 0, 1024)
-		osc2.frequency.value = gestures.getState().accel.x;//mapRounded( state.accel.x, 0, 1024)
+		// osc1.frequency.value = gestures.getState().accel.y;//mapRounded( state.accel.x, 0, 1024)
+		// osc2.frequency.value = gestures.getState().accel.x;//mapRounded( state.accel.x, 0, 1024)
 
 	}
 
@@ -132,7 +159,7 @@ var GestureHandler = function(){
 		if (window.DeviceMotionEvent) {
 		    if (debug) console.log("[registerIphoneEventListeners] accel motion event available " );
 		    window.addEventListener("devicemotion", function() {
-		    	processEvent("accel", event.accelerationIncludingGravity);
+		    	processEvent("accel", event.acceleration);
 		    }, true);  
 		    state.services["accel"] = true;
 		    if ( onsuccess ){
@@ -171,6 +198,8 @@ var GestureHandler = function(){
 				if (!data[part]) continue; // if data[part] doesn't exist then skip to next part
 				var new_state = mapRounded( data[part], state.bounds[sensor]["low"][part], 
 			                          state.bounds[sensor]["high"][part], outputBounds.min, outputBounds.max );
+
+				if ( name == "accel") new_state = data[part];
 
 			  // if the new state is different from state[sensor][part] then update state[sensor][part]
 				if (state[sensor][part] != new_state) {
