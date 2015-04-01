@@ -100,20 +100,28 @@ var App = function(){
 	 * @param  {[type]} x     [description]
 	 * @param  {[type]} y     [description]
 	 */
+	// function sendTouch( index, x, y ){
+	// 	console.log(x, window.innerWidth, (x - window.innerWidth/2.0) / (window.innerWidth/2.0)) ;
+	// 	x = (x - window.innerWidth/2.0) / (window.innerWidth/2.0);
+	// 	y = (y - window.innerHeight/2.0) / (window.innerHeight/2.0);
+
+	// 	var dir = map(x, -1, 1, 0, 2);
+
+	// 	if ( dir == 1 ){
+	// 		if ( y > 0 ){
+	// 			// dir = 3;
+	// 		}
+	// 	}
+
+	// 	sender.send(dir);
+	// }
+
 	function sendTouch( index, x, y ){
-		console.log(x, window.innerWidth, (x - window.innerWidth/2.0) / (window.innerWidth/2.0)) ;
+		// console.log(x, window.innerWidth, (x - window.innerWidth/2.0) / (window.innerWidth/2.0)) ;
 		x = (x - window.innerWidth/2.0) / (window.innerWidth/2.0);
 		y = (y - window.innerHeight/2.0) / (window.innerHeight/2.0);
-
-		var dir = map(x, -1, 1, 0, 2);
-
-		if ( dir == 1 ){
-			if ( y > 0 ){
-				// dir = 3;
-			}
-		}
-
-		sender.send(dir);
+		var t = {x:""+x, y:""+y, index:index, id:app_name, color: color};
+		sb.send("touch", "gelpoint", JSON.stringify(t));
 	}
 
 	/**
