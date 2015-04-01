@@ -45,7 +45,6 @@ var Sender = function(){
 
 		// connect to spacbrew
 		sb.connect();
-		setupEvents( document.body );
 		// all done
 	}
 
