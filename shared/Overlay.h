@@ -16,6 +16,7 @@ public:
     
     Overlay(){
         color.a = 0;
+        bgColor.set(0,0);
         bActive = false;
     };
     
@@ -24,9 +25,11 @@ public:
         fbo.allocate(ofGetWidth(), ofGetHeight());
     }
     
-    virtual void activate( float level = 255 ){
+    virtual void activate( float levelBg=200, float level = 255 ){
         bActive = true;
-        color.a = level;
+        targetAlpha     = level;
+        targetBgAlpha   = levelBg;
+//        color.a = level;
     }
     
     virtual void deactivate(){
@@ -36,9 +39,13 @@ public:
     virtual void draw(){
         if ( !bActive ){
             color.a *= .9;
+            bgColor.a *= .9;
+        } else {
+            color.a = color.a * .9 + targetAlpha * .1;
+            bgColor.a = bgColor.a * .9 + targetBgAlpha * .1;
         }
         ofPushStyle();
-        ofSetColor(0, color.a);
+        ofSetColor(bgColor);
         ofRect(0,0,getProjectorWidth(), getProjectorHeight());
         ofSetColor(color);
         overlay.draw(0,0);
@@ -49,6 +56,7 @@ protected:
     
     ofFbo fbo;
     ofImage overlay;
-    ofColor color;
+    ofColor color, bgColor;
+    float targetAlpha, targetBgAlpha;
     bool bActive;
 };

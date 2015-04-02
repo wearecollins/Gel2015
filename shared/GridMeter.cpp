@@ -73,6 +73,8 @@ void GridMeter::setup(){
 
 //--------------------------------------------------------------
 void GridMeter::render(){
+    renderTexture.begin();
+    ofClear(255);
     ofPushMatrix();
     
     // activate based on value
@@ -101,4 +103,9 @@ void GridMeter::render(){
         g.draw();
     }
     ofPopMatrix();
+    renderTexture.end();
+    
+    ofSetColor(255, fill.a);
+    
+    renderTexture.draw(0,0);
 }

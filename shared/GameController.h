@@ -21,7 +21,7 @@
 #include "DropMeter.h"
 
 // overlays
-#include "LevelOverlay.h"
+#include "LevelIntro.h"
 #include "CelebrationOverlay.h"
 
 class GameController {
@@ -45,17 +45,21 @@ public:
     void triggerLive();
     void triggerCelebration();
     
+    // intro-specific events
+    void triggerNextFrame();
+    void triggerPrevFrame();
+    
 protected:
     
     Level currentLevel;
     
-    LevelOverlay *         currentIntro;
-    LiveInput *            currentLive;
-    CelebrationOverlay *   currentOutro;
+    LevelIntro *            currentIntro;
+    LiveInput *             currentLive;
+//    CelebrationOverlay *    currentOutro;
     
-    map<Level, LevelOverlay *>          levelIntros;
+    map<Level, LevelIntro *>            levelIntros;
     map<Level, LiveInput *>             levelInputs;
-    map<Level, CelebrationOverlay *>    levelOutros;
+//    map<Level, CelebrationOverlay *>    levelOutros;
     
     // internal mechanics
     InputProcessor * inputProcessor;

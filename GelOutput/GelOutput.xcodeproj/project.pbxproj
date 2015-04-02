@@ -17,7 +17,6 @@
 		016D22531AAA6953003840C7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016D22521AAA6953003840C7 /* Carbon.framework */; };
 		0170A3C51AC4A31700410523 /* DropMeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0170A3C31AC4A31700410523 /* DropMeter.cpp */; };
 		017D04B91AC45D5E003E75F7 /* GridMeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 017D04B71AC45D5E003E75F7 /* GridMeter.cpp */; };
-		017D04BE1AC4881C003E75F7 /* LevelOverlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 017D04BC1AC4881C003E75F7 /* LevelOverlay.cpp */; };
 		017D04C21AC48E23003E75F7 /* CelebrationOverlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 017D04C01AC48E23003E75F7 /* CelebrationOverlay.cpp */; };
 		019DF13C1AC3017C0028D667 /* NoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019DF12B1AC3017C0028D667 /* NoWindow.xib */; };
 		019DF13D1AC3017C0028D667 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 019DF12C1AC3017C0028D667 /* README.txt */; };
@@ -154,8 +153,6 @@
 		017D04B71AC45D5E003E75F7 /* GridMeter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GridMeter.cpp; path = ../../shared/GridMeter.cpp; sourceTree = "<group>"; };
 		017D04B81AC45D5E003E75F7 /* GridMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridMeter.h; path = ../../shared/GridMeter.h; sourceTree = "<group>"; };
 		017D04BA1AC46520003E75F7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../../shared/Constants.h; sourceTree = "<group>"; };
-		017D04BC1AC4881C003E75F7 /* LevelOverlay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LevelOverlay.cpp; path = ../../shared/LevelOverlay.cpp; sourceTree = "<group>"; };
-		017D04BD1AC4881C003E75F7 /* LevelOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LevelOverlay.h; path = ../../shared/LevelOverlay.h; sourceTree = "<group>"; };
 		017D04BF1AC48C06003E75F7 /* Overlay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Overlay.h; path = ../../shared/Overlay.h; sourceTree = "<group>"; };
 		017D04C01AC48E23003E75F7 /* CelebrationOverlay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CelebrationOverlay.cpp; path = ../../shared/CelebrationOverlay.cpp; sourceTree = "<group>"; };
 		017D04C11AC48E23003E75F7 /* CelebrationOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CelebrationOverlay.h; path = ../../shared/CelebrationOverlay.h; sourceTree = "<group>"; };
@@ -184,6 +181,7 @@
 		019DF14E1AC3181E0028D667 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameController.h; path = ../../shared/GameController.h; sourceTree = "<group>"; };
 		019DF1521AC338A80028D667 /* meterRender.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = meterRender.frag; path = bin/data/shaders/meterRender.frag; sourceTree = SOURCE_ROOT; };
 		01DCC0911400F9ACF5B65578 /* ofxXmlSettings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxXmlSettings.h; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SOURCE_ROOT; };
+		01F46D671ACD9B2B00664738 /* LevelIntro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LevelIntro.h; path = ../../shared/LevelIntro.h; sourceTree = "<group>"; };
 		02677FA320D6C63B228A7562 /* ofxUIWidgetWithLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIWidgetWithLabel.h; path = ../../../addons/ofxUI/src/ofxUIWidgetWithLabel.h; sourceTree = SOURCE_ROOT; };
 		02FF3B8D243CFB85AE0909EB /* ofxUI2DGraph.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUI2DGraph.cpp; path = ../../../addons/ofxUI/src/ofxUI2DGraph.cpp; sourceTree = SOURCE_ROOT; };
 		06C7032F68D99A145A53CB6F /* ofxUITextInput.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUITextInput.cpp; path = ../../../addons/ofxUI/src/ofxUITextInput.cpp; sourceTree = SOURCE_ROOT; };
@@ -441,11 +439,10 @@
 		017D04BB1AC47A96003E75F7 /* overlays */ = {
 			isa = PBXGroup;
 			children = (
-				017D04BC1AC4881C003E75F7 /* LevelOverlay.cpp */,
-				017D04BD1AC4881C003E75F7 /* LevelOverlay.h */,
 				017D04BF1AC48C06003E75F7 /* Overlay.h */,
 				017D04C01AC48E23003E75F7 /* CelebrationOverlay.cpp */,
 				017D04C11AC48E23003E75F7 /* CelebrationOverlay.h */,
+				01F46D671ACD9B2B00664738 /* LevelIntro.h */,
 			);
 			name = overlays;
 			sourceTree = "<group>";
@@ -1030,7 +1027,6 @@
 				016D224F1AAA6823003840C7 /* ofApp.mm in Sources */,
 				019DF1431AC3017C0028D667 /* GLWindow.mm in Sources */,
 				CE5D89B9893EAA12F511DCAC /* ofxUIWidgetWithLabel.cpp in Sources */,
-				017D04BE1AC4881C003E75F7 /* LevelOverlay.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

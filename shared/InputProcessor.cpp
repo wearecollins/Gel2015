@@ -15,6 +15,8 @@ InputProcessor::InputProcessor(){
     messageName = "touch";
     messageType = "gelpoint";
     messageTimeoutSeconds = .2;
+    
+    
     bShouldSend = false;
 }
 

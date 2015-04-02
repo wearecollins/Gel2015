@@ -18,10 +18,9 @@ void ofApp::setup(){
     [MSA::ofxCocoa::glWindow() setCollectionBehavior:NSWindowCollectionBehaviorStationary|NSWindowCollectionBehaviorCanJoinAllSpaces|NSWindowCollectionBehaviorFullScreenAuxiliary];
     
 //    [MSA::ofxCocoa::glWindow() setIgnoresMouseEvents:YES];
-//    [MSA::ofxCocoa::glView() setSyncToDisplayLink:YES];
     
     ofBackground( ofColor(0,0,0,0) );
-	ofSetFrameRate(60);
+//	ofSetFrameRate(60);
     
     string server   = "spacebrew.robotconscience.com";
     string name     = "Gel master";
@@ -59,6 +58,13 @@ void ofApp::draw(){
     gameController.draw();
     
     ofPopMatrix();
+    
+    static bool bSet = false;
+    if (!bSet){
+        
+        [MSA::ofxCocoa::glView() setSyncToDisplayLink:YES];
+        bSet = true;
+    }
 }
 
 //--------------------------------------------------------------
@@ -73,6 +79,12 @@ void ofApp::keyPressed(int key){
         gameController.triggerLive();
     } else if ( key == 'n'){
         gameController.triggerNextLevel();
+    } else if ( key == '+'){
+        gameController.triggerNextFrame();
+    } else if ( key == '-'){
+        gameController.triggerPrevFrame();
+    } else if ( key == 'c'){
+        gameController.triggerCelebration();
     }
 }
 

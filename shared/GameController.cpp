@@ -22,17 +22,20 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     levelInputs[LEVEL_TWO] = new GridMeter();
     levelInputs[LEVEL_THREE] = new DropMeter();
     
-    levelIntros[LEVEL_ONE] = new LevelOverlay();
-    levelIntros[LEVEL_TWO] = new LevelOverlay();
-    levelIntros[LEVEL_THREE] = new LevelOverlay();
+    levelIntros[LEVEL_ONE] = new LevelIntro();
+    levelIntros[LEVEL_TWO] = new LevelIntro();
+    levelIntros[LEVEL_THREE] = new LevelIntro();
     
     int index = 1;
     
     for ( auto & it : levelIntros ){
-        string o = "graphics/level" + ofToString(index) +"_overlay.png";
-        it.second->load(o);
+        it.second->setup("level"+ ofToString(index) );
         index++;
     }
+    
+//    levelOutros[LEVEL_ONE] = new LevelIntro();
+//    levelIntros[LEVEL_TWO] = new LevelIntro();
+//    levelIntros[LEVEL_THREE] = new LevelIntro();
     
     // setup connection to control app
     this->spacebrew = &sb;
@@ -59,26 +62,43 @@ void GameController::draw(){
     currentLive->draw();
     
     currentIntro->draw();
-//    currentOutro->draw();
 }
 
 
 //--------------------------------------------------------------
 void GameController::triggerCelebration(){
-    
+    currentIntro->setOutro();
+    currentIntro->activate();
 }
 
 //--------------------------------------------------------------
 void GameController::triggerNextLevel(){
+    currentIntro->deactivate();
+    currentLive->deactivate();
+//    currentOutro->deactivate();
+    
     Level next = currentLevel;
     next = (Level) ((int) currentLevel + 1);
-    
-    cout << next << endl;
     
     if ( next > LEVEL_THREE ){
         next = LEVEL_THREE;
     }
     setLevel(next);
+}
+
+
+//--------------------------------------------------------------
+void GameController::triggerNextFrame(){
+    if ( currentIntro != NULL){
+        currentIntro->nextFrame();
+    }
+}
+
+//--------------------------------------------------------------
+void GameController::triggerPrevFrame(){
+    if ( currentIntro != NULL){
+        currentIntro->prevFrame();
+    }
 }
 
 //--------------------------------------------------------------
@@ -91,7 +111,7 @@ void GameController::setLevel ( Level level ){
     currentLevel = level;
     currentLive = levelInputs[ currentLevel ];
     currentIntro = levelIntros[ currentLevel ];
-    currentIntro->activate( 200 );
+    currentIntro->activate();
     
 //    currentOutro = levelOutros[ currentLevel ];
 }

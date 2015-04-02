@@ -16,6 +16,10 @@ public:
     
     LiveInput(){
         messages = NULL;
+        fill.a = 0;
+        bFadeOut = true;
+        
+        renderTexture.allocate( getProjectorWidth(), getProjectorHeight());//, GL_RGBA );
     }
     
     virtual void setup() = 0;
@@ -32,10 +36,24 @@ public:
         if ( !overlay.isAllocated() ){
             overlay.loadImage("graphics/overlay.png");
         }
+        
+        if ( bFadeOut ){
+            fill.a *= .9;
+        } else {
+            fill.a = fill.a * .9 + 255. * .1;
+        }
     }
     
     virtual void setActive( bool active = true ){
         bActive = active;
+    }
+    
+    virtual void activate(){
+        bFadeOut = false;
+    }
+    
+    virtual void deactivate(){
+        bFadeOut = true;
     }
     
     void draw(){
@@ -48,9 +66,12 @@ public:
     virtual void render() = 0;
     
 protected:
-    
+    ofColor fill;
     ofVec2f value;
-    bool bActive;
+    bool bActive, bFadeOut;
     ofImage overlay;
+    
+    ofFbo   renderTexture;
+    
     const std::map<string, PointMessage> * messages;
 };

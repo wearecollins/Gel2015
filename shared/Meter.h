@@ -23,6 +23,5 @@ protected:
     
     ofImage meter, fuzzy;
     ofShader renderShader;
-    ofFbo   renderTexture;
     ofColor fillColor;
 };

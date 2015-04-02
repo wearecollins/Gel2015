@@ -1,0 +1,7 @@
+<settings>
+	<overlay>level1_start.png</overlay>
+	<overlay>level1_intro.png</overlay>
+	<overlay>level1_guide.png</overlay>
+	<overlay>level1_prompt.png</overlay>
+	<outro>level1_outro.png</outro>
+</settings>

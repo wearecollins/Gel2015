@@ -15,8 +15,6 @@ void Meter::setup(){
     fuzzy.loadImage("graphics/fuzzy.png");
     renderShader.load("","shaders/meterRender.frag");
     
-    renderTexture.allocate(meter.width, meter.height);
-    
     fillColor.set(ofRandom(255), ofRandom(255), ofRandom(255));
     fuzzy.setAnchorPercent(.5,.5);
 }
@@ -45,9 +43,8 @@ void Meter::render(){
     
     ofPopMatrix();
     renderTexture.end();
-    ofSetColor(255);
     
-    ofSetColor(255);
+    ofSetColor(255, fill.a);
     
     renderShader.begin();
     renderShader.setUniformTexture("alpha", meter.getTextureReference(), 2);
