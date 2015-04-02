@@ -78,17 +78,14 @@ void GridMeter::render(){
     ofPushMatrix();
     
     // activate based on value
-    ofVec2f pnt;
-    pnt.x = ofMap(value.x, -1., 1.0, 0, getProjectorWidth());
-    pnt.y = ofMap(value.y, -1., 1.0, 0, getProjectorHeight());
+    ofVec2f pnt = getGridPoint(value);
+    
     float rad = 100;
     
     if ( messages != NULL ){
         for (auto & g : grid ){
             for ( auto & m : *messages ){
-                ofVec2f pnt2;
-                pnt2.x = ofMap(m.second.point.x, -1., 1.0, 0, getProjectorWidth());
-                pnt2.y = ofMap(m.second.point.y, -1., 1.0, 0, getProjectorHeight());
+                ofVec2f pnt2 = getGridPoint(m.second.direction);
                 if ( abs( g.distance(pnt2)) < rad/4. && bActive ){
                     g.activate(50);
                 }

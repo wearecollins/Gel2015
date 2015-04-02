@@ -62,7 +62,7 @@ var Sender = function(){
 			console.error("Data must be 0-3! Sending 0 (up)");
 			direction = 0;
 		}
-		sb.send("direction", "pad", direction );
+		sb.send("direction", "pad", direction + ":" + app_name );
 	}
 
 	// private

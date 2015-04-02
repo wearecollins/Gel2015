@@ -27,9 +27,9 @@
 		019DF1421AC3017C0028D667 /* GLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 019DF1371AC3017C0028D667 /* GLView.mm */; };
 		019DF1431AC3017C0028D667 /* GLWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 019DF1391AC3017C0028D667 /* GLWindow.mm */; };
 		019DF1441AC3017C0028D667 /* ofxCocoa.mm in Sources */ = {isa = PBXBuildFile; fileRef = 019DF13B1AC3017C0028D667 /* ofxCocoa.mm */; };
-		019DF1471AC302C60028D667 /* InputProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 019DF1461AC302C60028D667 /* InputProcessor.cpp */; };
 		019DF14B1AC316950028D667 /* Meter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 019DF1491AC316950028D667 /* Meter.cpp */; };
 		019DF14F1AC3181E0028D667 /* GameController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 019DF14D1AC3181E0028D667 /* GameController.cpp */; };
+		01E663A01ACDCA19009BBB91 /* InputProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01E6639E1ACDCA19009BBB91 /* InputProcessor.cpp */; };
 		04C82720B149CE576B8CBB06 /* ofxUIToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48CCCEA0C681DE8B4945111B /* ofxUIToggle.cpp */; };
 		084025DA517D8329301FE1B6 /* ofxUIEventArgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A8896AC3BECAAA504E3828F4 /* ofxUIEventArgs.cpp */; };
 		1587708E3CAC72997E43504E /* ofxUIRangeSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2813E36CEFD8D1C1B70E600 /* ofxUIRangeSlider.cpp */; };
@@ -172,8 +172,6 @@
 		019DF1391AC3017C0028D667 /* GLWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GLWindow.mm; sourceTree = "<group>"; };
 		019DF13A1AC3017C0028D667 /* ofxCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCocoa.h; sourceTree = "<group>"; };
 		019DF13B1AC3017C0028D667 /* ofxCocoa.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxCocoa.mm; sourceTree = "<group>"; };
-		019DF1451AC302080028D667 /* InputProcessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = InputProcessor.h; path = ../../shared/InputProcessor.h; sourceTree = "<group>"; };
-		019DF1461AC302C60028D667 /* InputProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InputProcessor.cpp; path = ../../shared/InputProcessor.cpp; sourceTree = "<group>"; };
 		019DF1491AC316950028D667 /* Meter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Meter.cpp; path = ../../shared/Meter.cpp; sourceTree = "<group>"; };
 		019DF14A1AC316950028D667 /* Meter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Meter.h; path = ../../shared/Meter.h; sourceTree = "<group>"; };
 		019DF14C1AC316B50028D667 /* LiveInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LiveInput.h; path = ../../shared/LiveInput.h; sourceTree = "<group>"; };
@@ -181,6 +179,8 @@
 		019DF14E1AC3181E0028D667 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameController.h; path = ../../shared/GameController.h; sourceTree = "<group>"; };
 		019DF1521AC338A80028D667 /* meterRender.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = meterRender.frag; path = bin/data/shaders/meterRender.frag; sourceTree = SOURCE_ROOT; };
 		01DCC0911400F9ACF5B65578 /* ofxXmlSettings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxXmlSettings.h; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SOURCE_ROOT; };
+		01E6639E1ACDCA19009BBB91 /* InputProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InputProcessor.cpp; path = ../../shared/InputProcessor.cpp; sourceTree = "<group>"; };
+		01E6639F1ACDCA19009BBB91 /* InputProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InputProcessor.h; path = ../../shared/InputProcessor.h; sourceTree = "<group>"; };
 		01F46D671ACD9B2B00664738 /* LevelIntro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LevelIntro.h; path = ../../shared/LevelIntro.h; sourceTree = "<group>"; };
 		02677FA320D6C63B228A7562 /* ofxUIWidgetWithLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIWidgetWithLabel.h; path = ../../../addons/ofxUI/src/ofxUIWidgetWithLabel.h; sourceTree = SOURCE_ROOT; };
 		02FF3B8D243CFB85AE0909EB /* ofxUI2DGraph.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUI2DGraph.cpp; path = ../../../addons/ofxUI/src/ofxUI2DGraph.cpp; sourceTree = SOURCE_ROOT; };
@@ -354,8 +354,8 @@
 		010F33381ABB329800413531 /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				01E6639D1ACDCA00009BBB91 /* input_processor */,
 				017D04BB1AC47A96003E75F7 /* overlays */,
-				017D04B61AC45D1E003E75F7 /* process_input */,
 				017D04B51AC45D0E003E75F7 /* live_meter */,
 				019DF14E1AC3181E0028D667 /* GameController.h */,
 				019DF14D1AC3181E0028D667 /* GameController.cpp */,
@@ -427,15 +427,6 @@
 			name = live_meter;
 			sourceTree = "<group>";
 		};
-		017D04B61AC45D1E003E75F7 /* process_input */ = {
-			isa = PBXGroup;
-			children = (
-				019DF1451AC302080028D667 /* InputProcessor.h */,
-				019DF1461AC302C60028D667 /* InputProcessor.cpp */,
-			);
-			name = process_input;
-			sourceTree = "<group>";
-		};
 		017D04BB1AC47A96003E75F7 /* overlays */ = {
 			isa = PBXGroup;
 			children = (
@@ -495,6 +486,15 @@
 			);
 			name = shaders;
 			path = ../../p_Magnet/bin/data/shaders;
+			sourceTree = "<group>";
+		};
+		01E6639D1ACDCA00009BBB91 /* input_processor */ = {
+			isa = PBXGroup;
+			children = (
+				01E6639E1ACDCA19009BBB91 /* InputProcessor.cpp */,
+				01E6639F1ACDCA19009BBB91 /* InputProcessor.h */,
+			);
+			name = input_processor;
 			sourceTree = "<group>";
 		};
 		108C8D494BF6997F7A730F6E /* include */ = {
@@ -972,6 +972,7 @@
 				7D393646FB859A930EF58917 /* ofxUIButton.cpp in Sources */,
 				019DF13F1AC3017C0028D667 /* AppDelegate.mm in Sources */,
 				7BE46522B64E24FAEDE1A25D /* ofxUICanvas.cpp in Sources */,
+				01E663A01ACDCA19009BBB91 /* InputProcessor.cpp in Sources */,
 				DF0C851B244C4C867CEA8806 /* ofxUICircleSlider.cpp in Sources */,
 				9BE4AE0AA2B8C436BDFE9D4D /* ofxUIDragableLabelButton.cpp in Sources */,
 				019DF1441AC3017C0028D667 /* ofxCocoa.mm in Sources */,
@@ -1001,7 +1002,6 @@
 				59C5F2F5D7254C33C00F97CB /* ofxUIRectangle.cpp in Sources */,
 				FE0F1DB69ACCD163E9DA2A15 /* ofxUIRotarySlider.cpp in Sources */,
 				019DF1401AC3017C0028D667 /* AppWindow.mm in Sources */,
-				019DF1471AC302C60028D667 /* InputProcessor.cpp in Sources */,
 				43BADBB2FE0F17D34B57A705 /* ofxUIScrollableCanvas.cpp in Sources */,
 				012B26A11AC1A5E10026D2EA /* ofxSvg.cpp in Sources */,
 				019DF14F1AC3181E0028D667 /* GameController.cpp in Sources */,

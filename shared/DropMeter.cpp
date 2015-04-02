@@ -90,9 +90,7 @@ void DropMeter::render(){
     }
     
     // activate based on value
-    ofVec2f pnt;
-    pnt.x = ofMap(value.x, -1., 1.0, 0, getProjectorWidth());
-    pnt.y = ofMap(value.y, -1., 1.0, 0, getProjectorHeight());
+    ofVec2f pnt = getGridPoint( value );
     float rad = 300;
     
     if ( messages != NULL ){

@@ -15,25 +15,13 @@ class InputProcessor {
     friend class Spacebrew::Connection;
 public:
     
-    enum Mode {
-        MODE_AVERAGE = 0,
-        MODE_RANDOM_LEAD,
-        MODE_LIVE
-    };
-    
     InputProcessor();
     ~InputProcessor();
     
     void setup( Spacebrew::Connection & spacebrew );
     void update( ofEventArgs & e );
     
-    ofVec2f getCurrentValue();
-    string getCurrentJSON();
-    
-    void setMode( Mode mode );
-    Mode getMode();
-    
-    void setupSpacebrewMessage( string name, string type );
+    int getCurrentValue();
     
     const map<string, PointMessage> & getMessages(){
         return messages;
@@ -45,14 +33,16 @@ public:
     float messageTimeoutSeconds;
     
 protected:
-    
-    Mode mode;
     void onMessage( Spacebrew::Message & m );
     Spacebrew::Connection * spacebrew;
     string messageName, messageType;
     
+    // dump of all current messages
     map<string, PointMessage> messages;
-    ofVec2f currentValue;
+    
+    // updated live from average
+    int currentValue;
+    Poco::DateTime lastAverage; // last time we got an "average" value
     
     bool bShouldSend;
 };

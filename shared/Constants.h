@@ -19,11 +19,29 @@ static float getProjectorHeight(){
     return 1080.;
 }
 
+static ofVec2f getGridPoint( int value ){
+    ofVec2f pnt;
+    if ( value == 0 ){
+        pnt.set(0, getProjectorHeight()/2.0);
+    } else if ( value == 1 ){
+        pnt.set(getProjectorWidth()/2.0, 0);
+        
+    } else if ( value == 2 ){
+        pnt.set(getProjectorWidth(), getProjectorHeight()/2.0);
+        
+    } else if ( value == 3 ){
+        pnt.set(getProjectorWidth()/2.0, getProjectorHeight());
+        
+    }
+    return pnt;
+}
+
 struct PointMessage {
     Poco::LocalDateTime time;
     ofVec2f point;
     string uniqueId;
     ofColor color;
+    int     direction;
 };
 
 class Settings {

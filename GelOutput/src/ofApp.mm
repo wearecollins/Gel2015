@@ -25,9 +25,6 @@ void ofApp::setup(){
     string server   = "spacebrew.robotconscience.com";
     string name     = "Gel master";
     
-    spacebrew.addSubscribe("announce", "announce");
-    spacebrew.addPublish("average", "point2d");
-    
     processor.setup(spacebrew);
     gameController.setup(processor,spacebrew);
     
@@ -43,10 +40,6 @@ void ofApp::exit(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    if ( ofGetElapsedTimeMillis() - lastSent > sendRate && processor.shouldSend() ){
-        lastSent = ofGetElapsedTimeMillis();
-        spacebrew.send("average", "point2d", processor.getCurrentJSON());
-    }
 }
 
 //--------------------------------------------------------------

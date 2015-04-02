@@ -20,6 +20,9 @@ public:
         bFadeOut = true;
         
         renderTexture.allocate( getProjectorWidth(), getProjectorHeight());//, GL_RGBA );
+        
+        // this should be centralized, maybe in gamecontroller?
+        overlay.loadImage("graphics/overlay.png");
     }
     
     virtual void setup() = 0;
@@ -29,13 +32,8 @@ public:
         this->messages = &messages;
     }
     
-    virtual void update( ofVec2f val ){
-        value = value * ofVec2f(.7,.7) + val * ofVec2f(.3,.3);
-        
-        // this should be centralized, maybe in gamecontroller?
-        if ( !overlay.isAllocated() ){
-            overlay.loadImage("graphics/overlay.png");
-        }
+    virtual void update( int val ){
+        value = value * .7 + (float) val * .3;
         
         if ( bFadeOut ){
             fill.a *= .9;
@@ -67,7 +65,7 @@ public:
     
 protected:
     ofColor fill;
-    ofVec2f value;
+    float value;
     bool bActive, bFadeOut;
     ofImage overlay;
     

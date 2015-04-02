@@ -33,7 +33,7 @@ void Meter::render(){
     if ( bActive ){
         ofTranslate(renderTexture.getWidth()/2.0, renderTexture.getHeight());
         ofSetColor(fillColor);
-        float rot = ofMap(value.x, -1., 1.0, 0, 180);
+        float rot = ofMap(value, 0, 2, 0, 180, true);
     //    float trans = ofMap(value.x, -1., 1.0, 0, 180);
         ofRotateZ(rot);
         ofTranslate(-800., 0);
