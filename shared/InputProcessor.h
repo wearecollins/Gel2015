@@ -45,4 +45,6 @@ protected:
     Poco::DateTime lastAverage; // last time we got an "average" value
     
     bool bShouldSend;
+    
+    ofMutex mux;
 };

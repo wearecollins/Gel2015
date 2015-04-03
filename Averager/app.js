@@ -145,7 +145,8 @@ function update(){
         }
         bShouldSend = true;
 
-        console.log( currentValue )
+        // console.log( currentValue )
+        spacebrewLocal.send("average", "pad", "averager:"+ currentValue);
 
     } else {
         bShouldSend = false;

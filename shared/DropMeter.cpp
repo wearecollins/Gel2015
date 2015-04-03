@@ -91,6 +91,7 @@ void DropMeter::render(){
     
     // activate based on value
     ofVec2f pnt = getGridPoint( value );
+    
     float rad = 300;
     
     if ( messages != NULL ){

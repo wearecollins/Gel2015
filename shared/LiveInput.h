@@ -19,6 +19,8 @@ public:
         fill.a = 0;
         bFadeOut = true;
         
+        value = 0;
+        
         renderTexture.allocate( getProjectorWidth(), getProjectorHeight());//, GL_RGBA );
         
         // this should be centralized, maybe in gamecontroller?

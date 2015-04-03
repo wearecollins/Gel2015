@@ -12,6 +12,8 @@
 InputProcessor::InputProcessor(){
     spacebrew = NULL;
     bShouldSend = false;
+    currentValue = 0;
+    messageTimeoutSeconds = .2;
 }
 
 //--------------------------------------------------------------
@@ -42,17 +44,19 @@ void InputProcessor::update( ofEventArgs & e ){
     Poco::LocalDateTime now;
     Poco::Timespan timediff;
     
+    mux.lock();
     for ( auto & m : messages ){
         timediff = now - m.second.time;
         if ( (float) timediff.milliseconds() / 1000.0f > messageTimeoutSeconds ){
             messages.erase(m.first);
         }
     }
+    mux.unlock();
     
     timediff = now - lastAverage;
     
     // process current value
-    if ( messages.size() > 0 && timediff.milliseconds() / 1000.0f > messageTimeoutSeconds ){
+    if ( messages.size() > 0 ){//&& timediff.milliseconds() / 1000.0f > messageTimeoutSeconds ){
         bShouldSend = true;
     } else {
         bShouldSend = false;
@@ -73,13 +77,17 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
     
     if ( m.name == "average" ){
         
+        cout <<"RAW "<<m.value<<endl;
+        
         vector<string> exp = ofSplitString(m.value, ":");
         
         if ( exp.size() >= 2 ){
-            int dir = ofToInt(exp[0]);
-            string ID = exp[1];
+            int dir = ofToInt(exp[1]);
+            string ID = exp[0];
             currentValue = dir;
             lastAverage = now;
+            
+            cout << ID <<":"<<currentValue<< " AVG "<<endl;
         }
         
     } else if ( m.name == "touch" ){
@@ -87,11 +95,14 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
         vector<string> exp = ofSplitString(m.value, ":");
         
         if ( exp.size() >= 2 ){
-            int dir = ofToInt(exp[0]);
-            string ID = exp[1];
+            int dir = ofToInt(exp[1]);
+            string ID = exp[0];
             if ( messages.count(ID) == 0 ){
                 messages[ID] = PointMessage();
             }
+            
+            cout << ID <<":"<<dir<<endl;
+            
             messages[ID].time       = now;
             messages[ID].uniqueId   = ID;
             messages[ID].direction  = dir;

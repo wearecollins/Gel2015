@@ -11,7 +11,7 @@
 //--------------------------------------------------------------
 void Meter::setup(){
     // load shader + image
-    meter.loadImage("graphics/level1_meter.png");
+    meter.loadImage("graphics/level1/level1_meter.png");
     fuzzy.loadImage("graphics/fuzzy.png");
     renderShader.load("","shaders/meterRender.frag");
     
@@ -29,6 +29,9 @@ void Meter::render(){
     ofPushMatrix();
     ofSetColor(255,10);
     ofRect(0, 0, renderTexture.getWidth(), renderTexture.getHeight());
+    
+    cout << bActive << ":" <<value << ":"<<"MTR"<<endl;
+    
     
     if ( bActive ){
         ofTranslate(renderTexture.getWidth()/2.0, renderTexture.getHeight());
