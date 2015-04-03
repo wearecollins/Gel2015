@@ -56,9 +56,11 @@ function onCustomMessage( name, value, type ){
 		// NOTE TO SELF: THIS PREVENTS THE MULTI-TAPPER FROM
 		// SWEWING MESSAGE. HM!
 		if ( res.length > 0 ){
+            var id = res[1];
 			var m = new Message();
-            messages[value.id].direction = parseInt(res[0]);
-			messages[value.id].id = res[1];
+            messages[id] = m;
+            messages[id].direction = parseInt(res[0]);
+			messages[id].id = res[1];
 		}
 	}	
 }
@@ -70,9 +72,9 @@ function update(){
     // jam through messages
     for (var key in messages) {
   		if (messages.hasOwnProperty(key)) {
-			var timediff = now - messages[p].time;
+			var timediff = now - messages[key].time;
 			if ( timediff / 1000.0 > messageTimeoutSeconds ){
-				delete messages[p];
+				delete messages[key];
 			}
 		}
     }
@@ -80,19 +82,21 @@ function update(){
     // updated?
     var bShouldSend = false;
 
+    var length = Object.keys(messages).length;
+
     // process current value
-    if ( messages.length > 0 ){
+    if ( length > 0 ){
         switch (mode) {
             case "MODE_AVERAGE":
             {
                 var total = 0;
 			    for (var key in messages) {
 			  		if (messages.hasOwnProperty(key)) {
-                    	total += messages[p].direction;
+                    	total += messages[key].direction;
                     }
                 }
 
-                total /= messages.length;
+                total /= length;
                 currentValue = total;
             }
             break;
@@ -103,11 +107,11 @@ function update(){
                 var total = 0;
 			    for (var key in messages) {
 			  		if (messages.hasOwnProperty(key)) {
-                    	total += messages[p].direction;
+                    	total += messages[key].direction;
                     }
                 }
 
-                total /= messages.length;
+                total /= length;
                 
                 var index = Math.floor(Math.random() * Object.keys(messages).length);
                 var key = Object.keys(messages)[index];
@@ -125,9 +129,9 @@ function update(){
 
 			    for (var key in messages) {
 			  		if (messages.hasOwnProperty(key)) {
-						var timediff = now - messages[p].time;
+						var timediff = now - messages[key].time;
 	                    if ( timediff < least ){
-	                        tempCurrent = messages[p];
+	                        tempCurrent = messages[key];
 	                        least = timediff;
 	                    }
                 	}
@@ -140,6 +144,8 @@ function update(){
                 break;
         }
         bShouldSend = true;
+
+        console.log( currentValue )
 
     } else {
         bShouldSend = false;
