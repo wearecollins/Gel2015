@@ -55,7 +55,7 @@ function onCustomMessage( name, value, type ){
 
 		// NOTE TO SELF: THIS PREVENTS THE MULTI-TAPPER FROM
 		// SWEWING MESSAGE. HM!
-		if ( res.length > 0 ){}
+		if ( res.length > 0 ){
 			var m = new Message();
 			messages[value.id].id = res[0];
 			messages[value.id].direction = parseInt(res[1]);
