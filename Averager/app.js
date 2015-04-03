@@ -40,7 +40,7 @@ function main(){
 	// setup connection: Local
 	spacebrewLocal = new Spacebrew.Client(localAddress, "averager", "");
 
-	// pad== "id:dir", dir == 0-4 (U,R,D,L, Look)
+	// pad== "dir:id", dir == 0-4 (U,R,D,L, Look)
 	spacebrewLocal.addSubscribe("touch", "pad");
 	spacebrewLocal.addPublish("average", "pad");
 	spacebrewLocal.connect();
@@ -57,8 +57,8 @@ function onCustomMessage( name, value, type ){
 		// SWEWING MESSAGE. HM!
 		if ( res.length > 0 ){
 			var m = new Message();
-			messages[value.id].id = res[0];
-			messages[value.id].direction = parseInt(res[1]);
+            messages[value.id].direction = parseInt(res[0]);
+			messages[value.id].id = res[1];
 		}
 	}	
 }

@@ -4,33 +4,6 @@ window.onload = function(){
 	app = new App();
 }
 
-function get_local_url()
-{
-	var pcol = "";
-	var u = document.URL;
-
-	/*
-	 * We open the websocket encrypted if this page came on an
-	 * https:// url itself, otherwise unencrypted
-	 */
-
-	if (u.substring(0, 5) == "https") {
-
-		u = u.substr(8);
-	} else {
-		if (u.substring(0, 4) == "http")
-			u = u.substr(7);
-	}
-
-	u = u.split('/');
-
-	u = u[0];
-	var p = u.indexOf(":");
-	u = u.substr(0, p);
-
-	return pcol + u;
-}
-
 var App = function(){
 	var sender = new Sender();
 
@@ -45,24 +18,8 @@ var App = function(){
 	var logLevel = 0; // 0 = debug, 1 = error, 2 = none
 
 	function setup(){
-
+		// setup Sender, which connects to Spacebrew + handles in/out
 		sender.setup("spacebrew.robotconscience.com", app_name);// get_local_url());
-
-		//window.alert(get_local_url());
-
-		// sb.name(app_name);
-
-		// // configure the publication and subscription feeds
-		// // sb.addPublish("touch", "gelpoint", "{\"x\":0,\"y\":0}");
-		// // sb.addPublish("announce", "announce", "{\"id\":\"\",\"r\":0,\"g\":0,\"b\":0,}");
-
-		// // maybe color will be a publish?
-		// sb.addSubscribe("color", "color");
-
-		// // override Spacebrew events - this is how you catch events coming from Spacebrew
-		// sb.onCustomMessage = onCustomMessage;
-		// sb.onOpen = onOpen;
-		// sb.onClose = onClose;
 
 		color.r = Math.floor(Math.random() * 255.);
 		color.g = Math.floor(Math.random() * 255.);
@@ -71,9 +28,6 @@ var App = function(){
 		document.body.style.backgroundColor = "rgb(" + color.r +","+ color.g +","+ color.b +")";
 		$("#touch").css("backgroundColor", "rgb(" + (255-color.r) +","+ (255-color.g) +","+ (255-color.b) +")");
 
-
-		// connect to spacbrew
-		// sb.connect();
 		setupEvents( document.body );
 		// all done
 	}
@@ -92,6 +46,7 @@ var App = function(){
 	function draw(){
 		window.requestAnimationFrame(draw.bind(this));
 
+		// don't do anything ATM
 	}
 
 	/**
@@ -100,30 +55,21 @@ var App = function(){
 	 * @param  {[type]} x     [description]
 	 * @param  {[type]} y     [description]
 	 */
-	// function sendTouch( index, x, y ){
-	// 	console.log(x, window.innerWidth, (x - window.innerWidth/2.0) / (window.innerWidth/2.0)) ;
-	// 	x = (x - window.innerWidth/2.0) / (window.innerWidth/2.0);
-	// 	y = (y - window.innerHeight/2.0) / (window.innerHeight/2.0);
-
-	// 	var dir = map(x, -1, 1, 0, 2);
-
-	// 	if ( dir == 1 ){
-	// 		if ( y > 0 ){
-	// 			// dir = 3;
-	// 		}
-	// 	}
-
-	// 	sender.send(dir);
-	// }
-
 	function sendTouch( index, x, y ){
-		// console.log(x, window.innerWidth, (x - window.innerWidth/2.0) / (window.innerWidth/2.0)) ;
+		console.log(x, window.innerWidth, (x - window.innerWidth/2.0) / (window.innerWidth/2.0)) ;
 		x = (x - window.innerWidth/2.0) / (window.innerWidth/2.0);
 		y = (y - window.innerHeight/2.0) / (window.innerHeight/2.0);
-		var t = {x:""+x, y:""+y, index:index, id:app_name, color: color};
-		sender.getSpacebrew().send("touch", "gelpoint", JSON.stringify(t));
-	}
 
+		var dir = map(x, -1, 1, 0, 2);
+
+		if ( dir == 1 ){
+			if ( y > 0 ){
+				// dir = 3;
+			}
+		}
+
+		sender.send(dir);
+	}
 	/**
 	 * [touchStart description]
 	 * @param  {[type]} e [description]
@@ -202,5 +148,5 @@ var App = function(){
 	}
 
 	setup();
-	draw(); // kickoff animation loop
+	// draw(); // kickoff animation loop
 };
