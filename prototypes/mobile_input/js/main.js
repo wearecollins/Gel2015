@@ -60,7 +60,7 @@ var App = function(){
 		x = (x - window.innerWidth/2.0) / (window.innerWidth/2.0);
 		y = (y - window.innerHeight/2.0) / (window.innerHeight/2.0);
 
-		var dir = map(x, -1, 1, 0, 2);
+		var dir = map(x, -1, 1, 0, 3);
 
 		if ( dir == 1 ){
 			if ( y > 0 ){
