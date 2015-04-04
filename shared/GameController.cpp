@@ -69,6 +69,7 @@ void GameController::draw(){
 void GameController::triggerCelebration(){
     currentIntro->setOutro();
     currentIntro->activate();
+    currentLive->partyMode();
 }
 
 //--------------------------------------------------------------
@@ -104,6 +105,7 @@ void GameController::triggerPrevFrame(){
 //--------------------------------------------------------------
 void GameController::triggerLive(){
     currentIntro->deactivate();
+    currentLive->activate();
 }
 
 //--------------------------------------------------------------

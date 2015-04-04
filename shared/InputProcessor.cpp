@@ -76,9 +76,6 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
     Poco::DateTime now;
     
     if ( m.name == "average" ){
-        
-        cout <<"RAW "<<m.value<<endl;
-        
         vector<string> exp = ofSplitString(m.value, ":");
         
         if ( exp.size() >= 2 ){
@@ -86,8 +83,6 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
             string ID = exp[0];
             currentValue = dir;
             lastAverage = now;
-            
-            cout << ID <<":"<<currentValue<< " AVG "<<endl;
         }
         
     } else if ( m.name == "touch" ){
@@ -100,8 +95,6 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
             if ( messages.count(ID) == 0 ){
                 messages[ID] = PointMessage();
             }
-            
-            cout << ID <<":"<<dir<<endl;
             
             messages[ID].time       = now;
             messages[ID].uniqueId   = ID;

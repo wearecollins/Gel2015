@@ -119,3 +119,8 @@ void DropMeter::render(){
     
     ofPopMatrix();
 }
+
+//--------------------------------------------------------------
+void DropMeter::partyMode(){
+    
+}

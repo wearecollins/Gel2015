@@ -31,6 +31,7 @@ public:
     
     void setup();
     void render();
+    void partyMode();
     
 protected:
     vector<DropPoint> grid;

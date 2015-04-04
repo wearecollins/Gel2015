@@ -63,6 +63,8 @@ public:
         render();
     }
     
+    virtual void partyMode() = 0;
+    
     virtual void render() = 0;
     
 protected:

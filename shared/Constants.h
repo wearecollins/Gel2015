@@ -19,18 +19,23 @@ static float getProjectorHeight(){
     return 1080.;
 }
 
-static ofVec2f getGridPoint( int value ){
+static ofVec2f getGridPoint( float value ){
     ofVec2f pnt;
-    if ( value == 0 ){
-        pnt.set(0, getProjectorHeight()/2.0);
-    } else if ( value == 1 ){
-        pnt.set(getProjectorWidth()/2.0, 0);
+    if ( value < 1 ){
+        pnt.set(ofMap(value, 0,1, 0, getProjectorWidth()/2.),
+                ofMap(value, 0,1, getProjectorHeight()/2.0, 0));
+    } else if ( value >= 1 && value < 2 ){
+        pnt.set(ofMap(value, 0,1, 0, getProjectorWidth()/2.),
+                ofMap(value, 0,1, getProjectorHeight()/2.0, 0));
         
-    } else if ( value == 2 ){
-        pnt.set(getProjectorWidth(), getProjectorHeight()/2.0);
+    } else if ( value >= 2 && value < 3 ){
         
-    } else if ( value == 3 ){
-        pnt.set(getProjectorWidth()/2.0, getProjectorHeight());
+        pnt.set(ofMap(value, 2,3, getProjectorWidth(), getProjectorWidth()/2.),
+                ofMap(value, 2,3, getProjectorHeight()/2.0, getProjectorHeight()));
+        
+    } else if ( value >= 3 ){
+        pnt.set(ofMap(value, 2,3, getProjectorWidth(), getProjectorWidth()/2.),
+                ofMap(value, 2,3, getProjectorHeight()/2.0, getProjectorHeight()));
         
     }
     return pnt;

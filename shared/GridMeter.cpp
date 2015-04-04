@@ -80,7 +80,7 @@ void GridMeter::render(){
     // activate based on value
     ofVec2f pnt = getGridPoint(value);
     
-    float rad = 100;
+    float rad = 300;
     
     if ( messages != NULL ){
         for (auto & g : grid ){
@@ -93,16 +93,31 @@ void GridMeter::render(){
         }
     }
     
+    static bool blogged = false;
+    
     for (auto & g : grid ){
+        if ( bActive && !blogged ){
+//            cout << abs( g.distance(pnt)) << endl;
+        }
         if ( abs( g.distance(pnt)) < rad && bActive ){
             g.activate();
         }
         g.draw();
     }
+    
+    if ( !blogged && bActive){
+        blogged = true;
+    }
+    
     ofPopMatrix();
     renderTexture.end();
     
     ofSetColor(255, fill.a);
     
     renderTexture.draw(0,0);
+}
+
+//--------------------------------------------------------------
+void GridMeter::partyMode(){
+    
 }

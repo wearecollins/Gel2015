@@ -30,9 +30,6 @@ void Meter::render(){
     ofSetColor(255,10);
     ofRect(0, 0, renderTexture.getWidth(), renderTexture.getHeight());
     
-    cout << bActive << ":" <<value << ":"<<"MTR"<<endl;
-    
-    
     if ( bActive ){
         ofTranslate(renderTexture.getWidth()/2.0, renderTexture.getHeight());
         ofSetColor(fillColor);
@@ -54,4 +51,9 @@ void Meter::render(){
     renderShader.setUniformTexture("render", renderTexture.getTextureReference(), 3);
     renderTexture.draw(0,0 );
     renderShader.end();
+}
+
+//--------------------------------------------------------------
+void Meter::partyMode(){
+    
 }
