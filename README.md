@@ -7,21 +7,29 @@
 	cd Gel2015
 	bash cloneaddons.sh
 ```
+* Note: if you already have ofxCocoa (or some version of it), do make sure you're on my dev branch
+	* See cloneaddons.sh if curious
 
 # Running
-* Run spacebrew persistent admin, pointed to spacebrew.robotconscience.com
+* Run a local spacebrew server
+* Run spacebrew persistent admin, pointed to your local server
 	* Make sure the following persistent routes exist:
 		* 	``` 
-				.*,touch,.*,touch
-
-				* .*,announce,.*,announce
+				.*,direction,.*,touch
 				
 				* .*,average,.*,average
 			```
+* Run the Average app:
+	* 	```
+		cd /Wherever/Gel2015/
+		cd Averager
+		node app.js
+		```
 * Open Skype and call somebody
 * Run GelOuput.app
-* Run Mobile output and input on separate devices
-	* To-be-added to gh-pages; for now, run via local server
+* Run Mobile input 
+	* Make sure your Mobile is on the same Wifi as output
+	* Navigate to http://bit.ly/gel15i_proto
 * Be amazed
 
 # Structure
@@ -29,19 +37,25 @@
 ## GelOutput
 * Main output app
 * Transparent window that is meant to run on top of Skype
-	* NOTE: It's an OS X Agent, which means it does NOT have an icon, so needs to be killed via command line (or via Xcode when debugging)
-	* Mouse events pass through by default, so can interact with OS otherwise like normal
+	* NOTE: It's an OS X Agent, which means it does NOT have an icon
+		* To kill or use keyboard, you should click on the window to give focus, then you're good as normal
+	* NOT TRUE BUT WILL BE EVENTUALLY: Mouse events pass through by default, so can interact with OS otherwise like normal
 * Many main classes in shared/*
 
-## GelController
-* To be created
-* App from which conductor (Brett) will trigger events, e.g. "Start Level One", "Level One Complete"
+# Averager
+	* Node app that takes in input, averages it, then barfs it over to the GelOutput
 
-## p_.*
-* OF output prototypes and tests
-
-## prototypes/mobile_output
-* Arrow that tells avatar to walk forward, turn, or do nothing
+# Gel Voice
+	* To be created
+	* Uses ofxSpeech and some sort of hack to send via Skype microphone
+		* Based on: https://github.com/robotconscience/spacebrew-noodles/tree/master/openFrameworks/spacebrew-speech
 
 ## prototypes/mobile_input
 * Interafce for audience to control Mr. Avatar
+
+## prototypes/mobile_output
+* Arrow that tells avatar to walk forward, turn, or do nothing
+* DEPRECATED!
+
+## p_.*
+* OF output prototypes and tests
