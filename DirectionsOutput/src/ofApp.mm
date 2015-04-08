@@ -77,11 +77,14 @@ void ofApp::setup(){
     ofXml settings;
     settings.load("settings.xml");
     string server = settings.getValue("server");
+    string device = settings.getValue("device");
     int port = settings.getValue("port", 9000);
     
     spacebrew.connect(server, port, "gelVoice");
     
-    bool success = setAudioOutput("VoilaDevice");
+    cout << device << endl;
+    
+    bool success = setAudioOutput(device);
     
     speech.listVoices();
     speech.initSynthesizer();

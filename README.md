@@ -25,12 +25,22 @@
 		cd Averager
 		node app.js
 		```
+* Run the Dictation app:
+	* Gel2015/DirectionsOutput
+		* For this to work you MUST have some addressable audio device in your System Preferences / Sound
+		* By default it addresses Voila (this is set in Gel2015/DirectionsOutput/bin/data/settings.xml <device>)
+
 * Open Skype and call somebody
+	* Make sure the same device Dictation is addressing is set to the mic in Skypte
+
 * Run GelOuput.app
+
 * Run Mobile input 
-	* Make sure your Mobile is on the same Wifi as output
+	* Make sure your Mobile is on the same network as output
 	* Navigate to http://bit.ly/gel15i_proto
+
 * Be amazed
+	* If Dictation is set up, you should hear commands via Skype at the end point. It's weird.
 
 # Structure
 

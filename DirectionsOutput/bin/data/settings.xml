@@ -2,4 +2,5 @@
 	<server>spacebrew.robotconscience.com</server>
 	<port>9000</port>
 	<sendrate>1000</sendrate>
+	<device>VoilaDevice</device>
 </settings>
