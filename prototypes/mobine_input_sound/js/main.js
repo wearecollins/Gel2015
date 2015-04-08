@@ -203,7 +203,9 @@ var GestureHandler = function(){
 				if ( part == "webkitCompassHeading" ){
 					window.useCompassAlpha = true;
 					part = "alpha";
+					console.log("Using webkit!");
 				} else if ( part == "alpha" && window.useCompassAlpha === true ){
+					console.log("Throwing away alpha!");
 					continue;
 				}
 
