@@ -53,7 +53,7 @@ var GestureHandler = function(){
 	var registerMotionEventListeners = function ( onsuccess, onerror) {
 		// check if device has an gyrometer, and if so, then register an event handler
 		if (window.DeviceOrientationEvent) {
-			if (debug) console.log("[registerMotionEventListeners] gyro device orientation event available " );
+			// if (debug) console.log("[registerMotionEventListeners] gyro device orientation event available " );
 			
 			window.addEventListener("deviceorientation", function() {
 		    	processEvent("gyro", event);
@@ -74,7 +74,7 @@ var GestureHandler = function(){
 		}
 
 		if (window.DeviceMotionEvent) {
-		    if (debug) console.log("[registerIphoneEventListeners] accel motion event available " );
+		    // if (debug) console.log("[registerIphoneEventListeners] accel motion event available " );
 		    window.addEventListener("devicemotion", function() {
 		    	processEvent("accel", event.acceleration);
 		    }, true);  
@@ -103,7 +103,7 @@ var GestureHandler = function(){
 	 * @return {none}      
 	 */
 	var processEvent = function (name, data) {
-		console.log( data );
+		// console.log( data );
 		var debug = true;
 		if (state.ids[name]) {
 			var sensor = name;
@@ -113,7 +113,7 @@ var GestureHandler = function(){
 			// loop through each source associated to the current sensor
 			for (var p in parts) {
 				var part = parts[p];
-				console.log( name, part, data[part] );
+				// console.log( name, part, data[part] );
 
 				if (!data[part]) continue; // if data[part] doesn't exist then skip to next part
 
@@ -123,9 +123,9 @@ var GestureHandler = function(){
 				if ( part == "webkitCompassHeading" ){
 					window.useCompassAlpha = true;
 					part = "alpha";
-					console.log("Using webkit!");
+					// console.log("Using webkit!");
 				} else if ( part == "alpha" && window.useCompassAlpha === true ){
-					console.log("Throwing away alpha!");
+					// console.log("Throwing away alpha!");
 					continue;
 				}
 

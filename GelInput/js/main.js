@@ -180,8 +180,8 @@ var App = function(){
 
 		if ( current_level == 2 ){
 
-			$("#ball").css("left", map(gestureHandler.getState().beta, 0, 1024, $("ball").width(), window.innerWidth - $("ball").width()));
-			$("#ball").css("top", map(gestureHandler.getState().gamma, 0, 1024, $("ball").width(), window.innerWidth - $("ball").width()));
+			$("#ball").css("left", map(gestureHandler.getState().beta, 0, 1024, $("ball").width(), window.innerWidth - $("ball").width()) + "px");
+			$("#ball").css("top", map(gestureHandler.getState().gamma, 0, 1024, $("ball").width(), window.innerWidth - $("ball").width()) + "px");
 			
 			// only send if tilted forward!
 
