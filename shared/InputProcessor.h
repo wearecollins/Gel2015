@@ -27,6 +27,8 @@ public:
         return messages;
     }
     
+    void doEasing( bool bDo = true );
+    
     bool shouldSend();
     
     // externally modifiable settings
@@ -44,7 +46,7 @@ protected:
     int currentValue;
     Poco::DateTime lastAverage; // last time we got an "average" value
     
-    bool bShouldSend;
+    bool bShouldSend, bEaseValue;
     
     ofMutex mux;
 };

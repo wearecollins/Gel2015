@@ -12,6 +12,7 @@
 InputProcessor::InputProcessor(){
     spacebrew = NULL;
     bShouldSend = false;
+    bEaseValue = true;
     currentValue = 0;
     messageTimeoutSeconds = .2;
 }
@@ -66,6 +67,11 @@ void InputProcessor::update( ofEventArgs & e ){
 //--------------------------------------------------------------
 int InputProcessor::getCurrentValue(){
     return currentValue;
+}
+
+//--------------------------------------------------------------
+void InputProcessor::doEasing( bool bDo ){
+    bEaseValue = bDo;
 }
 
 //--------------------------------------------------------------
