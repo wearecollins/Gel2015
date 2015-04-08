@@ -10,7 +10,7 @@
 
 //--------------------------------------------------------------
 GameController::GameController(){
-    currentLevel = LEVEL_ONE; // debug!
+    currentLevel = LEVEL_ZERO; // debug!
 }
 
 //--------------------------------------------------------------
@@ -18,15 +18,17 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     inputProcessor = &input;
     
     // setup each overlay
+    levelInputs[LEVEL_ZERO] = new GridMeter();
     levelInputs[LEVEL_ONE] = new Meter();
     levelInputs[LEVEL_TWO] = new GridMeter();
     levelInputs[LEVEL_THREE] = new DropMeter();
     
+    levelIntros[LEVEL_ZERO] = new LevelIntro();
     levelIntros[LEVEL_ONE] = new LevelIntro();
     levelIntros[LEVEL_TWO] = new LevelIntro();
     levelIntros[LEVEL_THREE] = new LevelIntro();
     
-    int index = 1;
+    int index = 0;
     
     for ( auto & it : levelIntros ){
         it.second->setup("level"+ ofToString(index) );
@@ -128,6 +130,9 @@ void GameController::setLevel ( Level level ){
 //--------------------------------------------------------------
 string GameController::levelToString( Level level ){
     switch (level){
+        case LEVEL_ZERO:
+            return "";
+            break;
             case LEVEL_ONE:
             return "level one";
             break;

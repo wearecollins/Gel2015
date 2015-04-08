@@ -29,7 +29,8 @@ class GameController {
 public:
     
     enum Level {
-        LEVEL_ONE = 0,
+        LEVEL_ZERO = 0,
+        LEVEL_ONE,
         LEVEL_TWO,
         LEVEL_THREE
     };
