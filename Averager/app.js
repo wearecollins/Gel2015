@@ -6,8 +6,8 @@ var Spacebrew = require("./Spacebrew.js").Spacebrew;
 
 var spacebrewLocal, spacebrewRemote;
 
-var localAddress = "localhost";
-var remoteAddress = "spacebrew.robotconscience.com";
+var spacebrewHost = "localhost";
+// var remoteAddress = "spacebrew.robotconscience.com";
 
 /******************************************************************
 	AVERAGING
@@ -37,8 +37,9 @@ var currentValue = -1;
 ******************************************************************/
 
 function main(){
+	console.log( "CONNECTING TO "+ spacebrewHost);
 	// setup connection: Local
-	spacebrewLocal = new Spacebrew.Client(localAddress, "averager", "");
+	spacebrewLocal = new Spacebrew.Client(spacebrewHost, "averager", "");
 
 	// pad== "dir:id", dir == 0-4 (U,R,D,L, Look)
 	spacebrewLocal.addSubscribe("touch", "pad");
@@ -155,8 +156,36 @@ function update(){
     }
 }
 
+function setDefaultHost( host ){
+	spacebrewHost = host;
+}
+
+function setDefaultPort( port ){
+	spacebrewPort = port;
+}
+
+var processArguments = function(){
+    var argv = process.argv;
+    for(var i = 2; i < argv.length; i++){
+        switch(argv[i]){
+            case "--host":
+                setDefaultHost(argv[++i]);
+                break;
+            case "-p":
+            case "--port":
+                setDefaultPort(argv[++i]);
+                break;
+            case "-h":
+            case "--help":
+                // printHelp();
+                break;
+        }
+    }
+};
+
 /******************************************************************
 	RUN RUN RUN
 ******************************************************************/
 
+processArguments();
 main();
