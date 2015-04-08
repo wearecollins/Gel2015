@@ -14,7 +14,7 @@ void ofApp::setup(){
     ofBackground( ofColor(0,0,0,0) );
 //	ofSetFrameRate(60);
     
-    string server   = "127.0.0.1";//"spacebrew.robotconscience.com";
+    string server   = "spacebrew.robotconscience.com";
     string name     = "Gel master";
     
     processor.setup(spacebrew);

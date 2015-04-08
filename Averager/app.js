@@ -6,7 +6,7 @@ var Spacebrew = require("./Spacebrew.js").Spacebrew;
 
 var spacebrewLocal, spacebrewRemote;
 
-var localAddress = "localhost";
+var localAddress = "spacebrew.robotconscience.com";//"localhost";
 var remoteAddress = "spacebrew.robotconscience.com";
 
 /******************************************************************
@@ -38,7 +38,7 @@ var currentValue = -1;
 
 function main(){
 	// setup connection: Local
-	spacebrewLocal = new Spacebrew.Client(localAddress, "averager", "");
+	spacebrewLocal = new Spacebrew.Client({server:localAddress, name: "averager"});
 
 	// pad== "dir:id", dir == 0-4 (U,R,D,L, Look)
 	spacebrewLocal.addSubscribe("touch", "pad");
