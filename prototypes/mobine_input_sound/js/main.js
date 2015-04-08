@@ -186,6 +186,7 @@ var GestureHandler = function(){
 	 * @return {none}      
 	 */
 	var processEvent = function (name, data) {
+		console.log( data );
 		var debug = true;
 		if (state.ids[name]) {
 			var sensor = name;
@@ -195,9 +196,11 @@ var GestureHandler = function(){
 			// loop through each source associated to the current sensor
 			for (var p in parts) {
 				var part = parts[p];
+				console.log( name, part, data[part] );
+
 				if (!data[part]) continue; // if data[part] doesn't exist then skip to next part
 
-				var data = data[part];
+				var sensor_data = data[part];
 
 				// hack to overwrite alpha with compass
 				if ( part == "webkitCompassHeading" ){
@@ -209,7 +212,7 @@ var GestureHandler = function(){
 					continue;
 				}
 
-				var new_state = mapRounded( data, state.bounds[sensor]["low"][part], 
+				var new_state = mapRounded( sensor_data, state.bounds[sensor]["low"][part], 
 			                          state.bounds[sensor]["high"][part], outputBounds.min, outputBounds.max );
 
 				if ( name == "accel") new_state = data[part];
