@@ -71,7 +71,6 @@ var App = function(){
 
 		$("#" + arrow).on('touchstart', function(event){
 			event.stopPropagation();
-			console.log("YES");
 			$("#" + arrow + "_arrow").css("fill", "rgba(" + color + ",1)");
 			sender.send(dir)
 		});
@@ -82,7 +81,6 @@ var App = function(){
 
 		$("#" + arrow).on('touchend', function(event){
 			event.stopPropagation();
-			console.log("YES");
 			$("#" + arrow + "_arrow").css("fill", "rgba("+ color + ",0)");
 		});
 	}
@@ -101,6 +99,9 @@ var App = function(){
 	function setupLevelTwo(){
 		teardownPartyMode();
 		$("#ball").css("opacity", 1);
+		$("#"+ getDirName(0) +"_border").css("background-color", "white");
+		$("#"+ getDirName(1) +"_border").css("background-color", "white");
+		$("#"+ getDirName(2) +"_border").css("background-color", "white");
 		// listen to events
 	}
 
@@ -112,6 +113,10 @@ var App = function(){
 	function setupLevelThree(){
 		teardownPartyMode();
 		$("#compass").css("opacity", 1);
+
+		// THIS SHOULD BE CSS DUMMY
+		$("#compass").css("left", window.innerWidth/2.0 - $("#compass").width()/2 + "px");
+		$("#compass").css("top", window.innerHeight/2.0 - $("#compass").width()/2 + "px");
 		// already listening to events!
 	}
 
@@ -148,8 +153,19 @@ var App = function(){
 	}
 
 	var colors = [
-		"rgb(255,255,0)","rgb(255,0,255)","rgb(0,255,255)"
-	]
+		"rgb(255,255,0)","rgb(0,255,255)","rgb(255,0,255)"
+	];
+
+	function getDirName( dir ){
+		switch(dir){
+			case 0:
+			return "left";
+			case 1:
+			return "up";
+			case 2:
+			return "right";
+		}
+	}
 
 	var lastIndex = -1;
 
@@ -182,49 +198,71 @@ var App = function(){
 		// el.addEventListener("touchleave", touchEnd, false);
 	}
 
+	var lastStates = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0};
+
+	var targetNorth = 180;
+
+	var moveThreshold = 50;
+
 	function draw(){
 		window.requestAnimationFrame(draw.bind(this));
 
 		if ( current_level == 2 ){
 
-			$("#ball").css("left", map(gestureHandler.getState().beta, 0, 1024, $("ball").width(), window.innerWidth - $("ball").width()) + "px");
-			$("#ball").css("top", map(gestureHandler.getState().gamma, 0, 1024, $("ball").width(), window.innerWidth - $("ball").width()) + "px");
-			
-			// only send if tilted forward!
+			// only send if moving!
+			if ( gestureHandler.getState().gyroStates.beta ){
+				$("#ball").css("top", map(gestureHandler.getState().gyro.beta, 0, 1024, $("ball").width(), window.innerHeight - $("ball").width()) + "px");
+				$("#ball").css("left", map(gestureHandler.getState().gyro.gamma, 0, 1024, $("ball").width(), window.innerWidth - $("ball").width()) + "px");
+				
+				var dir = Math.floor(map(gestureHandler.getState().gyro.gamma, 200, 700, 0, 2));
+				if ( Math.abs(lastStates.gamma - gestureHandler.getState().gyro.gamma) > moveThreshold ){
+					$("#"+ getDirName(dir) +"_border").css("background-color", colors[dir]);
+					sender.send( dir );
+				}
+			} else {
+				$("#"+ getDirName(0) +"_border").css("background-color", "white");
+				$("#"+ getDirName(1) +"_border").css("background-color", "white");
+				$("#"+ getDirName(2) +"_border").css("background-color", "white");
+			}
 
 			// gestureHandler.getState().gamma
 
 			// orientationState == 1
 		} else if ( current_level == 3 ){
-			gestureHandler.getState()
-		}
-	}
+			var angle = Math.floor(map(gestureHandler.getState().gyro.alpha, 0, 1024, 0, 360));
 
-	/**
-	 * [sendTouch description]
-	 * @param  {[type]} index [description]
-	 * @param  {[type]} x     [description]
-	 * @param  {[type]} y     [description]
-	 */
-	function sendTouch( index, x, y ){
-		console.log(x, window.innerWidth, (x - window.innerWidth/2.0) / (window.innerWidth/2.0)) ;
-		x = (x - window.innerWidth/2.0) / (window.innerWidth/2.0);
-		y = (y - window.innerHeight/2.0) / (window.innerHeight/2.0);
+			$("#compass").css("-ms-transform", "rotate(" + (-(angle-targetNorth) )+ "deg)");
+			$("#compass").css("-webkit-transform", "rotate(" + (-(angle-targetNorth) ) + "deg)");
+			$("#compass").css("transform", "rotate(" + (-(angle-targetNorth) ) + "deg)");
 
-		var dir = map(x, -1, 1, 0, 3);
+			var shaking = false;
+			for ( var state in gestureHandler.getState().accelStates ){
+				if ( Math.abs(lastStates[state] -  gestureHandler.getState().accel[state]) > moveThreshold/10. ){
+					shaking = true;
+				}
+				lastStates[state] = gestureHandler.getState().accel[state];
+			}
 
-		if ( dir == 1 ){
-			if ( y > 0 ){
-				// dir = 3;
+			// only send if moving!
+			if ( shaking){
+				var dir = 1;
+				if ( Math.abs(targetNorth-angle) > 50 && targetNorth-angle < 0  ){
+					dir = 2;
+				} else if ( Math.abs(targetNorth-angle) > 50 && targetNorth-angle > 0  ){
+					dir = 0;
+				}
+				$("#"+ getDirName(dir) +"_border").css("background-color", colors[dir]);
+				sender.send( dir );
+			} else {
+				$("#"+ getDirName(0) +"_border").css("background-color", "white");
+				$("#"+ getDirName(1) +"_border").css("background-color", "white");
+				$("#"+ getDirName(2) +"_border").css("background-color", "white");
 			}
 		}
-
-		sender.send(dir);
 	}
 
 	// @begin 	Spacebrew events
 	function onCustomMessage( name, data, type ){
-		console.log("?");
 		if ( name == "gameevent" ){
 			// console.log( value );
 			// value = JSON.parse( value );

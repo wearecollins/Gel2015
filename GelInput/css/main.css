@@ -143,9 +143,9 @@ td {
   opacity: 0;
   transition: opacity ease-in-out .2s;
   position: absolute;
-  width: 10%;
+  width: 20%;
   height: 0;
-  padding: 5% 0;
+  padding: 10% 0;
   margin: 1em auto;
   z-index: 1;
 }
@@ -156,6 +156,10 @@ td {
 }
 
 /* LEVEL 3 */
+
+#compass {
+  -webkit-transform-origin-y:100%;
+}
 
 /* PARTY MODE */
 #party {

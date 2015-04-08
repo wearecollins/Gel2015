@@ -4,7 +4,9 @@ var GestureHandler = function(){
     state.services = { "accel": false, "gyro": false };
     state.sensors = [ "accel", "gyro" ];
     state.accel = { x: 0, y: 0, z: 0 };
+    state.accelStates = { x: false, y: false, z: false };
     state.gyro = { alpha: 0, beta: 0, gamma: 0 };
+    state.gyroStates = { alpha: false, beta: false, gamma: false };
     state.txtVisible = true;
 
     state.ids = {};
@@ -14,6 +16,8 @@ var GestureHandler = function(){
 
     /** @type {Object} acce/gyro output to {min:Number, max:Number } */
     var outputBounds = {min:0, max: 1024}
+
+    var thresh = 1;
 
     // holds the max and min values to map spacebrew range to range of the sensors and outputs
     state.bounds = {};
@@ -43,6 +47,10 @@ var GestureHandler = function(){
 	this.setBounds = function(min,max){
 		outputBounds.min = min;
 		outputBounds.max = max;
+	}
+
+	this.setThreshold = function(t){
+		thresh = t;
 	}
 
 	/**
@@ -135,7 +143,8 @@ var GestureHandler = function(){
 				if ( name == "accel") new_state = data[part];
 
 			  // if the new state is different from state[sensor][part] then update state[sensor][part]
-				if (state[sensor][part] != new_state) {
+				if (Math.abs(state[sensor][part] - new_state) > thresh) {
+					state[sensor+"States"][part] = true;
 					state[sensor][part] = new_state;
 					// if (debug) console.log("[processEvent] new value for " + sensor + " part " + part + " val " + state[sensor][part] );
 
@@ -145,6 +154,8 @@ var GestureHandler = function(){
 					// 	sb.connection.send(outlet_name, "range", state[sensor][part]); 
 					// 	new_data = true;
 					// }
+				} else {
+					state[sensor+"States"][part] = false;
 				}
 			}
 
