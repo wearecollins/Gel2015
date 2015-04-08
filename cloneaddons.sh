@@ -16,3 +16,6 @@ ${PREFIX}Spacebrew/ofxSpacebrew.git
 
 # ui
 ${PREFIX}robotconscience/ofxCocoa.git --branch dev
+
+# speech
+${PREFIX}latrokles/ofxSpeech.git
