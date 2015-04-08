@@ -37,18 +37,18 @@ var App = function(){
 			sender.send(dir)
 		});
 
-		$("#" + arrow + "_svg").on('touchstart', function(){
-			$("#" + arrow + "_arrow").css("fill", "rgba(" + color + ",1)");
-			sender.send(dir)
-		});
+		// $("#" + arrow + "_svg").on('touchstart', function(){
+		// 	$("#" + arrow + "_arrow").css("fill", "rgba(" + color + ",1)");
+		// 	sender.send(dir)
+		// });
 
 		$("#container").mouseup(function(){
 			$("#" + arrow + "_arrow").css("fill", "rgba("+ color + ",0)");
 		});
 
-		$("#" + arrow + "_svg").on('touchend', function(){
-			$("#" + arrow + "_arrow").css("fill", "rgba("+ color + ",0)");
-		});
+		// $("#" + arrow + "_svg").on('touchend', function(){
+		// 	$("#" + arrow + "_arrow").css("fill", "rgba("+ color + ",0)");
+		// });
 	}
 
 	function teardownLevelOne(){
