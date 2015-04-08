@@ -54,12 +54,13 @@ var App = function(){
 	// @begin Level functions 
 	
 	function setupLevelOne(){
-		teardownPartyMode();
 
 		setupArrow("left", "255,255,0", 0);
 		setupArrow("up", "0,255,255", 1);
 		setupArrow("right", "255,0,255", 2);
 		$("#container").css("opacity", 1);
+
+		teardownPartyMode();
 	}
 
 	function setupArrow(arrow, color, dir){
@@ -68,7 +69,8 @@ var App = function(){
 		// 	sender.send(dir)
 		// });
 
-		$("#" + arrow).on('touchstart', function(){
+		$("#" + arrow).on('touchstart', function(event){
+			event.stopPropagation();
 			console.log("YES");
 			$("#" + arrow + "_arrow").css("fill", "rgba(" + color + ",1)");
 			sender.send(dir)
@@ -78,7 +80,8 @@ var App = function(){
 		// 	$("#" + arrow + "_arrow").css("fill", "rgba("+ color + ",0)");
 		// });
 
-		$("#" + arrow).on('touchend', function(){
+		$("#" + arrow).on('touchend', function(event){
+			event.stopPropagation();
 			console.log("YES");
 			$("#" + arrow + "_arrow").css("fill", "rgba("+ color + ",0)");
 		});
@@ -122,6 +125,7 @@ var App = function(){
 	var partyTimeout = null;
 
 	function triggerPartyMode( level ){
+		$("#party").css("visibility", "visible");
 		if (partyTimeout != null) clearInterval(partyTimeout);
 
 		bPartyMode = true;
@@ -138,6 +142,9 @@ var App = function(){
 		if (partyTimeout != null) clearInterval(partyTimeout);
 		bPartyMode = false;
 		$("#party").css("opacity", "0");
+		partyTimeout = setTimeout(function(){
+			$("#party").css("visibility", "hidden");
+		}, 500);
 	}
 
 	var colors = [
