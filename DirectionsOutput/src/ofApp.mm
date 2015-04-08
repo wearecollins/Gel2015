@@ -107,6 +107,8 @@ void ofApp::setup(){
     // spacebrew game messages
     spacebrew.addSubscribe("gameevent", "event");
     
+    ofAddListener(spacebrew.onMessageEvent, this, &ofApp::onMessage);
+    
     inputProcessor.setup(spacebrew);
 }
 

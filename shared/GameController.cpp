@@ -39,7 +39,7 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     
     // setup connection to control app
     this->spacebrew = &sb;
-    spacebrew->addSubscribe("gameevent", "event" );
+    spacebrew->addPublish("gameevent", "event" );
     
     // let's go
     setLevel( currentLevel );
@@ -70,6 +70,8 @@ void GameController::triggerCelebration(){
     currentIntro->setOutro();
     currentIntro->activate();
     currentLive->partyMode();
+    
+    spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"you did it!\"}");
 }
 
 //--------------------------------------------------------------
@@ -106,6 +108,8 @@ void GameController::triggerPrevFrame(){
 void GameController::triggerLive(){
     currentIntro->deactivate();
     currentLive->activate();
+    
+    spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"let's go\"}");
 }
 
 //--------------------------------------------------------------
@@ -116,6 +120,26 @@ void GameController::setLevel ( Level level ){
     currentIntro->activate();
     
 //    currentOutro = levelOutros[ currentLevel ];
+    
+    spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\" " +  levelToString( level ) + "\"}");
+}
+
+
+//--------------------------------------------------------------
+string GameController::levelToString( Level level ){
+    switch (level){
+            case LEVEL_ONE:
+            return "level one";
+            break;
+            
+            case LEVEL_TWO:
+            return "level two";
+            break;
+            
+            case LEVEL_THREE:
+            return "level three";
+            break;
+    }
 }
 
 //--------------------------------------------------------------
@@ -123,24 +147,24 @@ void GameController::onMessage( Spacebrew::Message & m ){
     Json::Reader    jsonReader;
     Json::Value     json;
     
-    if ( m.name == "gameevent"){
-        ofStringReplace(m.value, "\\", ""); // is this still necessary?
-        bool b = jsonReader.parse( m.value, json);
-
-//        {
-//            name:"eventtype",
-//            value:"stuff"
+//    if ( m.name == "gameevent"){
+//        ofStringReplace(m.value, "\\", ""); // is this still necessary?
+//        bool b = jsonReader.parse( m.value, json);
+//
+////        {
+////            name:"eventtype",
+////            value:"stuff"
+////        }
+//        
+//        if ( b ){
+//            string name = json["name"].asString();
+//            string value = json["value"].asString();
+//            
+//            if (name == "level") {
+//                
+//            } else if(name == "trigger"){
+//                
+//            }
 //        }
-        
-        if ( b ){
-            string name = json["name"].asString();
-            string value = json["value"].asString();
-            
-            if (name == "level") {
-                
-            } else if(name == "trigger"){
-                
-            }
-        }
-    }
+//    }
 }

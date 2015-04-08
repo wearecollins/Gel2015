@@ -65,6 +65,8 @@ protected:
     InputProcessor * inputProcessor;
     void setLevel ( Level level );
     
+    string levelToString( Level level );
+    
     // connection to controller app
     Spacebrew::Connection * spacebrew;
     void onMessage( Spacebrew::Message & message );
