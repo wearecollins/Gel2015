@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="HandheldFriendly" content="True">
+        <meta name="MobileOptimized" content="320">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+        <meta http-equiv="cleartype" content="on">
+
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/touch/apple-touch-icon-144x144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/touch/apple-touch-icon-114x114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/touch/apple-touch-icon-72x72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="img/touch/apple-touch-icon-57x57-precomposed.png">
+        <link rel="shortcut icon" sizes="196x196" href="img/touch/touch-icon-196x196.png">
+        <link rel="shortcut icon" href="img/touch/apple-touch-icon.png">
+
+        <!-- Tile icon for Win8 (144x144 + tile color) -->
+        <meta name="msapplication-TileImage" content="img/touch/apple-touch-icon-144x144-precomposed.png">
+        <meta name="msapplication-TileColor" content="#222222">
+
+        <!-- This script prevents links from opening in Mobile Safari. https://gist.github.com/1042026 -->
+        <!--
+        <script>(function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone")</script>
+        -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.7.1.min.js"></script>
+    </head>
+    <body>
+        <table id="container">
+            <tr>
+                <td id="left" class="box">
+                    <div class="border">
+                        <div class="bghack">
+                            <svg id="left_svg" version="1.1" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="332.7px" height="313.7px" viewBox="0 0 332.7 313.7" xml:space="preserve">
+                                <g id="Layer_1">
+                                    <g>
+                                        <path id="left_arrow" fill="rgba(255,255,0,0)" stroke="#FFFF00" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                                            M313.7,276.2c0-55.9-45.3-101.3-101.3-101.3h-81.7v0v44L19.1,128.7l111.7-90.3v39.9h81.7c55.9,0,101.3,41.9,101.3,97.9V276.2z"/>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </td>
+                <td id="up" class="box">
+                    <div class="border">
+                        <div class="bghack">
+                            <svg id="up_svg" version="1.1" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="332.7px" height="313.7px" viewBox="0 0 332.7 313.7" xml:space="preserve">
+                                <g id="Layer_1">
+                                    <g>
+                                            <polygon id="up_arrow" fill="rgba(0,255,255,0)" stroke="#00FFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+                                            226.1,300.4 212.6,125.9 212.7,125.9 256.7,125.9 166.4,14.3 76.1,125.9 120.8,125.9 104.8,300.4       "/>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </td>
+                <td id="right" class="box">
+                    <div class="border">
+                        <div class="bghack">
+                            <svg id="right_svg" version="1.1" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="332.7px" height="313.7px" viewBox="0 0 332.7 313.7" xml:space="preserve">
+                                <g id="Layer_1">
+                                    <g>
+                                        <path id="right_arrow" fill="rgba(255,0,255,0)" stroke="#FF00FF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+                                            M19.1,276.2c0-55.9,45.3-101.3,101.3-101.3H202v0v44l111.7-90.3L202,38.4v39.9h-81.7c-55.9,0-101.3,41.9-101.3,97.9L19.1,276.2z"
+                                            />
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <script src="js/vendor/jquery-2.1.0.min.js"></script>
+        <script src="js/vendor/sb-1.4.1.js"></script>
+        <script src="js/helper.js"></script>
+        <script src="js/utils.js"></script>
+        <script src="js/sender.js"></script>
+        <script src="js/gesturehandler.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-59913461-2', 'auto');
+          ga('send', 'pageview');
+        </script>
+    </body>
+</html>
