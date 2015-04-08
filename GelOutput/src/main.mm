@@ -27,40 +27,14 @@ int main( int argc, char * const argv[] )
 	initSettings.windowMode				= OF_WINDOW;
 	initSettings.windowStyle			= NSBorderlessWindowMask;
 	initSettings.initRect				= MSA::ofxCocoa::rectForAllScreens();
+//    initSettings.initRect.origin.y      -= 100;
 	
 	MSA::ofxCocoa::AppWindow		cocoaWindow(initSettings);
     
 	ofSetupOpenGL(&cocoaWindow, 0, 0, 0);		// all other parameters are ignored, use initSettings above
 	
-    // command line args
-    string  settings = "config.xml";
-    int c;
-    
-    opterr = 0;
-    
-    while ((c = getopt (argc, argv, "x:")) != -1){
-        fprintf (stderr, "Option -%c %s.\n", optopt, optarg);
-        switch (c){
-            case 'x':                      
-                settings = optarg;
-                break;
-            case '?':
-                if (optopt == 'p' || optopt == 'h')
-                    fprintf (stderr, "Option -%c requires an argument.\n", optopt);
-                else if (isprint (optopt))
-                    fprintf (stderr, "Unknown option `-%c'.\n", optopt);
-                else
-                    fprintf (stderr,
-                             "Unknown option character `\\x%x'.\n",
-                             optopt);
-                break;
-        }
-    }
-
-    
-	
     // START TEST APP
 	
-	ofApp* app = new ofApp(settings);
+	ofApp* app = new ofApp();
 	ofRunApp( app );
 }

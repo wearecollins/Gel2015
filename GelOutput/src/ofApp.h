@@ -21,7 +21,7 @@
 class ofApp : public ofBaseApp{
 
 public:    
-    ofApp( string settings );
+    ofApp();
     void exit();
     
 	void setup();
