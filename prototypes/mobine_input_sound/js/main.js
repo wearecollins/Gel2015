@@ -45,21 +45,21 @@ var App = function(){
 	function draw(){
 		window.requestAnimationFrame(draw.bind(this));
 
-		var indexA = Math.floor(mapRounded( gestures.getState().gyro.gamma, 0, 1024, 0, 2 ));
-		var indexB = Math.floor(mapRounded( gestures.getState().gyro.beta, 0, 1024, 0, 2 ));
+		// var indexA = Math.floor(mapRounded( gestures.getState().gyro.gamma, 0, 1024, 0, 2 ));
+		// var indexB = Math.floor(mapRounded( gestures.getState().gyro.beta, 0, 1024, 0, 2 ));
 
-		var r1 = indexA == 1 ? register :(register +1);
-		var r2 = indexB == 0 ? (register+1) :(register+2);
+		// var r1 = indexA == 1 ? register :(register +1);
+		// var r2 = indexB == 0 ? (register+1) :(register+2);
 
-		var total = Math.abs( gestures.getState().accel.x ) + Math.abs( gestures.getState().accel.y ) + Math.abs( gestures.getState().accel.z );
+		// var total = Math.abs( gestures.getState().accel.x ) + Math.abs( gestures.getState().accel.y ) + Math.abs( gestures.getState().accel.z );
 
-		if ( total > 2.0 || indexA != 1 || indexB != 1 ){
-			synth.voice0.triggerAttack(notesA[indexA] + r1);
-			synth.voice1.triggerAttack(notesB[indexB] + r2);
-		} else {
-			synth.voice0.triggerRelease();
-			synth.voice1.triggerRelease();
-		}
+		// if ( total > 2.0 || indexA != 1 || indexB != 1 ){
+		// 	synth.voice0.triggerAttack(notesA[indexA] + r1);
+		// 	synth.voice1.triggerAttack(notesB[indexB] + r2);
+		// } else {
+		// 	synth.voice0.triggerRelease();
+		// 	synth.voice1.triggerRelease();
+		// }
 		$("#output").html(JSON.stringify(gestures.getState().gyro) +"<br><br>"+JSON.stringify(gestures.getState().accel));
 			
 
@@ -92,7 +92,7 @@ var GestureHandler = function(){
 
     state.ids = {};
     state.ids.accel = ["x", "y", "z"];
-    state.ids.gyro = ["alpha", "beta", "gamma"];
+    state.ids.gyro = ["alpha", "beta", "gamma", "webkitCompassHeading"];
     state.ids.color = ["hue", "sat", "light"];
 
     /** @type {Object} acce/gyro output to {min:Number, max:Number } */
@@ -196,7 +196,18 @@ var GestureHandler = function(){
 			for (var p in parts) {
 				var part = parts[p];
 				if (!data[part]) continue; // if data[part] doesn't exist then skip to next part
-				var new_state = mapRounded( data[part], state.bounds[sensor]["low"][part], 
+
+				var data = data[part];
+
+				// hack to overwrite alpha with compass
+				if ( part == "webkitCompassHeading" ){
+					window.useCompassAlpha = true;
+					part = "alpha";
+				} else if ( part == "alpha" && window.useCompassAlpha === true ){
+					continue;
+				}
+
+				var new_state = mapRounded( data, state.bounds[sensor]["low"][part], 
 			                          state.bounds[sensor]["high"][part], outputBounds.min, outputBounds.max );
 
 				if ( name == "accel") new_state = data[part];
