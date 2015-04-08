@@ -80,6 +80,7 @@ void GridMeter::render(){
     // activate based on value
     ofVec2f pnt = getGridPoint(value);
     
+    // radius of "hit" based on grid point
     float rad = 300;
     
     if ( messages != NULL ){

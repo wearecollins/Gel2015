@@ -1,14 +1,6 @@
 #include "ofApp.h"
 #include "ofxCocoa.h"
 
-static int profileIndex = 0;
-int selectIndex = 0;
-
-ofImage arrow;
-
-int sendRate = 100;
-int lastSent = 0;
-
 //--------------------------------------------------------------
 ofApp::ofApp(){
 }
@@ -31,7 +23,7 @@ void ofApp::setup(){
     spacebrew.connect( server, name, "");
     ofAddListener(spacebrew.onMessageEvent, this, &ofApp::onMessage);
     
-    ofSetCircleResolution(300);
+    ofSetCircleResolution(60);
 }
 
 //--------------------------------------------------------------

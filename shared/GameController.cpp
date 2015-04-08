@@ -59,8 +59,8 @@ void GameController::update( ofEventArgs & e ){
 
 //--------------------------------------------------------------
 void GameController::draw(){
+    // maybe don't always draw these at the same time.
     currentLive->draw();
-    
     currentIntro->draw();
 }
 

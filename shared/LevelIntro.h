@@ -115,6 +115,9 @@ public:
     
 protected:
     int index;
+    
+    // this should be a vector of pointers
+    // to enable MovOverlay, etc
     vector<Overlay> overlays;
     
     Overlay * previousFrame;

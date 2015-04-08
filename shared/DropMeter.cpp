@@ -18,9 +18,9 @@ DropPoint::DropPoint(){
 //--------------------------------------------------------------
 void DropPoint::draw(){
     for ( auto & r : rings ){
-        r.x *= 1.01;
-        r.y *= 1.01;
-        r.z *= .9;
+        r.x *= 1.01; // scale up x
+        r.y *= 1.01; // scale up y
+        r.z *= .9;   // fade out alpha
     }
     
     color.a *= .9;
@@ -56,10 +56,10 @@ void DropPoint::activate( float level ){
     
     int ran = floor(ofRandom(3,8));
     for (int i=0; i<ran; i++){
-        if ( bEven ){
-            rings.push_back(ofVec3f( (i + 1 ) * scale,(i + 1 ) * scale, level) );
-        } else {
-            rings.push_back(ofVec3f( (i + 1 ) * scale,(i + 1 ) * scale, level) );
+        // x = x scale, y = y scale, z = alpha
+        rings.push_back(ofVec3f( (i + 1 ) * scale,(i + 1 ) * scale, level) );
+        
+        if ( !bEven ){
             scale *= scale;
         }
     }
@@ -83,6 +83,7 @@ void DropMeter::setup(){
 void DropMeter::render(){
     ofPushMatrix();
     
+    // cleanup "dead" drops
     for (int i=grid.size()-1; i>=0; i--){
         if ( grid[i].color.a == 0.0 ){
             grid.erase(grid.begin() + i);

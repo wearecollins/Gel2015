@@ -29,12 +29,14 @@ public:
     
     virtual void setup() = 0;
     
-    
+    // "live"
     virtual void updateAll( const std::map<string, PointMessage> & messages ){
         this->messages = &messages;
     }
     
+    // average
     virtual void update( int val ){
+        // easing value, maybe deprecate?
         value = value * .7 + (float) val * .3;
         
         if ( bFadeOut ){
@@ -44,6 +46,7 @@ public:
         }
     }
     
+    // rename! This says "draw input" or not
     virtual void setActive( bool active = true ){
         bActive = active;
     }

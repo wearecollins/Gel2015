@@ -24,6 +24,7 @@ static ofVec2f getGridPoint( float value ){
     if ( value < 1 ){
         pnt.set(ofMap(value, 0,1, 0, getProjectorWidth()/2.),
                 ofMap(value, 0,1, getProjectorHeight()/2.0, 0));
+        
     } else if ( value >= 1 && value < 2 ){
         pnt.set(ofMap(value, 0,1, 0, getProjectorWidth()/2.),
                 ofMap(value, 0,1, getProjectorHeight()/2.0, 0));
@@ -43,7 +44,7 @@ static ofVec2f getGridPoint( float value ){
 
 struct PointMessage {
     Poco::LocalDateTime time;
-    ofVec2f point;
+    ofVec2f point; // deprecated
     string uniqueId;
     ofColor color;
     int     direction;

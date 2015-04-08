@@ -22,7 +22,7 @@
 
 // overlays
 #include "LevelIntro.h"
-#include "CelebrationOverlay.h"
+//#include "CelebrationOverlay.h"
 
 class GameController {
     friend class Spacebrew::Connection;
