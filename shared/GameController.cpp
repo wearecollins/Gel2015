@@ -73,7 +73,7 @@ void GameController::triggerCelebration(){
     currentIntro->activate();
     currentLive->partyMode();
     
-    spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"you did it!\"}");
+    spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
 }
 
 //--------------------------------------------------------------
@@ -123,7 +123,7 @@ void GameController::setLevel ( Level level ){
     
 //    currentOutro = levelOutros[ currentLevel ];
     
-    spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\" " +  levelToString( level ) + "\"}");
+    spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( level ) + "\"}");
 }
 
 

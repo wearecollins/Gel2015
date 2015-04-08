@@ -69,6 +69,17 @@ html, body {
   background-color:black;
 }
 
+/* Can't touch this */
+html, body, table, tr, div, svg {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Structure */
+
 .box {
   width: 33.3%;
   height:100%;
@@ -80,6 +91,8 @@ html, body {
   height:100%;
   width:100%;
   position: absolute;
+  opacity: 0;
+  transition: opacity ease-in-out .2s;
 }
 
 .border{
@@ -87,6 +100,8 @@ html, body {
   height: 100%;
   padding: 2%;
 }
+
+/* LEVEL 1 */
 
 #left .border {
   background-color: rgb(255,255,0);
@@ -123,18 +138,34 @@ td {
   vertical-align: middle;
 }
 
-html, body, table, tr, div, svg {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-  }
+/* LEVEL 2 */
+.circle {
+  opacity: 0;
+  transition: opacity ease-in-out .2s;
+  position: absolute;
+  width: 10%;
+  height: 0;
+  padding: 5% 0;
+  margin: 1em auto;
+  z-index: 1;
+}
 
+#ball {
+  border-radius: 50%;
+  background-color: rgb(0,255,255);
+}
 
+/* LEVEL 3 */
 
-
-
+/* PARTY MODE */
+#party {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity, background-color ease-in-out .2s;
+}
 
 /* ==========================================================================
    Helper classes
