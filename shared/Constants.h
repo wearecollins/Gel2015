@@ -26,8 +26,8 @@ static ofVec2f getGridPoint( float value ){
                 ofMap(value, 0,1, getProjectorHeight()/2.0, 0));
         
     } else if ( value >= 1 && value < 2 ){
-        pnt.set(ofMap(value, 0,1, 0, getProjectorWidth()/2.),
-                ofMap(value, 0,1, getProjectorHeight()/2.0, 0));
+        pnt.set(ofMap(value, 1,2, getProjectorWidth()/2., getProjectorWidth()),
+                ofMap(value, 1,2, 0, getProjectorHeight()/2.0));
         
     } else if ( value >= 2 && value < 3 ){
         
@@ -35,8 +35,8 @@ static ofVec2f getGridPoint( float value ){
                 ofMap(value, 2,3, getProjectorHeight()/2.0, getProjectorHeight()));
         
     } else if ( value >= 3 ){
-        pnt.set(ofMap(value, 2,3, getProjectorWidth(), getProjectorWidth()/2.),
-                ofMap(value, 2,3, getProjectorHeight()/2.0, getProjectorHeight()));
+        pnt.set(ofMap(value, 3,4, getProjectorWidth(), getProjectorWidth()/2.),
+                ofMap(value, 3,4, getProjectorHeight()/2.0, getProjectorHeight()));
         
     }
     return pnt;
@@ -47,7 +47,7 @@ struct PointMessage {
     ofVec2f point; // deprecated
     string uniqueId;
     ofColor color;
-    int     direction;
+    int     direction; //0-3 = L U R D
 };
 
 class Settings {
