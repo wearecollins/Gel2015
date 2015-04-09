@@ -8,6 +8,7 @@
 
 #include "DropMeter.h"
 
+/*
 #pragma mark DropPoint
 
 //--------------------------------------------------------------
@@ -68,6 +69,8 @@ void DropPoint::activate( float level ){
 }
 
 #pragma mark DropMeter
+ 
+ */
 
 //--------------------------------------------------------------
 DropMeter::DropMeter(){
@@ -85,37 +88,43 @@ void DropMeter::render(){
     
     // cleanup "dead" drops
     for (int i=grid.size()-1; i>=0; i--){
-        if ( grid[i].color.a == 0.0 ){
+        grid[i]->update(1./60.);
+        if ( grid[i]->deadDrop() ){
             grid.erase(grid.begin() + i);
         }
     }
     
     // activate based on value
     ofVec2f pnt = getGridPoint( value );
-    
-    float rad = 300;
+
+    // add a bit of randomness to the height for now until we re-think the
+    // mapped value distribution stuff
+    pnt.y += ofRandom(-100, 100);
     
     if ( messages != NULL ){
         
     }
-    
+
+    // check for nearby circles so we don't draw a mess on top of each other
+    float rad = 175;
     bool bFound = false;
     
     for (auto & g : grid ){
-        if ( abs( g.distance(pnt)) < rad ){
+        if ( abs( g->distance(pnt)) < rad ){
             bFound = true;
         }
     }
     
     if ( !bFound && bActive ){
-        grid.push_back(DropPoint());
-        grid.back().set(pnt);
-        grid.back().activate();
+        DropPoint *dp = new DropPoint();
+        dp->setup(pnt);
+        grid.push_back(dp);
+//        grid.back().activate();
     }
     
     
     for (auto & g : grid ){
-        g.draw();
+        g->draw();
     }
     
     ofPopMatrix();

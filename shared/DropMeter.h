@@ -9,7 +9,9 @@
 #pragma once 
 
 #include "LiveInput.h"
+#include "DropPoint.h"
 
+/*
 class DropPoint : public ofVec2f {
 public:
     DropPoint();
@@ -22,6 +24,7 @@ public:
 protected:
     vector<ofVec3f> rings;
 };
+ */
 
 
 class DropMeter : public LiveInput {
@@ -34,5 +37,5 @@ public:
     void partyMode();
     
 protected:
-    vector<DropPoint> grid;
+    vector<DropPoint*> grid;
 };
