@@ -29,6 +29,7 @@ var Sender = function(){
 
 		// configure the publication and subscription feeds
 		sb.addPublish("direction", "pad", "0"); // 0-3, URDL
+		sb.addPublish("infoevent", "event", "");
 
 		sb.onOpen = onOpen;
 		sb.onClose = onClose;
@@ -39,7 +40,6 @@ var Sender = function(){
 
 		document.body.style.backgroundColor = "rgb(" + color.r +","+ color.g +","+ color.b +")";
 		$("#touch").css("backgroundColor", "rgb(" + (255-color.r) +","+ (255-color.g) +","+ (255-color.b) +")");
-
 
 		// connect to spacbrew
 		sb.connect();
@@ -65,8 +65,7 @@ var Sender = function(){
 
 	// private
 	function onOpen(){
-		var o = {r:color.r, g:color.g, b:color.b, id:app_name};
-		sb.send("announce", "announce", JSON.stringify(o));
+		setTimeout( function(){sb.send("infoevent", "event", app_name);}, 1000);
 	}
 
 	function onClose(){

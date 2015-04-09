@@ -11,6 +11,7 @@
 //--------------------------------------------------------------
 GameController::GameController(){
     currentLevel = LEVEL_ZERO; // debug!
+    bPartyMode = false;
 }
 
 //--------------------------------------------------------------
@@ -41,6 +42,7 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     
     // setup connection to control app
     this->spacebrew = &sb;
+    spacebrew->addSubscribe("infoevent", "event" );
     spacebrew->addPublish("gameevent", "event" );
     
     // let's go
@@ -74,6 +76,7 @@ void GameController::triggerCelebration(){
     currentLive->partyMode();
     
     spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
+    bPartyMode = true;
 }
 
 //--------------------------------------------------------------
@@ -116,6 +119,8 @@ void GameController::triggerLive(){
 
 //--------------------------------------------------------------
 void GameController::setLevel ( Level level ){
+    bPartyMode = false;
+    
     currentLevel = level;
     currentLive = levelInputs[ currentLevel ];
     currentIntro = levelIntros[ currentLevel ];
@@ -149,8 +154,18 @@ string GameController::levelToString( Level level ){
 
 //--------------------------------------------------------------
 void GameController::onMessage( Spacebrew::Message & m ){
-    Json::Reader    jsonReader;
-    Json::Value     json;
+    if ( m.name == "infoevent" ){
+        cout << "send status update"<<endl;
+        // for now, just broadcast current level and if we're in party mode
+        
+        if ( bPartyMode ){
+            spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
+        } else {
+            spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( currentLevel ) + "\"}");
+        }
+    }
+//    Json::Reader    jsonReader;
+//    Json::Value     json;
     
 //    if ( m.name == "gameevent"){
 //        ofStringReplace(m.value, "\\", ""); // is this still necessary?

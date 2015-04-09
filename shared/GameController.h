@@ -52,7 +52,8 @@ public:
     
 protected:
     
-    Level currentLevel;
+    Level   currentLevel;
+    bool    bPartyMode;
     
     LevelIntro *            currentIntro;
     LiveInput *             currentLive;

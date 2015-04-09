@@ -98,6 +98,8 @@ var App = function(){
 
 	function setupLevelTwo(){
 		teardownPartyMode();
+		$("#container").css("opacity", 1);
+		teardownLevelOne();
 		$("#ball").css("opacity", 1);
 		$("#"+ getDirName(0) +"_border").css("background-color", "white");
 		$("#"+ getDirName(1) +"_border").css("background-color", "white");
@@ -112,6 +114,8 @@ var App = function(){
 
 	function setupLevelThree(){
 		teardownPartyMode();
+		$("#container").css("opacity", 1);
+		teardownLevelOne();
 		$("#compass").css("opacity", 1);
 
 		// THIS SHOULD BE CSS DUMMY
@@ -269,16 +273,22 @@ var App = function(){
 
 			if ( data.name == "level" ){
 				if ( data.value == "level one"){
-					setupLevelOne();
-					current_level = 1;
+					if ( current_level != 1){
+						setupLevelOne();
+						current_level = 1;
+					}
 				} else if (data.value == "level two"){
-					teardownLevelOne();
-					setupLevelTwo();
-					current_level = 2;
+					if ( current_level != 2){
+						teardownLevelOne();
+						setupLevelTwo();
+						current_level = 2;
+					}
 				} else if (data.value == "level three"){
-					teardownLevelTwo();
-					setupLevelThree();
-					current_level = 3;
+					if ( current_level != 3){
+						teardownLevelTwo();
+						setupLevelThree();
+						current_level = 3;
+					}
 				}
 			} else if ( data.name == "trigger"){
 				// this should be a partial match, duh
