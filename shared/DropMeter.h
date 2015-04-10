@@ -11,22 +11,6 @@
 #include "LiveInput.h"
 #include "DropPoint.h"
 
-/*
-class DropPoint : public ofVec2f {
-public:
-    DropPoint();
-    void draw();
-    void activate( float level=255);
-    
-    float   radius;
-    ofColor color;
-    
-protected:
-    vector<ofVec3f> rings;
-};
- */
-
-
 class DropMeter : public LiveInput {
 public:
     
