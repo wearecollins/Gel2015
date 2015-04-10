@@ -219,7 +219,7 @@ var App = function(){
 				$("#ball").css("left", map(gestureHandler.getState().gyro.gamma, 0, 1024, $("ball").width(), window.innerWidth - $("ball").width()) + "px");
 				
 				var dir = Math.floor(map(gestureHandler.getState().gyro.gamma, 200, 700, 0, 2));
-				if ( Math.abs(lastStates.gamma - gestureHandler.getState().gyro.gamma) > moveThreshold ){
+				if ( Math.abs(lastStates.gamma - gestureHandler.getState().gyro.gamma) > moveThreshold * 20 ){
 					$("#"+ getDirName(dir) +"_border").css("background-color", colors[dir]);
 					sender.send( dir );
 				}
