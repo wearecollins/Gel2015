@@ -14,7 +14,7 @@ int main( int argc, char * const argv[] )
 	initSettings.isOpaque				= false;
 	initSettings.windowLevel			= NSScreenSaverWindowLevel;
 	initSettings.hasWindowShadow		= false;
-	initSettings.numFSAASamples			= 4;
+//	initSettings.numFSAASamples			= 4;
     
     // change these vars to adjust the width and height
 	initSettings.initRect.size.width	= MSA::ofxCocoa::rectForAllScreens().size.width;

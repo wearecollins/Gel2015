@@ -42,6 +42,7 @@ public:
     void draw();
     
     // events
+    void triggerPrevLevel();
     void triggerNextLevel();
     void triggerLive();
     void triggerCelebration();

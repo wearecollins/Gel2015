@@ -9,7 +9,7 @@ ofApp::ofApp(){
 void ofApp::setup(){
     [MSA::ofxCocoa::glWindow() setCollectionBehavior:NSWindowCollectionBehaviorStationary|NSWindowCollectionBehaviorCanJoinAllSpaces|NSWindowCollectionBehaviorFullScreenAuxiliary];
     
-//    [MSA::ofxCocoa::glWindow() setIgnoresMouseEvents:YES];
+    [MSA::ofxCocoa::glWindow() setIgnoresMouseEvents:YES];
     
     ofBackground( ofColor(0,0,0,0) );
 //	ofSetFrameRate(60);
@@ -21,6 +21,8 @@ void ofApp::setup(){
     gameController.setup(processor,spacebrew);
     
     spacebrew.connect( server, name, "");
+    spacebrew.addSubscribe("windowEvent", "string");
+    
     ofAddListener(spacebrew.onMessageEvent, this, &ofApp::onMessage);
     
     ofSetCircleResolution(60);
@@ -57,6 +59,29 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::onMessage(Spacebrew::Message & m){
     // these are handled in gamecontroller and inputprocessor
+    
+    if (m.name == "windowEvent"){
+        if (m.value == "level_prev"){
+            gameController.triggerPrevLevel();
+            
+        } else if (m.value == "level_next"){
+            gameController.triggerNextLevel();
+        } else if (m.value == "slide_prev"){
+            gameController.triggerPrevFrame();
+        } else if (m.value == "slide_next"){
+            gameController.triggerNextFrame();
+            
+        } else if (m.value == "start_level"){
+            gameController.triggerLive();
+        } else if (m.value == "finish_level"){
+            gameController.triggerCelebration();
+            
+        } else if (m.value == "mouse_on"){
+            [MSA::ofxCocoa::glWindow() setIgnoresMouseEvents:NO];
+        } else if (m.value == "mouse_off"){
+            [MSA::ofxCocoa::glWindow() setIgnoresMouseEvents:YES];
+        }
+    }
 }
 
 //--------------------------------------------------------------

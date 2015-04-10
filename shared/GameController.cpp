@@ -81,6 +81,21 @@ void GameController::triggerCelebration(){
 }
 
 //--------------------------------------------------------------
+void GameController::triggerPrevLevel(){
+    currentIntro->deactivate();
+    currentLive->deactivate();
+    //    currentOutro->deactivate();
+    
+    Level next = currentLevel;
+    next = (Level) ((int) currentLevel - 1);
+    
+    if ( next < LEVEL_ZERO ){
+        next = LEVEL_ZERO;
+    }
+    setLevel(next);
+}
+
+//--------------------------------------------------------------
 void GameController::triggerNextLevel(){
     currentIntro->deactivate();
     currentLive->deactivate();
