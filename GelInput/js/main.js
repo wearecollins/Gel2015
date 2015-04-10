@@ -211,15 +211,26 @@ var App = function(){
 	function draw(){
 		window.requestAnimationFrame(draw.bind(this));
 
+		var shaking = false;
+		if ( current_level > 1 ){
+			for ( var state in gestureHandler.getState().accelStates ){
+				if ( Math.abs(lastStates[state] -  gestureHandler.getState().accel[state]) > moveThreshold/10. ){
+					shaking = true;
+				}
+				lastStates[state] = gestureHandler.getState().accel[state];
+			}
+		}
+
 		if ( current_level == 2 ){
 
-			// only send if moving!
 			if ( gestureHandler.getState().gyroStates.beta ){
 				$("#ball").css("top", map(gestureHandler.getState().gyro.beta, 0, 1024, $("ball").width(), window.innerHeight - $("ball").width()) + "px");
 				$("#ball").css("left", map(gestureHandler.getState().gyro.gamma, 0, 1024, $("ball").width(), window.innerWidth - $("ball").width()) + "px");
 				
 				var dir = Math.floor(map(gestureHandler.getState().gyro.gamma, 200, 700, 0, 2));
-				if ( Math.abs(lastStates.gamma - gestureHandler.getState().gyro.gamma) > moveThreshold * 20 ){
+				
+				// only send if moving!
+				if ( shaking ){
 					$("#"+ getDirName(dir) +"_border").css("background-color", colors[dir]);
 					sender.send( dir );
 				}
@@ -238,14 +249,6 @@ var App = function(){
 			$("#compass").css("-ms-transform", "rotate(" + (-(angle-targetNorth) )+ "deg)");
 			$("#compass").css("-webkit-transform", "rotate(" + (-(angle-targetNorth) ) + "deg)");
 			$("#compass").css("transform", "rotate(" + (-(angle-targetNorth) ) + "deg)");
-
-			var shaking = false;
-			for ( var state in gestureHandler.getState().accelStates ){
-				if ( Math.abs(lastStates[state] -  gestureHandler.getState().accel[state]) > moveThreshold/10. ){
-					shaking = true;
-				}
-				lastStates[state] = gestureHandler.getState().accel[state];
-			}
 
 			// only send if moving!
 			if ( shaking){
