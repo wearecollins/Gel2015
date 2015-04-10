@@ -1,3 +1,7 @@
+# Xcode
 *.app
 xcuserdata
 *.xccheckout
+
+# Node
+node_modules
