@@ -55,7 +55,13 @@ public:
     }
     
     void draw(){
+        
         if ( currentFrame != NULL ){
+            
+//            ofSetColor(0,255);
+//            ofRect(0,0, getProjectorWidth(), getProjectorHeight());
+            ofSetColor(255);
+            
             currentFrame->draw();
         }
         

@@ -12,6 +12,7 @@
 #include "Constants.h"
 
 class Overlay : public ofVec2f {
+    friend class LevelIntro;
 public:
     
     Overlay(){
@@ -25,7 +26,7 @@ public:
         fbo.allocate(ofGetWidth(), ofGetHeight());
     }
     
-    virtual void activate( float levelBg=200, float level = 255 ){
+    virtual void activate( float levelBg=255, float level = 255 ){
         bActive = true;
         targetAlpha     = level;
         targetBgAlpha   = levelBg;

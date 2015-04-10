@@ -74,12 +74,14 @@ bool setAudioOutput( string targetDevice ){
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofSetFrameRate(60);
     ofXml settings;
     settings.load("settings.xml");
     string server = settings.getValue("server");
     string device = settings.getValue("device");
     int port = settings.getValue("port", 9000);
     
+    spacebrew.setAutoReconnect();
     spacebrew.connect(server, port, "gelVoice");
     
     cout << device << endl;

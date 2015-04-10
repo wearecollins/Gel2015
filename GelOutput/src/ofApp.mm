@@ -20,6 +20,7 @@ void ofApp::setup(){
     processor.setup(spacebrew);
     gameController.setup(processor,spacebrew);
     
+    spacebrew.setAutoReconnect();
     spacebrew.connect( server, name, "");
     spacebrew.addSubscribe("windowEvent", "string");
     
