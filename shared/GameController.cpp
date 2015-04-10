@@ -71,6 +71,7 @@ void GameController::draw(){
 
 //--------------------------------------------------------------
 void GameController::triggerCelebration(){
+    if ( bPartyMode ) return;
     currentIntro->setOutro();
     currentIntro->activate();
     currentLive->partyMode();

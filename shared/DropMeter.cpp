@@ -32,7 +32,7 @@ void DropMeter::render(){
     }
 
     // check if we're in party mode and add more drops every few frames
-    if (bPartyMode && (ofGetFrameNum() % 3) == 0) {
+    if (bPartyMode && (ofGetFrameNum() % 10) == 0) {
         partyMode();
     }
     
@@ -76,7 +76,7 @@ void DropMeter::render(){
 
 //--------------------------------------------------------------
 void DropMeter::partyMode(){
-
+    
     LiveInput::partyMode();
 
     int dropsToAdd = 4;
@@ -85,8 +85,8 @@ void DropMeter::partyMode(){
     while (dropsToAdd > 0) {
 
         // pick a random point from a grid that covers the screen
-        int x = (int) ofRandomWidth() / gridSpacing;
-        int y = (int) ofRandomHeight() / gridSpacing;
+        int x = (int) ofRandom(0, getProjectorWidth()) / gridSpacing;
+        int y = (int) ofRandom(0, getProjectorHeight())  / gridSpacing;
         ofVec2f pnt = ofVec2f(x, y);
         pnt *= gridSpacing;
 

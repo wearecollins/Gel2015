@@ -47,9 +47,11 @@ void ofApp::draw(){
     static bool bSet = false;
     if (!bSet){
         
-        [MSA::ofxCocoa::glView() setSyncToDisplayLink:YES];
+//        [MSA::ofxCocoa::glView() setSyncToDisplayLink:YES];
         bSet = true;
     }
+    
+    ofDrawBitmapString(ofToString(ofGetFrameRate(),3), 20,20);
 }
 
 //--------------------------------------------------------------
