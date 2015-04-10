@@ -19,3 +19,6 @@ ${PREFIX}robotconscience/ofxCocoa.git --branch dev
 
 # speech
 ${PREFIX}latrokles/ofxSpeech.git
+
+# animation
+${PREFIX}armadillu/ofxAnimatable.git

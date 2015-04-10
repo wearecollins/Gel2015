@@ -46,6 +46,11 @@
 		5AE95ADB5549701423B6DA48 /* ofxUITabBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A64B8AA7481267CD4A76C16B /* ofxUITabBar.cpp */; };
 		60012C723B05938A3D388335 /* ofxUIValuePlotter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D902D60E5CCFA9F2554BC7C /* ofxUIValuePlotter.cpp */; };
 		63B57AC5BF4EF088491E0317 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50DF87D612C5AAE17AAFA6C0 /* ofxXmlSettings.cpp */; };
+		6645B5F21AD628A70079AA65 /* DropPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6645B5F01AD628A70079AA65 /* DropPoint.cpp */; };
+		6645B5FD1AD628E90079AA65 /* ofxAnimatable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6645B5F51AD628E90079AA65 /* ofxAnimatable.cpp */; };
+		6645B5FE1AD628E90079AA65 /* ofxAnimatableFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6645B5F71AD628E90079AA65 /* ofxAnimatableFloat.cpp */; };
+		6645B5FF1AD628E90079AA65 /* ofxAnimatableOfColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6645B5F91AD628E90079AA65 /* ofxAnimatableOfColor.cpp */; };
+		6645B6001AD628E90079AA65 /* ofxAnimatableOfPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6645B5FB1AD628E90079AA65 /* ofxAnimatableOfPoint.cpp */; };
 		6D73A566CFEC0B462FE6E43C /* Reactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2232A9453E355593EF36ADA7 /* Reactor.cpp */; };
 		7252706DA14C1BE63950ADDA /* ofxUIFPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEB61645EF9120F5BACB7462 /* ofxUIFPS.cpp */; };
 		740A58CBFDFE578C83A349AF /* ofxUISlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0DE8B77977749C1835A9472B /* ofxUISlider.cpp */; };
@@ -234,6 +239,16 @@
 		64C6F7AD018FFD34C7ABB6F2 /* ofxUI.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUI.h; path = ../../../addons/ofxUI/src/ofxUI.h; sourceTree = SOURCE_ROOT; };
 		64F3DE24F191ECED9DBE903C /* ofxUIRotarySlider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUIRotarySlider.cpp; path = ../../../addons/ofxUI/src/ofxUIRotarySlider.cpp; sourceTree = SOURCE_ROOT; };
 		653CFAE31336DAA04B1F1503 /* ofxUI2DGraph.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUI2DGraph.h; path = ../../../addons/ofxUI/src/ofxUI2DGraph.h; sourceTree = SOURCE_ROOT; };
+		6645B5F01AD628A70079AA65 /* DropPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DropPoint.cpp; path = ../../shared/DropPoint.cpp; sourceTree = "<group>"; };
+		6645B5F11AD628A70079AA65 /* DropPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DropPoint.h; path = ../../shared/DropPoint.h; sourceTree = "<group>"; };
+		6645B5F51AD628E90079AA65 /* ofxAnimatable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatable.cpp; sourceTree = "<group>"; };
+		6645B5F61AD628E90079AA65 /* ofxAnimatable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAnimatable.h; sourceTree = "<group>"; };
+		6645B5F71AD628E90079AA65 /* ofxAnimatableFloat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatableFloat.cpp; sourceTree = "<group>"; };
+		6645B5F81AD628E90079AA65 /* ofxAnimatableFloat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAnimatableFloat.h; sourceTree = "<group>"; };
+		6645B5F91AD628E90079AA65 /* ofxAnimatableOfColor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatableOfColor.cpp; sourceTree = "<group>"; };
+		6645B5FA1AD628E90079AA65 /* ofxAnimatableOfColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAnimatableOfColor.h; sourceTree = "<group>"; };
+		6645B5FB1AD628E90079AA65 /* ofxAnimatableOfPoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatableOfPoint.cpp; sourceTree = "<group>"; };
+		6645B5FC1AD628E90079AA65 /* ofxAnimatableOfPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAnimatableOfPoint.h; sourceTree = "<group>"; };
 		664D65407BE633C038FA9498 /* ofxUIFPSSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIFPSSlider.h; path = ../../../addons/ofxUI/src/ofxUIFPSSlider.h; sourceTree = SOURCE_ROOT; };
 		69668FDE141262BC3C6CA929 /* jsoncpp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = jsoncpp.cpp; path = ../../../addons/ofxLibwebsockets/libs/jsoncpp/jsoncpp.cpp; sourceTree = SOURCE_ROOT; };
 		702A2528CA64B397E9B91ABE /* ofxUIToggleMatrix.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUIToggleMatrix.cpp; path = ../../../addons/ofxUI/src/ofxUIToggleMatrix.cpp; sourceTree = SOURCE_ROOT; };
@@ -293,7 +308,7 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* BarDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = BarDebug.app; path = GelOutputDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* GelOutputDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GelOutputDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
 		E4C2424410CC5A17004149E2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		E4C2424510CC5A17004149E2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -423,6 +438,8 @@
 				017D04B81AC45D5E003E75F7 /* GridMeter.h */,
 				0170A3C31AC4A31700410523 /* DropMeter.cpp */,
 				0170A3C41AC4A31700410523 /* DropMeter.h */,
+				6645B5F01AD628A70079AA65 /* DropPoint.cpp */,
+				6645B5F11AD628A70079AA65 /* DropPoint.h */,
 			);
 			name = live_meter;
 			sourceTree = "<group>";
@@ -567,6 +584,30 @@
 			name = jsoncpp;
 			sourceTree = "<group>";
 		};
+		6645B5F31AD628E90079AA65 /* ofxAnimatable */ = {
+			isa = PBXGroup;
+			children = (
+				6645B5F41AD628E90079AA65 /* src */,
+			);
+			name = ofxAnimatable;
+			sourceTree = "<group>";
+		};
+		6645B5F41AD628E90079AA65 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6645B5F51AD628E90079AA65 /* ofxAnimatable.cpp */,
+				6645B5F61AD628E90079AA65 /* ofxAnimatable.h */,
+				6645B5F71AD628E90079AA65 /* ofxAnimatableFloat.cpp */,
+				6645B5F81AD628E90079AA65 /* ofxAnimatableFloat.h */,
+				6645B5F91AD628E90079AA65 /* ofxAnimatableOfColor.cpp */,
+				6645B5FA1AD628E90079AA65 /* ofxAnimatableOfColor.h */,
+				6645B5FB1AD628E90079AA65 /* ofxAnimatableOfPoint.cpp */,
+				6645B5FC1AD628E90079AA65 /* ofxAnimatableOfPoint.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxAnimatable/src;
+			sourceTree = "<group>";
+		};
 		6E54289412D2D94F45A05113 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -648,6 +689,7 @@
 				AAE50E341C7382A4EF10AF5A /* ofxLibwebsockets */,
 				961F0189D3FC79A9A11F56E1 /* ofxSpacebrew */,
 				A492CE86424AB8905550BFD8 /* ofxUI */,
+				6645B5F31AD628E90079AA65 /* ofxAnimatable */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -826,7 +868,7 @@
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				E4B69B5B0A3A1756003C02F2 /* BarDebug.app */,
+				E4B69B5B0A3A1756003C02F2 /* GelOutputDebug.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -871,7 +913,7 @@
 			);
 			name = GelOutput;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* BarDebug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* GelOutputDebug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -970,6 +1012,7 @@
 				F1E8DE8734BA6F69A5112FA8 /* ofxUIBaseDraws.cpp in Sources */,
 				C381F2B7CFD84C0E540EB4BC /* ofxUIBiLabelSlider.cpp in Sources */,
 				7D393646FB859A930EF58917 /* ofxUIButton.cpp in Sources */,
+				6645B5FD1AD628E90079AA65 /* ofxAnimatable.cpp in Sources */,
 				019DF13F1AC3017C0028D667 /* AppDelegate.mm in Sources */,
 				7BE46522B64E24FAEDE1A25D /* ofxUICanvas.cpp in Sources */,
 				01E663A01ACDCA19009BBB91 /* InputProcessor.cpp in Sources */,
@@ -1005,9 +1048,12 @@
 				43BADBB2FE0F17D34B57A705 /* ofxUIScrollableCanvas.cpp in Sources */,
 				012B26A11AC1A5E10026D2EA /* ofxSvg.cpp in Sources */,
 				019DF14F1AC3181E0028D667 /* GameController.cpp in Sources */,
+				6645B5F21AD628A70079AA65 /* DropPoint.cpp in Sources */,
+				6645B5FF1AD628E90079AA65 /* ofxAnimatableOfColor.cpp in Sources */,
 				740A58CBFDFE578C83A349AF /* ofxUISlider.cpp in Sources */,
 				ADE7C2AFC51E3F7E5E389026 /* ofxUISortableList.cpp in Sources */,
 				012B26A01AC1A5E10026D2EA /* svgtiny_list.cpp in Sources */,
+				6645B5FE1AD628E90079AA65 /* ofxAnimatableFloat.cpp in Sources */,
 				BFEFCE32DAFE10A8EB519F6C /* ofxUISpacer.cpp in Sources */,
 				016D224E1AAA6823003840C7 /* main.mm in Sources */,
 				52AFF80A869790144ACCC9BA /* ofxUISpectrum.cpp in Sources */,
@@ -1015,6 +1061,7 @@
 				5AE95ADB5549701423B6DA48 /* ofxUITabBar.cpp in Sources */,
 				019DF1421AC3017C0028D667 /* GLView.mm in Sources */,
 				019DF1411AC3017C0028D667 /* Events.mm in Sources */,
+				6645B6001AD628E90079AA65 /* ofxAnimatableOfPoint.cpp in Sources */,
 				C961BE22AB9A8CCF037FC18F /* ofxUITextArea.cpp in Sources */,
 				012B269E1AC1A5E10026D2EA /* svgtiny.cpp in Sources */,
 				F8D05F7C7F785CE323983B47 /* ofxUITextInput.cpp in Sources */,
@@ -1224,6 +1271,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 				);
 				PRODUCT_NAME = GelOutputDebug;
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1309,6 +1357,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 				);
 				PRODUCT_NAME = GelOutput;
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

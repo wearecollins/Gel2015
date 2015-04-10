@@ -18,6 +18,7 @@ public:
         messages = NULL;
         fill.a = 0;
         bFadeOut = true;
+        bPartyMode = false;
         
         value = 0;
         
@@ -53,6 +54,7 @@ public:
     
     virtual void activate(){
         bFadeOut = false;
+        bPartyMode = false;
     }
     
     virtual void deactivate(){
@@ -66,14 +68,14 @@ public:
         render();
     }
     
-    virtual void partyMode() = 0;
+    virtual void partyMode() { bPartyMode = true; }
     
     virtual void render() = 0;
     
 protected:
     ofColor fill;
     float value;
-    bool bActive, bFadeOut;
+    bool bActive, bFadeOut, bPartyMode;
     ofImage overlay;
     
     ofFbo   renderTexture;
