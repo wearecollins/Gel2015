@@ -155,7 +155,6 @@ string GameController::levelToString( Level level ){
 //--------------------------------------------------------------
 void GameController::onMessage( Spacebrew::Message & m ){
     if ( m.name == "infoevent" ){
-        cout << "send status update"<<endl;
         // for now, just broadcast current level and if we're in party mode
         
         if ( bPartyMode ){
