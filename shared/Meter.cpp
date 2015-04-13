@@ -12,7 +12,7 @@
 void Meter::setup(){
 
     // load shader + image
-    meter.loadImage("graphics/level1/level1_meter.png");
+    meter.loadImage("graphics/level1/level1_meter_no_background.png");
     renderShader.load("","shaders/meterRender.frag");
     svg.load("graphics/level1/level1_meter.svg");
 
@@ -185,7 +185,7 @@ void Meter::render(){
     }
 
 
-    renderTexture.begin();
+//    renderTexture.begin();
     ofSetColor(255,10);
     ofRect(0, 0, renderTexture.getWidth(), renderTexture.getHeight());
 
@@ -256,16 +256,16 @@ void Meter::render(){
 //    if (ofGetKeyPressed(OF_KEY_SHIFT))
 //        drawClosestPoint();
 
-    renderTexture.end();
-
-//    ofSetColor(ofColor::white);
-    ofSetColor(255, fill.a);
-
-    renderShader.begin();
-    renderShader.setUniformTexture("alpha", meter.getTextureReference(), 2);
-    renderShader.setUniformTexture("render", renderTexture.getTextureReference(), 3);
-    renderTexture.draw(0,0 );
-    renderShader.end();
+//    renderTexture.end();
+//
+////    ofSetColor(ofColor::white);
+//    ofSetColor(255, fill.a);
+//
+//    renderShader.begin();
+//    renderShader.setUniformTexture("alpha", meter.getTextureReference(), 2);
+//    renderShader.setUniformTexture("render", renderTexture.getTextureReference(), 3);
+//    renderTexture.draw(0,0 );
+//    renderShader.end();
 
 }
 
