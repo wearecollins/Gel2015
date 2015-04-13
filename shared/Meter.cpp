@@ -22,8 +22,6 @@ void Meter::setup(){
     for (int i = 0; i < svg.getNumPath(); i++) {
         ofPath& path = svg.getPathAt(i);
         ofPolyline outline = path.getOutline()[0].getResampledBySpacing(1);
-
-        segments[i].line = outline;
         lines.push_back( outline );
     }
 
@@ -32,6 +30,7 @@ void Meter::setup(){
     int i = 0;
 
     // left segment
+    segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), ofColor::yellow);
     segments[i].meshes.push_back( createMesh(lines[i], 4525, 5310, ofColor::yellow) ); // innermost line
     segments[i].meshes.push_back( createMesh(lines[i], 3675, 4484, ofColor::yellow) );
     segments[i].meshes.push_back( createMesh(lines[i], 2797, 3633, ofColor::yellow) );
@@ -41,6 +40,7 @@ void Meter::setup(){
 
     // middle segment
     i++;
+    segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), ofColor::cyan);
     segments[i].meshes.push_back( createMesh(lines[i], 4540, 5321, ofColor::cyan) );
     segments[i].meshes.push_back( createMesh(lines[i], 3682, 4500, ofColor::cyan) );
     segments[i].meshes.push_back( createMesh(lines[i], 2802, 3648, ofColor::cyan) );
@@ -50,6 +50,7 @@ void Meter::setup(){
 
     // right segment
     i++;
+    segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), ofColor::magenta);
     segments[i].meshes.push_back( createMesh(lines[i], 4525, 5310, ofColor::magenta) );
     segments[i].meshes.push_back( createMesh(lines[i], 3675, 4484, ofColor::magenta) );
     segments[i].meshes.push_back( createMesh(lines[i], 2797, 3633, ofColor::magenta) );
@@ -205,31 +206,52 @@ void Meter::render(){
 //        ofEndShape();
 //    }
 
-    // draw the meshes
-    for (auto& segment : segments) {
-        // loop through each mesh of the segment
-        // (meshes correspond to each radiating line)
-        for (int i = 0; i < segment.meshes.size(); i++) {
+    if (!bPartyMode) {
+        // draw the meshes
+        for (auto& segment : segments) {
+            // loop through each mesh of the segment
+            // (meshes correspond to each radiating line)
+            for (int i = 0; i < segment.meshes.size(); i++) {
 
-            // reset alpha back to 0 for all
-            for (auto& color : segment.meshes[i].getColors()) {
-                color.a = 0;
-            }
-
-            // loop through each active pulse and accumulate alpha for each
-            // line of the segment
-            for (auto& pulse : segment.pulses) {
-                float alpha = calcAlphaForPulse(pulse->val(), i, segment.meshes.size(), 0.2);
+                // reset alpha back to 0 for all
                 for (auto& color : segment.meshes[i].getColors()) {
-                    color.a += alpha;
+                    color.a = 0;
                 }
+
+                // loop through each active pulse and accumulate alpha for each
+                // line of the segment
+                for (auto& pulse : segment.pulses) {
+                    float alpha = calcAlphaForPulse(pulse->val(), i, segment.meshes.size(), 0.2);
+                    for (auto& color : segment.meshes[i].getColors()) {
+                        color.a += alpha;
+                    }
+                }
+
+                segment.meshes[i].drawWireframe();
+            }
+        }
+    } else {
+        // draw the meshes
+        for (auto& segment : segments) {
+
+            vector<ofFloatColor>& colors = segment.fullMesh.getColors();
+
+            // create an offset that changes with time
+            float j = ofGetElapsedTimef() * 3;
+
+            for (int i = 0; i < colors.size(); i++) {
+                // number of steps it takes to go from 0 -> 100% alpha
+                j += 1. / 150.;
+                j = fmod(j, 1);
+
+                colors[i].a = j;
             }
 
-            segment.meshes[i].drawWireframe();
+            segment.fullMesh.drawWireframe();
         }
     }
 
-    // used to find the indices in the polyline for where each radiating
+    // helper to find the indices in the polyline for where each radiating
     // line begins & ends
 //    if (ofGetKeyPressed(OF_KEY_SHIFT))
 //        drawClosestPoint();
@@ -277,6 +299,6 @@ void Meter::drawClosestPoint(){
 
 
 //--------------------------------------------------------------
-void Meter::partyMode(){
-    
-}
+//void Meter::partyMode(){
+//
+//}

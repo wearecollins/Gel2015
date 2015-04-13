@@ -13,7 +13,7 @@
 #include "ofxAnimatableFloat.h"
 
 struct RainbowSegment {
-    ofPolyline line;
+    ofMesh fullMesh;
     vector<ofMesh> meshes;
     vector <ofxAnimatableFloat*> pulses;
     Poco::LocalDateTime lastPulse;
@@ -28,8 +28,8 @@ public:
     
     void setup();
     void render();
-    void partyMode();
-    
+//    void partyMode();
+
 protected:
     
     ofImage meter;
