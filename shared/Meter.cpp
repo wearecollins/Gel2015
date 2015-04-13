@@ -176,6 +176,15 @@ void Meter::render(){
     if (bActive) {
         createPulse(value);
     }
+    
+    // @MATT: IT WOULD BE SUPER HELPFUL TO SEE SOME LIGHT FEEDBACK
+    // FROM ALL INPUT; IS THERE A WAY TO MAKE A "LIGHT" FEEDBACK?
+    
+//    if ( messages != NULL ){
+//        for ( auto & m : *messages ){
+//            createPulse(m.second.direction);
+//        }
+//    }
 
     // update animatables
     for (auto& segment : segments) {
