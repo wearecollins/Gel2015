@@ -39,8 +39,8 @@ var Sender = function(){
 		color.g = Math.floor(Math.random() * 255.);
 		color.b = Math.floor(Math.random() * 255.);
 
-		document.body.style.backgroundColor = "rgb(" + color.r +","+ color.g +","+ color.b +")";
-		$("#touch").css("backgroundColor", "rgb(" + (255-color.r) +","+ (255-color.g) +","+ (255-color.b) +")");
+		// document.body.style.backgroundColor = "rgb(" + color.r +","+ color.g +","+ color.b +")";
+		// $("#touch").css("backgroundColor", "rgb(" + (255-color.r) +","+ (255-color.g) +","+ (255-color.b) +")");
 
 
 		// connect to spacbrew

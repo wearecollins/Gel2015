@@ -33,23 +33,54 @@ var App = function(){
 		gestureHandler.setup();
 
 		// orientation stuff
-		window.addEventListener('orientationchange', function () {
-			switch (window.orientation){
-				// horiz
-				case -90:
-				case 90:
-					orientationState = 1;
-					break;
+		window.promptTimeout = null;
+		window.addEventListener('orientationchange', orientationChange, true);
 
-				// vertical
-				case 0:
-					orientationState = 0;
-					break;
-			}
-		}, true);
+		orientationChange();
 
 		// all done
 	}
+
+	function showLandscapePrompt(){
+		orientationState = 0;
+		window.clearTimeout(window.promptTimeout);
+		$("#landscape").css("visibility", "visible");
+		$("#landscape").css("display", "block");
+		$("#landscape").css("opacity", "1");
+
+	}
+
+	function hideLandscapePrompt(){
+		orientationState = 1;
+		$("#landscape").css("opacity", "0");
+		window.clearTimeout(window.promptTimeout);
+		window.promptTimeout = setTimeout(function(){
+			$("#landscape").css("visibility", "hidden");
+			$("#landscape").css("display", "none");
+		}, 500);
+	}
+
+	function orientationChange() {
+        var ua = navigator.userAgent.toLowerCase();
+        var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
+        if (isAndroid) {
+            //window.orientation is different for iOS and Android
+            if (window.orientation == 0 || window.orientation == 180) { //Landscape Mode
+            	hideLandscapePrompt();
+            }
+            else if (window.orientation == 90 || window.orientation == -90) { //Portrait Mode
+            	showLandscapePrompt();
+            }
+        }
+        else {
+            if (window.orientation == 90 || window.orientation == -90) { //Landscape Mode
+            	hideLandscapePrompt();
+            }
+            else if (window.orientation == 0 || window.orientation == 180) { //Portrait Mode
+            	showLandscapePrompt();
+            }
+        }
+    }
 
 	// @begin Level functions 
 	

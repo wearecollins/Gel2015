@@ -67,6 +67,9 @@ textarea {
 
 html, body {
   background-color:black;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* Can't touch this */
@@ -93,12 +96,40 @@ html, body, table, tr, div, svg {
   position: absolute;
   opacity: 0;
   transition: opacity ease-in-out .2s;
+  top:0px;
+  left:0px;
+  z-index:0;
 }
 
 .border{
   width: 100%;
   height: 100%;
   padding: 2%;
+}
+
+/* LANDSCAPE PROMPT */
+
+#landscape {
+  width: 100%;
+  height: 100%;
+  background-color:black;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+  transition: opacity ease-in-out .2s;
+  position: absolute;
+}
+
+#landscape img {
+  width:90%;
+  position: absolute;
+  /*display: inline-block;
+  vertical-align: middle;*/  /* vertical alignment of the inline element */
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
 }
 
 /* LEVEL 1 */
@@ -170,6 +201,8 @@ td {
   z-index: 3;
   opacity: 0;
   transition: opacity, background-color ease-in-out .2s;
+  top:0px;
+  left:0px;
 }
 
 /* ==========================================================================
