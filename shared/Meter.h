@@ -50,8 +50,8 @@ protected:
     void drawClosestPoint();
     void onAnimFinished(ofxAnimatable::AnimationEvent& args);
 
-    Poco::LocalDateTime lastPulse;
-    vector<ofPolyline> lines;
+    Poco::LocalDateTime lastPulse;  // not actually used!
+    vector<ofPolyline> lines;       // only used to create meshes & in drawClosestPoint()
     vector<ofColor> colors;
     vector<RainbowSegment> segments;
     vector<PartySegment> partyModeSegments;
