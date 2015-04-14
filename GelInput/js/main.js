@@ -41,6 +41,8 @@ var App = function(){
 		// all done
 	}
 
+	// @ START PROMPT FUNCTIONS
+
 	function showLandscapePrompt(){
 		orientationState = 0;
 		window.clearTimeout(window.promptTimeout);
@@ -81,6 +83,8 @@ var App = function(){
             }
         }
     }
+
+	// @ END PROMPT FUNCTIONS
 
 	// @begin Level functions 
 	
@@ -125,16 +129,15 @@ var App = function(){
 		$("#left").unbind();
 		$("#up").unbind();
 		$("#right").unbind();
+		$("#container").css("opacity", 0);
 	}
 
 	function setupLevelTwo(){
 		teardownPartyMode();
-		$("#container").css("opacity", 1);
 		teardownLevelOne();
-		$("#ball").css("opacity", 1);
-		$("#"+ getDirName(0) +"_border").css("background-color", "white");
-		$("#"+ getDirName(1) +"_border").css("background-color", "white");
-		$("#"+ getDirName(2) +"_border").css("background-color", "white");
+		$("#level_two").css("opacity",1);
+		$("#level_two").css("display","block");
+		$("#level_two").css("visibility","visible");
 		// listen to events
 	}
 
@@ -182,6 +185,10 @@ var App = function(){
 		"rgb(255,255,0)","rgb(0,255,255)","rgb(255,0,255)"
 	];
 
+	var colors_alpha = [
+		"rgba(255,255,0,","rgba(0,255,255,","rgba(255,0,255,"
+	];
+
 	function getDirName( dir ){
 		switch(dir){
 			case 0:
@@ -214,76 +221,82 @@ var App = function(){
 	// @end Level functions 
 
 	function setupEvents( el ){
-		// el.addEventListener("mousedown", touchStart, false);
-		// el.addEventListener("touchstart", touchStart, false);
-		// el.addEventListener("touchmove", touchMove, false);
-		// el.addEventListener("mousemove", touchMove, false);
-		// el.addEventListener("touchend", touchEnd, false);
-		// el.addEventListener("mouseup", touchEnd, false);
-		// el.addEventListener("touchcancel", touchCancel, false);
-		// el.addEventListener("touchleave", touchEnd, false);
 	}
 
-	var lastStates = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0};
+	var lastStates = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0};
+	var vel = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0};
 
 	var targetNorth = 180;
 
 	var moveThreshold = 50;
 
+	var power = 0;
+
 	function draw(){
 		window.requestAnimationFrame(draw.bind(this));
 
 		var shaking = false;
-		if ( current_level > 1 ){
+		if ( current_level == 2 ){
+			vel.max = 0;
 			for ( var state in gestureHandler.getState().accelStates ){
-				if ( Math.abs(lastStates[state] -  gestureHandler.getState().accel[state]) > moveThreshold/10. ){
+				
+				vel[state] = Math.abs(lastStates[state] -  gestureHandler.getState().accel[state]);
+				if ( vel[state] > vel.max ) vel.max = vel[state];
+
+				if ( vel[state] > moveThreshold/10. ){
 					shaking = true;
 				}
 				lastStates[state] = gestureHandler.getState().accel[state];
 			}
-		}
 
-		if ( current_level == 2 ){
+			var dir = Math.round(map(gestureHandler.getState().gyro.alpha, 0, 1024, 0, 2));
+			power = power * .5 + Math.round(map(vel.max, 0, 10, 0, 3)) * .5;
 
-			if ( gestureHandler.getState().gyroStates.beta ){
-				$("#ball").css("top", map(gestureHandler.getState().gyro.beta, 0, 1024, $("ball").width(), window.innerHeight - $("ball").width()) + "px");
-				$("#ball").css("left", map(gestureHandler.getState().gyro.gamma, 0, 1024, $("ball").width(), window.innerWidth - $("ball").width()) + "px");
-				
-				var dir = Math.floor(map(gestureHandler.getState().gyro.gamma, 200, 700, 0, 2));
-				
-				// only send if moving!
-				if ( shaking ){
-					$("#"+ getDirName(dir) +"_border").css("background-color", colors[dir]);
-					sender.send( dir );
+			if ( lastStates.alpha != gestureHandler.getState().gyro.alpha){
+				lastStates.alpha = gestureHandler.getState().gyro.alpha;
+				$("#l2_border").css("background-color", colors[dir]);
+				$("#l2arrow_u").css("stroke", colors[dir]);
+				$("#l2arrow_m").css("stroke", colors[dir]);
+				$("#l2arrow_d").css("stroke", colors[dir]);
+			}
+
+			if ( vel.max != lastStates.max ){
+				switch (Math.round(power)){
+					case 0:
+						$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
+						$("#l2arrow_m").css("fill", colors_alpha[dir] + "0)");
+						$("#l2arrow_d").css("fill", colors_alpha[dir] + "0)");
+						break;
+					case 1:
+						$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
+						$("#l2arrow_m").css("fill", colors_alpha[dir] + "0)");
+						$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
+						break;
+
+					case 2:
+						$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
+						$("#l2arrow_m").css("fill", colors_alpha[dir] + "1)");
+						$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
+						break;
+
+					case 3:
+						$("#l2arrow_u").css("fill", colors_alpha[dir] + "1)");
+						$("#l2arrow_m").css("fill", colors_alpha[dir] + "1)");
+						$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
+						break;
 				}
-			} else {
-				$("#"+ getDirName(0) +"_border").css("background-color", "white");
-				$("#"+ getDirName(1) +"_border").css("background-color", "white");
-				$("#"+ getDirName(2) +"_border").css("background-color", "white");
+			}
+			power *= .9;
+
+			lastStates.max = vel.max;
+
+			// only send if moving!
+			if ( shaking ){
+				sender.send( dir );
 			}
 
 			// gestureHandler.getState().gamma
-
-			// orientationState == 1
 		} else if ( current_level == 3 ){
-			var angle = Math.floor(map(gestureHandler.getState().gyro.alpha, 0, 1024, 0, 360));
-
-
-			// only send if moving!
-			if ( shaking){
-				var dir = 1;
-				if ( Math.abs(targetNorth-angle) > 50 && targetNorth-angle < 0  ){
-					dir = 2;
-				} else if ( Math.abs(targetNorth-angle) > 50 && targetNorth-angle > 0  ){
-					dir = 0;
-				}
-				$("#"+ getDirName(dir) +"_border").css("background-color", colors[dir]);
-				sender.send( dir );
-			} else {
-				$("#"+ getDirName(0) +"_border").css("background-color", "white");
-				$("#"+ getDirName(1) +"_border").css("background-color", "white");
-				$("#"+ getDirName(2) +"_border").css("background-color", "white");
-			}
 		}
 	}
 
