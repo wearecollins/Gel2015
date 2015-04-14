@@ -12,11 +12,18 @@
 #include "ofxSvg.h"
 #include "ofxAnimatableFloat.h"
 
+// Holds 1/3 of the Raibow (left/middle/right)
 struct RainbowSegment {
-    ofMesh fullMesh;
-    vector<ofMesh> meshes;
-    vector <ofxAnimatableFloat*> pulses;
+    ofMesh fullMesh;                        // the full line
+    vector<ofMesh> meshes;                  // "radiating" lines
+    vector <ofxAnimatableFloat*> pulses;    // ~0->1 pulse through the segment
     Poco::LocalDateTime lastPulse;
+};
+
+// Holds shorter segments within each RainbowSegment for party mode
+struct PartySegment {
+    int startingIndex = 0;
+    ofColor color;
 };
 
 class Meter : public LiveInput {
@@ -28,7 +35,7 @@ public:
     
     void setup();
     void render();
-//    void partyMode();
+    void partyMode();
 
 protected:
     
@@ -44,7 +51,9 @@ protected:
     void onAnimFinished(ofxAnimatable::AnimationEvent& args);
 
     Poco::LocalDateTime lastPulse;
-    vector <ofPolyline> lines;
-    vector <RainbowSegment> segments;
+    vector<ofPolyline> lines;
+    vector<ofColor> colors;
+    vector<RainbowSegment> segments;
+    vector<PartySegment> partyModeSegments;
 
 };

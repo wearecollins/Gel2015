@@ -25,38 +25,42 @@ void Meter::setup(){
         lines.push_back( outline );
     }
 
+    colors.push_back(ofColor::yellow);
+    colors.push_back(ofColor::cyan);
+    colors.push_back(ofColor::magenta);
+
     // chop each line into parts between the corners and make a mesh for each
 
     int i = 0;
 
     // left segment
-    segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), ofColor::yellow);
-    segments[i].meshes.push_back( createMesh(lines[i], 4525, 5310, ofColor::yellow) ); // innermost line
-    segments[i].meshes.push_back( createMesh(lines[i], 3675, 4484, ofColor::yellow) );
-    segments[i].meshes.push_back( createMesh(lines[i], 2797, 3633, ofColor::yellow) );
-    segments[i].meshes.push_back( createMesh(lines[i], 1898, 2760, ofColor::yellow) );
-    segments[i].meshes.push_back( createMesh(lines[i], 963, 1856, ofColor::yellow) );
-    segments[i].meshes.push_back( createMesh(lines[i], 0, 925, ofColor::yellow) );     // outermost line
+    segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), colors[i]);
+    segments[i].meshes.push_back( createMesh(lines[i], 4525, 5310, colors[i]) ); // innermost line
+    segments[i].meshes.push_back( createMesh(lines[i], 3675, 4484, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 2797, 3633, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 1898, 2760, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 963, 1856, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 0, 925, colors[i]) );     // outermost line
 
     // middle segment
     i++;
-    segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), ofColor::cyan);
-    segments[i].meshes.push_back( createMesh(lines[i], 4540, 5321, ofColor::cyan) );
-    segments[i].meshes.push_back( createMesh(lines[i], 3682, 4500, ofColor::cyan) );
-    segments[i].meshes.push_back( createMesh(lines[i], 2802, 3648, ofColor::cyan) );
-    segments[i].meshes.push_back( createMesh(lines[i], 1893, 2766, ofColor::cyan) );
-    segments[i].meshes.push_back( createMesh(lines[i], 962, 1857, ofColor::cyan) );
-    segments[i].meshes.push_back( createMesh(lines[i], 0, 922, ofColor::cyan) );
+    segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), colors[i]);
+    segments[i].meshes.push_back( createMesh(lines[i], 4540, 5321, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 3682, 4500, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 2802, 3648, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 1893, 2766, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 962, 1857, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 0, 922, colors[i]) );
 
     // right segment
     i++;
-    segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), ofColor::magenta);
-    segments[i].meshes.push_back( createMesh(lines[i], 4525, 5310, ofColor::magenta) );
-    segments[i].meshes.push_back( createMesh(lines[i], 3675, 4484, ofColor::magenta) );
-    segments[i].meshes.push_back( createMesh(lines[i], 2797, 3633, ofColor::magenta) );
-    segments[i].meshes.push_back( createMesh(lines[i], 1898, 2760, ofColor::magenta) );
-    segments[i].meshes.push_back( createMesh(lines[i], 963, 1856, ofColor::magenta) );
-    segments[i].meshes.push_back( createMesh(lines[i], 0, 925, ofColor::magenta) );
+    segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), colors[i]);
+    segments[i].meshes.push_back( createMesh(lines[i], 4525, 5310, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 3675, 4484, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 2797, 3633, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 1898, 2760, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 963, 1856, colors[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 0, 925, colors[i]) );
 
 }
 
@@ -241,22 +245,36 @@ void Meter::render(){
         }
     } else {
         // draw the meshes
-        for (auto& segment : segments) {
+        for (auto& rainbowSegment : segments) {
 
-            vector<ofFloatColor>& colors = segment.fullMesh.getColors();
+            vector<ofFloatColor>& vertColors = rainbowSegment.fullMesh.getColors();
 
-            // create an offset that changes with time
-            float j = ofGetElapsedTimef() * 3;
+            PartySegment lastSegment;
+            float offset = ofWrap(ofGetFrameNum()*5, 0, vertColors.size());
 
-            for (int i = 0; i < colors.size(); i++) {
-                // number of steps it takes to go from 0 -> 100% alpha
-                j += 1. / 150.;
-                j = fmod(j, 1);
+            for (auto& partySegment : partyModeSegments) {
 
-                colors[i].a = j;
+                int length = partySegment.startingIndex - lastSegment.startingIndex;
+
+                for (int i = 0; i < length; i++) {
+
+                    // instead of a liner 0 -> 1 for the alpha values, let's shape
+                    // the curve a little bit so we get more color & less white
+                    float alpha = (float) i / length; // linear 0 -> 1
+                    alpha = 1 - alpha; // invert it!
+                    alpha = powf(alpha, 2); // square it!
+                    alpha = 1 - alpha; // back to normal, but squared!
+
+                    int index = ofWrap(i + partySegment.startingIndex + offset, 0, vertColors.size());
+                    vertColors[index].set(partySegment.color);
+                    vertColors[index].a = alpha;
+                }
+
+                lastSegment = partySegment;
+
             }
 
-            segment.fullMesh.drawWireframe();
+            rainbowSegment.fullMesh.drawWireframe();
         }
     }
 
@@ -308,6 +326,25 @@ void Meter::drawClosestPoint(){
 
 
 //--------------------------------------------------------------
-//void Meter::partyMode(){
-//
-//}
+void Meter::partyMode(){
+    LiveInput::partyMode();
+
+    // chop the full line into a bunch of smaller segments of varying length
+    // and sequential colors
+
+    int colorIndex = 0;
+    int segmentStartingIndex = 0;
+    partyModeSegments.clear();
+
+    while (segmentStartingIndex <= segments[0].fullMesh.getVertices().size()) {
+        int segmentLength = (int) ofRandom(50, 150);
+        segmentStartingIndex += segmentLength;
+        colorIndex = ++colorIndex % colors.size();
+
+        PartySegment ps;
+        ps.startingIndex = segmentStartingIndex;
+        ps.color = colors[colorIndex];
+        partyModeSegments.push_back(ps);
+    }
+
+}
