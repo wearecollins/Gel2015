@@ -35,10 +35,17 @@ public:
             XML.setTo("overlay[0]");
             
             do {
-                overlays.push_back( new ImageOverlay());
                 string path = "graphics/" + name + "/" + XML.getValue();
-                ImageOverlay* lo = dynamic_cast<ImageOverlay*>(overlays.back());
-                lo->load( path );
+                
+                if ( path.find(".mov") == string::npos && path.find(".mp4") == string::npos ){
+                    overlays.push_back( new ImageOverlay());
+                    ImageOverlay* lo = dynamic_cast<ImageOverlay*>(overlays.back());
+                    lo->load( path );
+                } else {
+                    overlays.push_back( new VideoOverlay());
+                    VideoOverlay* vo = dynamic_cast<VideoOverlay*>(overlays.back());
+                    vo->load( path );
+                }
             }
             while( XML.setToSibling() && XML.getName() == "overlay" ); // go to the next overlay
         }
@@ -75,14 +82,11 @@ public:
         bActive = true;
         if ( currentFrame != NULL ){
             currentFrame->activate();
-        } else {
-            cout <<"CURRENT IS NULL!!!"<<endl;
         }
     }
     
     void deactivate(){
         bActive = false;
-        cout << "DEACTIVATE"<<endl;
         if ( currentFrame != NULL ){
             currentFrame->deactivate();
         }

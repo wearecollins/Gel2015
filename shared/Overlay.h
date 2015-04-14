@@ -33,7 +33,7 @@ public:
         if ( !bActive ){
             color.a *= .9;
         } else {
-            color.a = color.a * .9 + targetAlpha * .1;
+            //color.a = color.a * .9 + targetAlpha * .1;
         }
         ofPushStyle();
         ofSetColor(color);
@@ -84,4 +84,46 @@ public:
     
 protected:
     ofImage overlay;
+};
+
+/**
+ @class VideoOverlay
+ */
+class VideoOverlay : public Overlay {
+public:
+    void load( string video ){
+        color.set(255,0);
+        overlay.loadMovie(video, OF_QTKIT_DECODE_TEXTURE_ONLY);
+        overlay.setLoopState(OF_LOOP_NORMAL);
+        overlay.play();
+        overlay.stop();
+    }
+    
+    void activate( float level = 255 ){
+        bActive = true;
+        targetAlpha = level;
+        overlay.play();
+    }
+    
+    void deactivate(){
+        bActive = false;
+        overlay.stop();
+    }
+    
+    void draw(){
+        if ( !bActive ){
+            color.a *= .9;
+        } else {
+            color.a = color.a * .9 + targetAlpha * .1;
+        }
+        
+        ofPushStyle();
+        ofSetColor(color);
+        overlay.draw(0,0);
+        ofPopStyle();
+    }
+    
+    
+protected:
+    ofQTKitPlayer overlay;
 };
