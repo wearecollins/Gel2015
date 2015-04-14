@@ -12,6 +12,7 @@
 #include "Constants.h"
 
 class LiveInput : public ofVec2f {
+    friend class GameController;
 public:
     
     LiveInput(){
@@ -59,6 +60,7 @@ public:
     
     virtual void deactivate(){
         bFadeOut = true;
+        bPartyMode = false;
     }
     
     void draw(){

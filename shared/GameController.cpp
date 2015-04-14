@@ -71,7 +71,7 @@ void GameController::draw(){
 
 //--------------------------------------------------------------
 void GameController::triggerCelebration(){
-    if ( bPartyMode ) return;
+    if ( bPartyMode || currentLive->bPartyMode ) return;
     currentIntro->setOutro();
     currentIntro->activate();
     currentLive->partyMode();
@@ -127,6 +127,8 @@ void GameController::triggerPrevFrame(){
 
 //--------------------------------------------------------------
 void GameController::triggerLive(){
+    bPartyMode = false;
+
     currentIntro->deactivate();
     currentLive->activate();
     
