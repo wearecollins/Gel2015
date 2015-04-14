@@ -140,23 +140,14 @@ var App = function(){
 
 	function teardownLevelTwo(){
 		teardownPartyMode();
-		$("#ball").css("opacity", 0);
 	}
 
 	function setupLevelThree(){
 		teardownPartyMode();
-		$("#container").css("opacity", 1);
-		teardownLevelOne();
-		$("#compass").css("opacity", 1);
-
-		// THIS SHOULD BE CSS DUMMY
-		$("#compass").css("left", window.innerWidth/2.0 - $("#compass").width()/2 + "px");
-		$("#compass").css("top", window.innerHeight/2.0 - $("#compass").width()/2 + "px");
 		// already listening to events!
 	}
 
 	function teardownLevelThree(){
-		$("#compass").css("opacity", 0);
 		teardownPartyMode();
 	}
 
@@ -277,9 +268,6 @@ var App = function(){
 		} else if ( current_level == 3 ){
 			var angle = Math.floor(map(gestureHandler.getState().gyro.alpha, 0, 1024, 0, 360));
 
-			$("#compass").css("-ms-transform", "rotate(" + (-(angle-targetNorth) )+ "deg)");
-			$("#compass").css("-webkit-transform", "rotate(" + (-(angle-targetNorth) ) + "deg)");
-			$("#compass").css("transform", "rotate(" + (-(angle-targetNorth) ) + "deg)");
 
 			// only send if moving!
 			if ( shaking){

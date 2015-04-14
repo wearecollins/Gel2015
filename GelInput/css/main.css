@@ -93,11 +93,8 @@ html, body, table, tr, div, svg {
 #container {
   height:100%;
   width:100%;
-  position: absolute;
   opacity: 0;
   transition: opacity ease-in-out .2s;
-  top:0px;
-  left:0px;
   z-index:0;
 }
 
@@ -118,7 +115,6 @@ html, body, table, tr, div, svg {
   visibility: hidden;
   display: none;
   transition: opacity ease-in-out .2s;
-  position: absolute;
 }
 
 #landscape img {
@@ -130,6 +126,12 @@ html, body, table, tr, div, svg {
   left: 50%;
   -webkit-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
+}
+
+.tlAbs {
+  position: absolute;
+  top:0px;
+  left: 0px;
 }
 
 /* LEVEL 1 */
@@ -158,6 +160,7 @@ svg {
   top: 50%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
+  height: inherit;
 }
 
 polygon, path {
@@ -170,20 +173,33 @@ td {
 }
 
 /* LEVEL 2 */
-.circle {
-  opacity: 0;
-  transition: opacity ease-in-out .2s;
-  position: absolute;
-  width: 20%;
-  height: 0;
-  padding: 10% 0;
-  margin: 1em auto;
-  z-index: 1;
+#level_two {
+  width: 100%;
+  height: 100%;
+  background-color: black;
 }
 
-#ball {
-  border-radius: 50%;
-  background-color: rgb(0,255,255);
+.l2_container{
+  width: 100%;
+  height: 100%;
+}
+
+#level_two .border {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: rgb(255,0,255);
+}
+
+#l2arrow_u, #l2arrow_m, #l2arrow_d {
+  stroke: rgb(255,0,255);
+}
+
+.box_l2 {
+  width: 100%;
+  height:100%;
+  zoom:1; /* For IE 6/7 (trigger hasLayout) */
+  padding: 2%;
 }
 
 /* LEVEL 3 */
@@ -195,14 +211,11 @@ td {
 /* PARTY MODE */
 #party {
   visibility: hidden;
-  position: absolute;
   width: 100%;
   height: 100%;
   z-index: 3;
   opacity: 0;
   transition: opacity, background-color ease-in-out .2s;
-  top:0px;
-  left:0px;
 }
 
 /* ==========================================================================
