@@ -203,7 +203,7 @@ void Meter::render(){
     ofSetColor(255,10);
     ofRect(0, 0, renderTexture.getWidth(), renderTexture.getHeight());
 
-    ofSetColor(ofColor::white);
+    ofSetColor(ofColor::white, 50);
     meter.draw(0, 0);
 
     // draw the full line
