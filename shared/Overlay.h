@@ -49,7 +49,7 @@ public:
         ofSetColor(bgColor);
         ofRect(0,0,getProjectorWidth(), getProjectorHeight());
         ofSetColor(color);
-        overlay.draw(0,0);
+        if ( overlay.isAllocated() ) overlay.draw(0,0);
         ofPopStyle();
     }
     

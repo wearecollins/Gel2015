@@ -11,6 +11,7 @@
 //--------------------------------------------------------------
 GameController::GameController(){
     currentLevel = LEVEL_ZERO; // debug!
+    currentState = STATE_INTRO;
     bPartyMode = false;
 }
 
@@ -63,21 +64,24 @@ void GameController::update( ofEventArgs & e ){
 
 //--------------------------------------------------------------
 void GameController::draw(){
-    // maybe don't always draw these at the same time.
-    currentLive->draw();
+    colorBackground.draw();
+    
+    if ( currentState != STATE_INTRO ){
+        currentLive->draw();
+    }
     currentIntro->draw();
 }
 
 
 //--------------------------------------------------------------
 void GameController::triggerCelebration(){
-    if ( bPartyMode || currentLive->bPartyMode ) return;
+    if ( currentState == STATE_PARTY || currentLive->bPartyMode ) return;
     currentIntro->setOutro();
     currentIntro->activate();
     currentLive->partyMode();
     
     spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
-    bPartyMode = true;
+    currentState = STATE_PARTY;
 }
 
 //--------------------------------------------------------------
@@ -127,7 +131,7 @@ void GameController::triggerPrevFrame(){
 
 //--------------------------------------------------------------
 void GameController::triggerLive(){
-    bPartyMode = false;
+    currentState = STATE_LIVE;
 
     currentIntro->deactivate();
     currentLive->activate();
@@ -137,7 +141,7 @@ void GameController::triggerLive(){
 
 //--------------------------------------------------------------
 void GameController::setLevel ( Level level ){
-    bPartyMode = false;
+    currentState = STATE_INTRO;
     
     currentLevel = level;
     currentLive = levelInputs[ currentLevel ];
@@ -171,11 +175,27 @@ string GameController::levelToString( Level level ){
 }
 
 //--------------------------------------------------------------
+string GameController::stateToString( State level ){
+    switch (level){
+        case STATE_INTRO:
+            return "state intro";
+            break;
+        case STATE_LIVE:
+            return "state live";
+            break;
+            
+        case STATE_PARTY:
+            return "state party";
+            break;
+    }
+}
+
+//--------------------------------------------------------------
 void GameController::onMessage( Spacebrew::Message & m ){
     if ( m.name == "infoevent" ){
         // for now, just broadcast current level and if we're in party mode
         
-        if ( bPartyMode ){
+        if ( currentState == STATE_PARTY ){
             spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
         } else {
             spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( currentLevel ) + "\"}");

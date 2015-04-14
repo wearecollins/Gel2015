@@ -17,7 +17,6 @@
 		016D22531AAA6953003840C7 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016D22521AAA6953003840C7 /* Carbon.framework */; };
 		0170A3C51AC4A31700410523 /* DropMeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0170A3C31AC4A31700410523 /* DropMeter.cpp */; };
 		017D04B91AC45D5E003E75F7 /* GridMeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 017D04B71AC45D5E003E75F7 /* GridMeter.cpp */; };
-		017D04C21AC48E23003E75F7 /* CelebrationOverlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 017D04C01AC48E23003E75F7 /* CelebrationOverlay.cpp */; };
 		019DF13C1AC3017C0028D667 /* NoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019DF12B1AC3017C0028D667 /* NoWindow.xib */; };
 		019DF13D1AC3017C0028D667 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 019DF12C1AC3017C0028D667 /* README.txt */; };
 		019DF13E1AC3017C0028D667 /* WithWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 019DF12D1AC3017C0028D667 /* WithWindow.xib */; };
@@ -159,8 +158,6 @@
 		017D04B81AC45D5E003E75F7 /* GridMeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridMeter.h; path = ../../shared/GridMeter.h; sourceTree = "<group>"; };
 		017D04BA1AC46520003E75F7 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../../shared/Constants.h; sourceTree = "<group>"; };
 		017D04BF1AC48C06003E75F7 /* Overlay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Overlay.h; path = ../../shared/Overlay.h; sourceTree = "<group>"; };
-		017D04C01AC48E23003E75F7 /* CelebrationOverlay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CelebrationOverlay.cpp; path = ../../shared/CelebrationOverlay.cpp; sourceTree = "<group>"; };
-		017D04C11AC48E23003E75F7 /* CelebrationOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CelebrationOverlay.h; path = ../../shared/CelebrationOverlay.h; sourceTree = "<group>"; };
 		019DF12B1AC3017C0028D667 /* NoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoWindow.xib; sourceTree = "<group>"; };
 		019DF12C1AC3017C0028D667 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		019DF12D1AC3017C0028D667 /* WithWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WithWindow.xib; sourceTree = "<group>"; };
@@ -448,8 +445,6 @@
 			isa = PBXGroup;
 			children = (
 				017D04BF1AC48C06003E75F7 /* Overlay.h */,
-				017D04C01AC48E23003E75F7 /* CelebrationOverlay.cpp */,
-				017D04C11AC48E23003E75F7 /* CelebrationOverlay.h */,
 				01F46D671ACD9B2B00664738 /* LevelIntro.h */,
 			);
 			name = overlays;
@@ -1034,7 +1029,6 @@
 				7C3DC84C9BFCBD2866DB2B6C /* ofxUILabel.cpp in Sources */,
 				FFD1EBFCA24DFB4E4427B4FE /* ofxUILabelButton.cpp in Sources */,
 				C30B3A2A37F8F32EE7318718 /* ofxUILabelToggle.cpp in Sources */,
-				017D04C21AC48E23003E75F7 /* CelebrationOverlay.cpp in Sources */,
 				9A83D1B3FB64456BC907667F /* ofxUIMinimalSlider.cpp in Sources */,
 				F440B307990F8F5CE40B9111 /* ofxUIMovingGraph.cpp in Sources */,
 				222C3AB10FA3158602718602 /* ofxUIMultiImageButton.cpp in Sources */,

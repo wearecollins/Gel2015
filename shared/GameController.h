@@ -22,7 +22,6 @@
 
 // overlays
 #include "LevelIntro.h"
-//#include "CelebrationOverlay.h"
 
 class GameController {
     friend class Spacebrew::Connection;
@@ -33,6 +32,12 @@ public:
         LEVEL_ONE,
         LEVEL_TWO,
         LEVEL_THREE
+    };
+    
+    enum State {
+        STATE_INTRO = 0,
+        STATE_LIVE,
+        STATE_PARTY
     };
     
     GameController();
@@ -54,21 +59,23 @@ public:
 protected:
     
     Level   currentLevel;
+    State   currentState;
     bool    bPartyMode;
     
+    Overlay                 colorBackground;
     LevelIntro *            currentIntro;
     LiveInput *             currentLive;
 //    CelebrationOverlay *    currentOutro;
     
     map<Level, LevelIntro *>            levelIntros;
     map<Level, LiveInput *>             levelInputs;
-//    map<Level, CelebrationOverlay *>    levelOutros;
     
     // internal mechanics
     InputProcessor * inputProcessor;
     void setLevel ( Level level );
     
     string levelToString( Level level );
+    string stateToString( State level );
     
     // connection to controller app
     Spacebrew::Connection * spacebrew;
