@@ -71,7 +71,7 @@ ofMesh Meter::createMesh(ofPolyline &line, int lowerBound, int higherBound, ofCo
     mesh.setMode(OF_PRIMITIVE_LINE_STRIP);
     vector<ofPoint>& vertices = line.getVertices();
 
-    for (int i = lowerBound; i <= higherBound; i++) {
+    for (int i = lowerBound; i < higherBound; i++) {
         if (vertices[i] == ofVec3f::zero()) continue;
         mesh.addVertex(vertices[i]);
         mesh.addColor(color);
