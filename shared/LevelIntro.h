@@ -35,9 +35,10 @@ public:
             XML.setTo("overlay[0]");
             
             do {
-                overlays.push_back( Overlay());
+                overlays.push_back( new ImageOverlay());
                 string path = "graphics/" + name + "/" + XML.getValue();
-                overlays.back().load( path );
+                ImageOverlay* lo = dynamic_cast<ImageOverlay*>(overlays.back());
+                lo->load( path );
             }
             while( XML.setToSibling() && XML.getName() == "overlay" ); // go to the next overlay
         }
@@ -74,11 +75,14 @@ public:
         bActive = true;
         if ( currentFrame != NULL ){
             currentFrame->activate();
+        } else {
+            cout <<"CURRENT IS NULL!!!"<<endl;
         }
     }
     
     void deactivate(){
         bActive = false;
+        cout << "DEACTIVATE"<<endl;
         if ( currentFrame != NULL ){
             currentFrame->deactivate();
         }
@@ -124,12 +128,12 @@ protected:
     
     // this should be a vector of pointers
     // to enable MovOverlay, etc
-    vector<Overlay> overlays;
+    vector<Overlay *> overlays;
     
     Overlay * previousFrame;
     Overlay * currentFrame;
     
-    Overlay outro;
+    ImageOverlay outro;
     
     bool bActive;
     
@@ -142,7 +146,12 @@ protected:
         
         index = frameNum;
         
-        currentFrame = &overlays[index];
-        if ( activate ) currentFrame->activate();
+        if ( overlays.size() != 0 ){
+            currentFrame = overlays[index];
+        } else {
+            currentFrame = NULL;
+        }
+        
+        if ( activate && currentFrame != NULL ) currentFrame->activate();
     }
 };

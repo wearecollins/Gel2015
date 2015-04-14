@@ -20,15 +20,15 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     inputProcessor = &input;
     
     // setup each overlay
-    levelInputs[LEVEL_ZERO] = new GridMeter();
-    levelInputs[LEVEL_ONE] = new Meter();
-    levelInputs[LEVEL_TWO] = new GridMeter();
-    levelInputs[LEVEL_THREE] = new DropMeter();
+    levelInputs[LEVEL_ZERO]     = new GridMeter();
+    levelInputs[LEVEL_ONE]      = new Meter();
+    levelInputs[LEVEL_TWO]      = new GridMeter();
+    levelInputs[LEVEL_THREE]    = new DropMeter();
     
-    levelIntros[LEVEL_ZERO] = new LevelIntro();
-    levelIntros[LEVEL_ONE] = new LevelIntro();
-    levelIntros[LEVEL_TWO] = new LevelIntro();
-    levelIntros[LEVEL_THREE] = new LevelIntro();
+    levelIntros[LEVEL_ZERO]     = new LevelIntro();
+    levelIntros[LEVEL_ONE]      = new LevelIntro();
+    levelIntros[LEVEL_TWO]      = new LevelIntro();
+    levelIntros[LEVEL_THREE]    = new LevelIntro();
     
     int index = 0;
     
@@ -37,9 +37,8 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
         index++;
     }
     
-//    levelOutros[LEVEL_ONE] = new LevelIntro();
-//    levelIntros[LEVEL_TWO] = new LevelIntro();
-//    levelIntros[LEVEL_THREE] = new LevelIntro();
+    // background
+    colorBackground.setColor(0);
     
     // setup connection to control app
     this->spacebrew = &sb;
@@ -88,7 +87,6 @@ void GameController::triggerCelebration(){
 void GameController::triggerPrevLevel(){
     currentIntro->deactivate();
     currentLive->deactivate();
-    //    currentOutro->deactivate();
     
     Level next = currentLevel;
     next = (Level) ((int) currentLevel - 1);
@@ -103,7 +101,6 @@ void GameController::triggerPrevLevel(){
 void GameController::triggerNextLevel(){
     currentIntro->deactivate();
     currentLive->deactivate();
-//    currentOutro->deactivate();
     
     Level next = currentLevel;
     next = (Level) ((int) currentLevel + 1);
@@ -135,6 +132,7 @@ void GameController::triggerLive(){
 
     currentIntro->deactivate();
     currentLive->activate();
+    colorBackground.deactivate();
     
     spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"let's go\"}");
 }
@@ -148,7 +146,7 @@ void GameController::setLevel ( Level level ){
     currentIntro = levelIntros[ currentLevel ];
     currentIntro->activate();
     
-//    currentOutro = levelOutros[ currentLevel ];
+    colorBackground.activate();
     
     spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( level ) + "\"}");
 }

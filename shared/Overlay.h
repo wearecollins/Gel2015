@@ -17,20 +17,12 @@ public:
     
     Overlay(){
         color.a = 0;
-        bgColor.set(0,0);
-        bActive = false;
+        bActive = true;
     };
     
-    virtual void load( string image ){
-        overlay.loadImage(image);
-        fbo.allocate(ofGetWidth(), ofGetHeight());
-    }
-    
-    virtual void activate( float levelBg=255, float level = 255 ){
+    virtual void activate( float level = 255 ){
         bActive = true;
-        targetAlpha     = level;
-        targetBgAlpha   = levelBg;
-//        color.a = level;
+        targetAlpha = level;
     }
     
     virtual void deactivate(){
@@ -40,24 +32,56 @@ public:
     virtual void draw(){
         if ( !bActive ){
             color.a *= .9;
-            bgColor.a *= .9;
         } else {
             color.a = color.a * .9 + targetAlpha * .1;
-            bgColor.a = bgColor.a * .9 + targetBgAlpha * .1;
         }
         ofPushStyle();
-        ofSetColor(bgColor);
+        ofSetColor(color);
         ofRect(0,0,getProjectorWidth(), getProjectorHeight());
+        ofPopStyle();
+    }
+    
+    virtual void setColor( float colorR, float colorG = -1, float colorB=-1, float colorA = 255){
+        if ( colorG == -1 ){
+            color.set(colorR);
+        } else if ( colorB == -1 ){
+            color.set(colorR, colorG);
+        } else {
+            color.set(colorR, colorG, colorB, colorA );
+        }
+    }
+    
+protected:
+    ofColor color;
+    float targetAlpha;
+    bool bActive;
+};
+
+/**
+ @class ImageOverlay
+*/
+class ImageOverlay : public Overlay {
+public:
+    void load( string image ){
+        color.set(255,0);
+        overlay.loadImage(image);
+    }
+    
+    
+    void draw(){
+        if ( !bActive ){
+            color.a *= .9;
+        } else {
+            color.a = color.a * .9 + targetAlpha * .1;
+        }
+        
+        ofPushStyle();
         ofSetColor(color);
         if ( overlay.isAllocated() ) overlay.draw(0,0);
         ofPopStyle();
     }
     
-protected:
     
-    ofFbo fbo;
+protected:
     ofImage overlay;
-    ofColor color, bgColor;
-    float targetAlpha, targetBgAlpha;
-    bool bActive;
 };

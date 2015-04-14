@@ -176,6 +176,7 @@ void Meter::onAnimFinished(ofxAnimatable::AnimationEvent &args){
 
 //--------------------------------------------------------------
 void Meter::render(){
+    ofPushStyle();
 
     if (bActive) {
         createPulse(value);
@@ -294,6 +295,8 @@ void Meter::render(){
 //    renderTexture.draw(0,0 );
 //    renderShader.end();
 
+    
+    ofPopStyle();
 }
 
 //--------------------------------------------------------------
