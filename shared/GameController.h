@@ -11,9 +11,11 @@
 #include "ofMain.h"
 
 // utils
+#include "ofxUI.h"
 #include "ofxSpacebrew.h"
 #include "Constants.h"
 #include "InputProcessor.h"
+#include "Params.h"
 
 // inputs
 #include "Meter.h"
@@ -45,8 +47,14 @@ public:
     void setup( InputProcessor & input, Spacebrew::Connection & spacebrew );
     void update( ofEventArgs & e );
     void draw();
-    
+
+    void guiSetup();
+    void guiLayout();
+    void guiToggleVisible();
+    void guiToggleMinified();
+
     // events
+    void guiEvent(ofxUIEventArgs &);
     void triggerPrevLevel();
     void triggerNextLevel();
     void triggerLive();
@@ -69,6 +77,8 @@ protected:
     
     map<Level, LevelIntro *>            levelIntros;
     map<Level, LiveInput *>             levelInputs;
+
+    vector<ofxUISuperCanvas*> guiPanels;
     
     // internal mechanics
     InputProcessor * inputProcessor;

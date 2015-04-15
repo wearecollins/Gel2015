@@ -98,6 +98,10 @@ void ofApp::keyPressed(int key){
         gameController.triggerPrevFrame();
     } else if ( key == 'c'){
         gameController.triggerCelebration();
+    } else if ( key == 'h'){
+        gameController.guiToggleVisible();
+    }  else if ( key == '0'){
+        gameController.guiToggleMinified();
     }
 }
 

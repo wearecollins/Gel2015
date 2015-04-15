@@ -251,7 +251,7 @@ void Meter::render(){
             vector<ofFloatColor>& vertColors = rainbowSegment.fullMesh.getColors();
 
             PartySegment lastSegment;
-            float offset = ofWrap(ofGetFrameNum()*5, 0, vertColors.size());
+            float offset = ofWrap(ofGetFrameNum()*Params::level1partySpeed, 0, vertColors.size());
 
             for (auto& partySegment : partyModeSegments) {
 
@@ -340,7 +340,7 @@ void Meter::partyMode(){
     partyModeSegments.clear();
 
     while (segmentStartingIndex <= segments[0].fullMesh.getVertices().size()) {
-        int segmentLength = (int) ofRandom(50, 150);
+        int segmentLength = (int) ofRandom(Params::level1partyModeSegmentLengthMin, Params::level1partyModeSegmentLengthMax);
         segmentStartingIndex += segmentLength;
         colorIndex = ++colorIndex % colors.size();
 

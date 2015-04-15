@@ -44,13 +44,111 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     this->spacebrew = &sb;
     spacebrew->addSubscribe("infoevent", "event" );
     spacebrew->addPublish("gameevent", "event" );
-    
+
+    guiSetup();
+
     // let's go
     setLevel( currentLevel );
     
     // setup OF events
     ofAddListener(ofEvents().update, this, &GameController::update);
     ofAddListener(this->spacebrew->onMessageEvent, this, &GameController::onMessage);
+}
+
+//--------------------------------------------------------------
+void GameController::guiSetup(){
+    ofxUISuperCanvas* gui;
+
+    gui = new ofxUISuperCanvas("Level 1");
+    gui->addSpacer();
+
+    gui->addSlider("Party Segment Min", 0, 300, &Params::level1partyModeSegmentLengthMin);
+    gui->addSlider("Party Segment Max", 0, 300, &Params::level1partyModeSegmentLengthMax);
+    gui->addSlider("Party Speed", 0, 10, &Params::level1partySpeed);
+
+    guiPanels.push_back(gui);
+
+
+    gui = new ofxUISuperCanvas("Level 2");
+    gui->addSpacer();
+
+    gui->addIntSlider("Grid Steps X", 10, 50, &Params::level2gridStepsX);
+    gui->addIntSlider("Grid Steps Y", 10, 50, &Params::level2gridStepsY);
+    gui->addLabelButton("Edit Arrows", false);
+
+    guiPanels.push_back(gui);
+
+
+    for (int i = 0; i < guiPanels.size(); i++) {
+        guiPanels[i]->autoSizeToFitWidgets();
+        ofAddListener(guiPanels[i]->newGUIEvent, this, &GameController::guiEvent);
+    }
+    guiLayout();
+
+}
+
+//--------------------------------------------------------------
+void GameController::guiLayout(){
+    for (int i = 0; i < guiPanels.size(); i++) {
+        if (i == 0)
+            guiPanels[i]->setPosition(0, 30);
+        else
+            guiPanels[i]->setPosition(0, guiPanels[i-1]->getRect()->getMaxY()+1);
+    }
+}
+
+//--------------------------------------------------------------
+void GameController::guiEvent(ofxUIEventArgs &e){
+    string name = e.getName();
+
+    // check for panel minimize/expand event
+    if (name == "OFX_UI_WIDGET_CANVAS") {
+        guiLayout();
+    }
+
+    if (e.getParent() == guiPanels[0]) {
+        Meter* meter = (Meter*) levelInputs[LEVEL_ONE];
+
+        if (name == "Party Segment Min" || name == "Party Segment Max")
+            meter->partyMode();
+    }
+
+    if (e.getParent() == guiPanels[1]) {
+        GridMeter* meter = (GridMeter*) levelInputs[LEVEL_TWO];
+
+        if (name == "Grid Steps X" || name == "Grid Steps Y")
+            meter->setupGrid();
+        if (name == "Edit Arrows")
+            meter->editArrows();
+
+    }
+}
+
+//--------------------------------------------------------------
+void GameController::guiToggleVisible(){
+    for (int i = 0; i < guiPanels.size(); i++) {
+        guiPanels[i]->toggleVisible();
+    }
+}
+
+//--------------------------------------------------------------
+void GameController::guiToggleMinified(){
+
+    bool minify = false;
+
+    for (int i = 0; i < guiPanels.size(); i++) {
+        if (!guiPanels[i]->isMinified()) {
+            minify = true;
+            break;
+        }
+    }
+
+    for (int i = 0; i < guiPanels.size(); i++) {
+        guiPanels[i]->setMinified(minify);
+    }
+
+    guiLayout();
+    
 }
 
 //--------------------------------------------------------------

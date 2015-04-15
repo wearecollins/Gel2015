@@ -8,6 +8,7 @@
 
 #pragma once
 #include "LiveInput.h"
+#include "Params.h"
 
 #include "ofxSvg.h"
 #include "ofxAnimatableFloat.h"

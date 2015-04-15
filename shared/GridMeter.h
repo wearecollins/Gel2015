@@ -9,6 +9,13 @@
 #pragma once
 
 #include "LiveInput.h"
+#include "Params.h"
+
+struct Arrow {
+    ofVec2f start;
+    ofVec2f end;
+    ofVec2f otherEnd;
+};
 
 class GridPoint : public ofVec2f {
 public:
@@ -22,6 +29,7 @@ public:
 };
 
 class GridMeter : public LiveInput {
+    friend class GameController;
 public:
     
     GridMeter();
@@ -29,7 +37,20 @@ public:
     void setup();
     void render();
     void partyMode();
-    
+
+    void editArrows();
+
+    void mouseMoved(ofMouseEventArgs& args);
+    void mouseDragged(ofMouseEventArgs& args);
+    void mousePressed(ofMouseEventArgs& args);
+    void mouseReleased(ofMouseEventArgs& args);
+
 protected:
+
+    void setupGrid();
     vector<GridPoint> grid;
+    vector<Arrow> arrows;
+
+    bool bWaitingForArrowStartClick;
+    bool bWaitingForArrowEndClick;
 };

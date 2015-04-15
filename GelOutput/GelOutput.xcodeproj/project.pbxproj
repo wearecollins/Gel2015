@@ -50,6 +50,7 @@
 		6645B5FE1AD628E90079AA65 /* ofxAnimatableFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6645B5F71AD628E90079AA65 /* ofxAnimatableFloat.cpp */; };
 		6645B5FF1AD628E90079AA65 /* ofxAnimatableOfColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6645B5F91AD628E90079AA65 /* ofxAnimatableOfColor.cpp */; };
 		6645B6001AD628E90079AA65 /* ofxAnimatableOfPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6645B5FB1AD628E90079AA65 /* ofxAnimatableOfPoint.cpp */; };
+		66D681351ADDFE4900DB8273 /* Params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66D681331ADDFE4900DB8273 /* Params.cpp */; };
 		6D73A566CFEC0B462FE6E43C /* Reactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2232A9453E355593EF36ADA7 /* Reactor.cpp */; };
 		7252706DA14C1BE63950ADDA /* ofxUIFPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEB61645EF9120F5BACB7462 /* ofxUIFPS.cpp */; };
 		740A58CBFDFE578C83A349AF /* ofxUISlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0DE8B77977749C1835A9472B /* ofxUISlider.cpp */; };
@@ -247,6 +248,8 @@
 		6645B5FB1AD628E90079AA65 /* ofxAnimatableOfPoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatableOfPoint.cpp; sourceTree = "<group>"; };
 		6645B5FC1AD628E90079AA65 /* ofxAnimatableOfPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAnimatableOfPoint.h; sourceTree = "<group>"; };
 		664D65407BE633C038FA9498 /* ofxUIFPSSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIFPSSlider.h; path = ../../../addons/ofxUI/src/ofxUIFPSSlider.h; sourceTree = SOURCE_ROOT; };
+		66D681331ADDFE4900DB8273 /* Params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Params.cpp; path = ../shared/Params.cpp; sourceTree = "<group>"; };
+		66D681341ADDFE4900DB8273 /* Params.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Params.h; path = ../shared/Params.h; sourceTree = "<group>"; };
 		69668FDE141262BC3C6CA929 /* jsoncpp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = jsoncpp.cpp; path = ../../../addons/ofxLibwebsockets/libs/jsoncpp/jsoncpp.cpp; sourceTree = SOURCE_ROOT; };
 		702A2528CA64B397E9B91ABE /* ofxUIToggleMatrix.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUIToggleMatrix.cpp; path = ../../../addons/ofxUI/src/ofxUIToggleMatrix.cpp; sourceTree = SOURCE_ROOT; };
 		75DCA31CF0745355CC4AD2DD /* libwebsockets.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = libwebsockets.h; path = ../../../addons/ofxLibwebsockets/libs/libwebsockets/include/libwebsockets.h; sourceTree = SOURCE_ROOT; };
@@ -857,6 +860,8 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				66D681331ADDFE4900DB8273 /* Params.cpp */,
+				66D681341ADDFE4900DB8273 /* Params.h */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -1052,6 +1057,7 @@
 				016D224E1AAA6823003840C7 /* main.mm in Sources */,
 				52AFF80A869790144ACCC9BA /* ofxUISpectrum.cpp in Sources */,
 				1DAAC3FB4B98B08AE63F4687 /* ofxUISuperCanvas.cpp in Sources */,
+				66D681351ADDFE4900DB8273 /* Params.cpp in Sources */,
 				5AE95ADB5549701423B6DA48 /* ofxUITabBar.cpp in Sources */,
 				019DF1421AC3017C0028D667 /* GLView.mm in Sources */,
 				019DF1411AC3017C0028D667 /* Events.mm in Sources */,
