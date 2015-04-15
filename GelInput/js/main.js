@@ -49,11 +49,17 @@ var App = function(){
 		$("#landscape").css("visibility", "visible");
 		$("#landscape").css("display", "block");
 		$("#landscape").css("opacity", "1");
-
+		$("#getready").css("visibility", "hidden");
+		$("#getready").css("display", "none");
 	}
 
 	function hideLandscapePrompt(){
 		orientationState = 1;
+
+		if ( current_level == 0 ){
+			$("#getready").css("visibility", "visible");
+			$("#getready").css("display", "block");
+		}
 		$("#landscape").css("opacity", "0");
 		window.clearTimeout(window.promptTimeout);
 		window.promptTimeout = setTimeout(function(){
@@ -88,12 +94,28 @@ var App = function(){
 
 	// @begin Level functions 
 	
-	function setupLevelOne(){
+	function setupGetReady(){
+		$("#getready").css("display", "block");
+		$("#getready").css("visibility", "visible");
+		$("#getready").css("-webkit-animation-iteration-count", "infinite");
+		$("#getready").css("-moz-animation-iteration-count", "infinite");
+		$("#getready").css("animation-iteration-count", "infinite");
+	}
 
+	function teardownGetReady(){
+		$("#getready").css("display", "none");
+		$("#getready").css("visibility", "hidden");
+		$("#getready").css("-webkit-animation-iteration-count", "0");
+		$("#getready").css("-moz-animation-iteration-count", "0");
+		$("#getready").css("animation-iteration-count", "0");
+	}
+
+	function setupLevelOne(){
+		teardownGetReady();
 		setupArrow("left", "255,255,0", 0);
 		setupArrow("up", "0,255,255", 1);
 		setupArrow("right", "255,0,255", 2);
-		$("#container").css("opacity", 1);
+		$("#level_one").css("opacity", 1);
 
 		teardownPartyMode();
 	}
@@ -110,7 +132,7 @@ var App = function(){
 			sender.send(dir)
 		});
 
-		// $("#container").mouseup(function(){
+		// $("#level_one").mouseup(function(){
 		// 	$("#" + arrow + "_arrow").css("fill", "rgba("+ color + ",0)");
 		// });
 
@@ -122,6 +144,8 @@ var App = function(){
 
 	function teardownLevelOne(){
 		teardownPartyMode();
+		teardownLevelTwo();
+		teardownLevelThree();
 
 		$("#left_svg").css("opacity", 0);
 		$("#right_svg").css("opacity", 0);
@@ -129,12 +153,14 @@ var App = function(){
 		$("#left").unbind();
 		$("#up").unbind();
 		$("#right").unbind();
-		$("#container").css("opacity", 0);
+		$("#level_one").css("opacity", 0);
 	}
 
 	function setupLevelTwo(){
 		teardownPartyMode();
 		teardownLevelOne();
+		teardownLevelThree();
+		teardownGetReady();
 		$("#level_two").css("opacity",1);
 		$("#level_two").css("display","block");
 		$("#level_two").css("visibility","visible");
@@ -143,15 +169,59 @@ var App = function(){
 
 	function teardownLevelTwo(){
 		teardownPartyMode();
+		$("#level_two").css("opacity",0);
+		$("#level_two").css("display","none");
+		$("#level_two").css("visibility","hidden");
 	}
 
 	function setupLevelThree(){
 		teardownPartyMode();
-		// already listening to events!
+		teardownLevelOne();
+		teardownLevelTwo();
+		teardownGetReady();
+
+		$("#level_three").css("display","block");
+		$("#level_three").css("visibility","visible");
+
+		$("#hot").on('touchstart', function(event){
+			event.stopPropagation();
+			$("#hotbg").css("background-color", "magenta");
+			$(".hot_text").css("stroke", "white");
+			$(".hot_sun").css("stroke", "white");
+			sender.send(0);
+		});
+
+		$("#hot").on('touchend', function(event){
+			event.stopPropagation();
+			$("#hotbg").css("background-color", "black");
+			$(".hot_text").css("stroke", "magenta");
+			$(".hot_sun").css("stroke", "yellow");
+		});
+
+		$("#cold").on('touchstart', function(event){
+			event.stopPropagation();
+			$("#coldbg").css("background-color", "cyan");
+			$(".cold_text").css("stroke", "white");
+			$(".cold_flake").css("stroke", "white");
+			sender.send(2);
+		});
+
+		$("#cold").on('touchend', function(event){
+			event.stopPropagation();
+			$("#coldbg").css("background-color", "black");
+			$(".cold_text").css("stroke", "cyan");
+			$(".cold_flake").css("stroke", "white");
+		});
 	}
 
 	function teardownLevelThree(){
 		teardownPartyMode();
+
+		$("#level_three").css("display","none");
+		$("#level_three").css("visibility","hidden");
+
+		$("#hot").unbind();
+		$("#cold").unbind();
 	}
 
 	// PARTY MODE
