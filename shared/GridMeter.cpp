@@ -54,6 +54,19 @@ void GridMeter::setup(){
     setupGrid();
 
     arrows.resize(3);
+    // left arrow
+    arrows[0].start.set(21, 540);
+    arrows[0].end.set(287, 281);
+    arrows[0].otherEnd.set(287, 799);
+    // top arrow
+    arrows[1].start.set(960, 21);
+    arrows[1].end.set(1219, 287);
+    arrows[1].otherEnd.set(701, 287);
+    // right arrow
+    arrows[2].start.set(1899, 540);
+    arrows[2].end.set(1633, 281);
+    arrows[2].otherEnd.set(1633, 799);
+
     bWaitingForArrowStartClick = false;
     bWaitingForArrowEndClick = false;
 }
@@ -178,6 +191,21 @@ void GridMeter::mousePressed(ofMouseEventArgs& args){
         bWaitingForArrowEndClick = true;
     } else if (bWaitingForArrowEndClick) {
         bWaitingForArrowEndClick = false;
+
+        cout << "left arrow"        << endl;
+        cout << arrows[0].start     << endl;
+        cout << arrows[0].end       << endl;
+        cout << arrows[0].otherEnd  << endl;
+
+        cout << "top arrow"         << endl;
+        cout << arrows[1].start     << endl;
+        cout << arrows[1].end       << endl;
+        cout << arrows[1].otherEnd  << endl;
+
+        cout << "right arrow"       << endl;
+        cout << arrows[2].start     << endl;
+        cout << arrows[2].end       << endl;
+        cout << arrows[2].otherEnd  << endl;
     }
 
 }
