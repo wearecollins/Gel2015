@@ -131,20 +131,22 @@ var App = function(){
 
 	/**********************************************************************/
 	function setupLevelOne(){
+		teardownPartyMode();
+		teardownLevelTwo();
+		teardownLevelThree();
 		teardownGetReady();
+
 		setupArrow("left", "255,255,0", 0);
 		setupArrow("up", "0,255,255", 1);
 		setupArrow("right", "255,0,255", 2);
 		$("#level_one").css("opacity", 1);
-
-		teardownPartyMode();
 	}
 
 	function setupArrow(arrow, color, dir){
 		$("#" + arrow).on('touchstart', function(event){
 			event.stopPropagation();
 			$("#" + arrow + "_arrow").css("fill", "rgba(" + color + ",1)");
-			sender.send(dir)
+			sender.send(dir, 0)
 
 		});
 
@@ -155,13 +157,6 @@ var App = function(){
 	}
 
 	function teardownLevelOne(){
-		teardownPartyMode();
-		teardownLevelTwo();
-		teardownLevelThree();
-
-		$("#left_svg").css("opacity", 0);
-		$("#right_svg").css("opacity", 0);
-		$("#up_svg").css("opacity", 0);
 		$("#left").unbind();
 		$("#up").unbind();
 		$("#right").unbind();
@@ -174,6 +169,7 @@ var App = function(){
 		teardownLevelOne();
 		teardownLevelThree();
 		teardownGetReady();
+
 		$("#level_two").css("opacity",1);
 		$("#level_two").css("display","block");
 		$("#level_two").css("visibility","visible");
@@ -181,7 +177,6 @@ var App = function(){
 	}
 
 	function teardownLevelTwo(){
-		teardownPartyMode();
 		$("#level_two").css("opacity",0);
 		$("#level_two").css("display","none");
 		$("#level_two").css("visibility","hidden");
@@ -202,7 +197,7 @@ var App = function(){
 			$("#hotbg").css("background-color", "magenta");
 			$(".hot_text").css("stroke", "white");
 			$(".hot_sun").css("stroke", "white");
-			sender.send(0);
+			sender.send(0,0);
 		});
 
 		$("#hot").on('touchend', function(event){
@@ -217,7 +212,7 @@ var App = function(){
 			$("#coldbg").css("background-color", "cyan");
 			$(".cold_text").css("stroke", "white");
 			$(".cold_flake").css("stroke", "white");
-			sender.send(2);
+			sender.send(2,0);
 		});
 
 		$("#cold").on('touchend', function(event){
@@ -229,8 +224,6 @@ var App = function(){
 	}
 
 	function teardownLevelThree(){
-		teardownPartyMode();
-
 		$("#level_three").css("display","none");
 		$("#level_three").css("visibility","hidden");
 
@@ -372,8 +365,8 @@ var App = function(){
 			lastStates.max = vel.max;
 
 			// only send if moving!
-			if ( shaking ){
-				sender.send( dir );
+			if ( shaking && Math.round(power) > 0){
+				sender.send( dir, dir == 1 ? Math.max(power-1,0) : 0 );
 			}
 
 			// gestureHandler.getState().gamma
