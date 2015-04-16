@@ -14,8 +14,15 @@ var App = function(){
 	var gestureHandler = new GestureHandler();
 
 	var current_level = 0;
-
 	var bPartyMode = false;
+
+	var colors = [
+		"rgb(255,255,0)","rgb(0,255,255)","rgb(255,0,255)"
+	];
+
+	var colors_alpha = [
+		"rgba(255,255,0,","rgba(0,255,255,","rgba(255,0,255,"
+	];
 
 	/** @type {Object} Fill color */
 	var color = {r:0, g:0, b:0};
@@ -23,6 +30,17 @@ var App = function(){
 	/** @type {Number} 0 == portait, 1 == horizontal */
 	var orientationState = 0;
 
+	/**********************************************************************/
+	// ACCEL STATE STUFF
+	// 
+	var lastStates = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0};
+	var vel = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0};
+
+	var targetNorth = 682;
+	var moveThreshold = 0;
+	var power = 0;
+
+	/**********************************************************************/
 	function setup(){
 		// setup Sender, which connects to Spacebrew + handles in/out
 		sender.setup("spacebrew.robotconscience.com", app_name);// get_local_url());
@@ -94,6 +112,7 @@ var App = function(){
 
 	// @begin Level functions 
 	
+	/**********************************************************************/
 	function setupGetReady(){
 		$("#getready").css("display", "block");
 		$("#getready").css("visibility", "visible");
@@ -110,6 +129,7 @@ var App = function(){
 		$("#getready").css("animation-iteration-count", "0");
 	}
 
+	/**********************************************************************/
 	function setupLevelOne(){
 		teardownGetReady();
 		setupArrow("left", "255,255,0", 0);
@@ -121,20 +141,12 @@ var App = function(){
 	}
 
 	function setupArrow(arrow, color, dir){
-		// $("#" + arrow + "_svg").mousedown(function(){
-		// 	$("#" + arrow + "_arrow").css("fill", "rgba(" + color + ",1)");
-		// 	sender.send(dir)
-		// });
-
 		$("#" + arrow).on('touchstart', function(event){
 			event.stopPropagation();
 			$("#" + arrow + "_arrow").css("fill", "rgba(" + color + ",1)");
 			sender.send(dir)
-		});
 
-		// $("#level_one").mouseup(function(){
-		// 	$("#" + arrow + "_arrow").css("fill", "rgba("+ color + ",0)");
-		// });
+		});
 
 		$("#" + arrow).on('touchend', function(event){
 			event.stopPropagation();
@@ -156,6 +168,7 @@ var App = function(){
 		$("#level_one").css("opacity", 0);
 	}
 
+	/**********************************************************************/
 	function setupLevelTwo(){
 		teardownPartyMode();
 		teardownLevelOne();
@@ -174,6 +187,7 @@ var App = function(){
 		$("#level_two").css("visibility","hidden");
 	}
 
+	/**********************************************************************/
 	function setupLevelThree(){
 		teardownPartyMode();
 		teardownLevelOne();
@@ -224,6 +238,7 @@ var App = function(){
 		$("#cold").unbind();
 	}
 
+	/**********************************************************************/
 	// PARTY MODE
 	
 	var partyTimeout = null;
@@ -251,13 +266,7 @@ var App = function(){
 		}, 500);
 	}
 
-	var colors = [
-		"rgb(255,255,0)","rgb(0,255,255)","rgb(255,0,255)"
-	];
-
-	var colors_alpha = [
-		"rgba(255,255,0,","rgba(0,255,255,","rgba(255,0,255,"
-	];
+	/**********************************************************************/
 
 	function getDirName( dir ){
 		switch(dir){
@@ -290,26 +299,21 @@ var App = function(){
 
 	// @end Level functions 
 
+	/**********************************************************************/
+
 	function setupEvents( el ){
 	}
 
-	var lastStates = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0};
-	var vel = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0};
-
-	var targetNorth = 180;
-
-	var moveThreshold = 50;
-
-	var power = 0;
-
+	/**********************************************************************/
 	function draw(){
 		window.requestAnimationFrame(draw.bind(this));
 
 		var shaking = false;
 		if ( current_level == 2 ){
 			vel.max = 0;
+
+			// Check if shaking
 			for ( var state in gestureHandler.getState().accelStates ){
-				
 				vel[state] = Math.abs(lastStates[state] -  gestureHandler.getState().accel[state]);
 				if ( vel[state] > vel.max ) vel.max = vel[state];
 
@@ -319,11 +323,18 @@ var App = function(){
 				lastStates[state] = gestureHandler.getState().accel[state];
 			}
 
-			var dir = Math.round(map(gestureHandler.getState().gyro.alpha, 0, 1024, 0, 2));
+			// offset by "target"
+			var compass = gestureHandler.getState().gyro.alpha - targetNorth;
+			if ( compass < 0 ){
+				// wrap around
+				compass = 1024 + compass;
+			}
+
+			var dir = Math.round(map(compass, 0, 1024, 0, 2));
 			power = power * .5 + Math.round(map(vel.max, 0, 10, 0, 3)) * .5;
 
-			if ( lastStates.alpha != gestureHandler.getState().gyro.alpha){
-				lastStates.alpha = gestureHandler.getState().gyro.alpha;
+			if ( lastStates.alpha != compass){
+				lastStates.alpha = compass;
 				$("#l2_border").css("background-color", colors[dir]);
 				$("#l2arrow_u").css("stroke", colors[dir]);
 				$("#l2arrow_m").css("stroke", colors[dir]);
@@ -370,6 +381,7 @@ var App = function(){
 		}
 	}
 
+	/**********************************************************************/
 	// @begin 	Spacebrew events
 	function onCustomMessage( name, data, type ){
 		if ( name == "gameevent" ){
