@@ -10,11 +10,51 @@
 
 #include "LiveInput.h"
 #include "Params.h"
+#include "ofxAnimatableFloat.h"
 
-struct Arrow {
-    ofVec2f start;
-    ofVec2f end;
-    ofVec2f otherEnd;
+// This is an arrow
+// Am I crazy or brilliant?
+
+/*
+           ____B
+          /|
+         / |
+        /  |
+       /  /---C
+    A /  /____D
+      \  \
+       \  \___E
+        \  |
+         \ |
+          \|
+           ---F
+
+     A = tip
+ B & F = outer endpoints
+ C & E = inner endpoints
+     D = inner point
+ 
+ */
+
+class Arrow {
+    friend class GridMeter;
+public:
+    void calcInnerEndPoints();
+    void calcInnerPoint();
+
+protected:
+    ofPoint pointA;
+    ofPoint pointB;
+    ofPoint pointC;
+    ofPoint pointD;
+    ofPoint pointE;
+    ofPoint pointF;
+    ofPolyline shape;
+};
+
+struct Pulse {
+    ofxAnimatableFloat anim;
+    ofRectangle shape;
 };
 
 class GridPoint : public ofVec2f {
@@ -39,6 +79,9 @@ public:
     void partyMode();
 
     void editArrows();
+    void calcArrowOuterEndpoints(ofVec2f pos);
+    void calcArrowInnerEndpoints();
+    void calcArrowThickness();
 
     void mouseMoved(ofMouseEventArgs& args);
     void mouseDragged(ofMouseEventArgs& args);
@@ -50,6 +93,7 @@ protected:
     void setupGrid();
     vector<GridPoint> grid;
     vector<Arrow> arrows;
+    vector<Pulse> pulses;
 
     bool bWaitingForArrowStartClick;
     bool bWaitingForArrowEndClick;

@@ -74,6 +74,9 @@ void GameController::guiSetup(){
 
     gui->addIntSlider("Grid Steps X", 10, 50, &Params::level2gridStepsX);
     gui->addIntSlider("Grid Steps Y", 10, 50, &Params::level2gridStepsY);
+    gui->addSpacer();
+
+    gui->addSlider("Arrow Thickness", 0, 300, &Params::level2arrowThickness);
     gui->addLabelButton("Edit Arrows", false);
 
     guiPanels.push_back(gui);
@@ -120,6 +123,10 @@ void GameController::guiEvent(ofxUIEventArgs &e){
             meter->setupGrid();
         if (name == "Edit Arrows")
             meter->editArrows();
+        if (name == "Arrow Thickness") {
+            meter->calcArrowInnerEndpoints();
+            meter->calcArrowThickness();
+        }
 
     }
 }

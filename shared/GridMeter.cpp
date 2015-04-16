@@ -19,8 +19,7 @@ GridPoint::GridPoint(){
 //--------------------------------------------------------------
 void GridPoint::draw(){
     color.a *= .9;
-    color = ofColor(255, 150);
-    
+
     ofPushMatrix();
     ofPushStyle();
     ofFill();
@@ -37,7 +36,9 @@ void GridPoint::draw(){
 
 //--------------------------------------------------------------
 void GridPoint::activate( float level ){
-    color.a = level;
+    if (color.a < level) {
+        color.a = level;
+    }
 }
 
 
@@ -54,18 +55,28 @@ void GridMeter::setup(){
     setupGrid();
 
     arrows.resize(3);
+
     // left arrow
-    arrows[0].start.set(21, 540);
-    arrows[0].end.set(287, 281);
-    arrows[0].otherEnd.set(287, 799);
+    arrows[0].pointA.set(10, 540);
+    arrows[0].pointB.set(295, 262);
+    arrows[0].pointF.set(295, 818);
+
     // top arrow
-    arrows[1].start.set(960, 21);
-    arrows[1].end.set(1219, 287);
-    arrows[1].otherEnd.set(701, 287);
+    arrows[1].pointA.set(960, 21);
+    arrows[1].pointB.set(1219, 287);
+    arrows[1].pointF.set(701, 287);
+
     // right arrow
-    arrows[2].start.set(1899, 540);
-    arrows[2].end.set(1633, 281);
-    arrows[2].otherEnd.set(1633, 799);
+    arrows[2].pointA.set(1899, 540);
+    arrows[2].pointB.set(1633, 281);
+    arrows[2].pointF.set(1633, 799);
+
+    calcArrowInnerEndpoints();
+    calcArrowThickness();
+
+    pulses.resize(1);
+    pulses[0].shape.setWidth(100);
+    pulses[0].shape.setHeight(600);
 
     bWaitingForArrowStartClick = false;
     bWaitingForArrowEndClick = false;
@@ -129,9 +140,18 @@ void GridMeter::render(){
         if ( abs( g.distance(pnt)) < rad && bActive ){
             g.activate();
         }
+        for (auto& arrow : arrows) {
+            if (arrow.shape.inside(g)) {
+                if (pulses[0].shape.inside(g)) {
+                    g.activate(200);
+                } else {
+                    g.activate(100);
+                }
+            }
+        }
         g.draw();
     }
-    
+
     if ( !blogged && bActive){
         blogged = true;
     }
@@ -139,27 +159,21 @@ void GridMeter::render(){
 
     // for "editing" the arrow endpoints
     ofPushStyle();
-    ofSetColor(ofColor::cyan);
 
+    ofNoFill();
+    ofSetColor(ofColor::yellow);
+    ofRect(pulses[0].shape);
+
+    ofSetColor(ofColor::cyan, 150);
     if (bWaitingForArrowStartClick) {
         ofFill();
-        ofCircle(arrows[0].start, 15);  // point of left arrow where mouse is
-        ofCircle(arrows[1].start, 15);  // point of right arrow is mirrored mouse point
-        ofCircle(arrows[2].start, 15);  // point of top arrow is mouse distance from left edge
-    } else {
+        ofCircle(arrows[0].pointA, 15);  // point of left arrow where mouse is
+        ofCircle(arrows[1].pointA, 15);  // point of right arrow is mirrored mouse point
+        ofCircle(arrows[2].pointA, 15);  // point of top arrow is mouse distance from left edge
+    } else if (bWaitingForArrowEndClick) {
+        ofNoFill();
         ofSetLineWidth(10);
-
-        // left arrow
-        ofLine(arrows[0].start, arrows[0].end);
-        ofLine(arrows[0].start, arrows[0].otherEnd);
-
-        // right arrow
-        ofLine(arrows[2].start, arrows[2].end);
-        ofLine(arrows[2].start, arrows[2].otherEnd);
-
-        // top arrow
-        ofLine(arrows[1].start, arrows[1].end);
-        ofLine(arrows[1].start, arrows[1].otherEnd);
+        for (auto& arrow : arrows) arrow.shape.draw();
     }
 
     ofPopStyle();
@@ -184,6 +198,48 @@ void GridMeter::editArrows(){
 }
 
 //--------------------------------------------------------------
+void GridMeter::calcArrowOuterEndpoints(ofVec2f pos){
+
+    // set left arrow outer endpoints
+    arrows[0].pointB.set(pos);
+    arrows[0].pointF.set(pos.x, getProjectorHeight() - pos.y);
+
+    // set top arrow outer endpoints -- the top is more funky since it's
+    // rotated 90º instead of mirrored like the left/right arrows are
+    // make a vector from the left arrow point to the end
+    ofVec2f arrowVec = pos - arrows[0].pointA;
+    arrowVec.rotate(90);
+
+    arrows[1].pointB = arrows[1].pointA + arrowVec;
+    arrows[1].pointF.set( getProjectorWidth() - arrows[1].pointB.x, arrows[1].pointB.y);
+
+    // set right arrow outer epoints
+    arrows[2].pointB.set(getProjectorWidth() - pos.x, pos.y);
+    arrows[2].pointF.set(getProjectorWidth() - pos.x, getProjectorHeight() - pos.y);
+
+}
+
+//--------------------------------------------------------------
+void GridMeter::calcArrowInnerEndpoints(){
+    // set left arrow inner endpoints
+    arrows[0].pointC = arrows[0].pointB + ofPoint(0, Params::level2arrowThickness);
+    arrows[0].pointE = arrows[0].pointF - ofPoint(0, Params::level2arrowThickness);
+
+    // set top arrow inner endpoints
+    arrows[1].pointC = arrows[1].pointB - ofPoint(Params::level2arrowThickness, 0);
+    arrows[1].pointE = arrows[1].pointF + ofPoint(Params::level2arrowThickness, 0);
+
+    // set right arrow inner endpoints
+    arrows[2].pointC = arrows[2].pointB + ofPoint(0, Params::level2arrowThickness);
+    arrows[2].pointE = arrows[2].pointF - ofPoint(0, Params::level2arrowThickness);
+}
+
+//--------------------------------------------------------------
+void GridMeter::calcArrowThickness(){
+    for (auto& arrow : arrows) arrow.calcInnerPoint();
+}
+
+//--------------------------------------------------------------
 void GridMeter::mousePressed(ofMouseEventArgs& args){
 
     if (bWaitingForArrowStartClick) {
@@ -192,20 +248,20 @@ void GridMeter::mousePressed(ofMouseEventArgs& args){
     } else if (bWaitingForArrowEndClick) {
         bWaitingForArrowEndClick = false;
 
-        cout << "left arrow"        << endl;
-        cout << arrows[0].start     << endl;
-        cout << arrows[0].end       << endl;
-        cout << arrows[0].otherEnd  << endl;
+        cout << "left arrow"     << endl;
+        cout << arrows[0].pointA << endl;
+        cout << arrows[0].pointB << endl;
+        cout << arrows[0].pointF << endl;
 
-        cout << "top arrow"         << endl;
-        cout << arrows[1].start     << endl;
-        cout << arrows[1].end       << endl;
-        cout << arrows[1].otherEnd  << endl;
+        cout << "top arrow"      << endl;
+        cout << arrows[1].pointA << endl;
+        cout << arrows[1].pointB << endl;
+        cout << arrows[1].pointF << endl;
 
-        cout << "right arrow"       << endl;
-        cout << arrows[2].start     << endl;
-        cout << arrows[2].end       << endl;
-        cout << arrows[2].otherEnd  << endl;
+        cout << "right arrow"    << endl;
+        cout << arrows[2].pointA << endl;
+        cout << arrows[2].pointB << endl;
+        cout << arrows[2].pointF << endl;
     }
 
 }
@@ -213,33 +269,23 @@ void GridMeter::mousePressed(ofMouseEventArgs& args){
 //--------------------------------------------------------------
 void GridMeter::mouseMoved(ofMouseEventArgs& args){
 
+    pulses[0].shape.setX(args.x - pulses[0].shape.getWidth()/2);
+    pulses[0].shape.setY(args.y - pulses[0].shape.getHeight()/2);
+
     if (bWaitingForArrowStartClick) {
         // point of the left arrow is mouse x
-        arrows[0].start.set(args.x, getProjectorHeight()/2.);
+        arrows[0].pointA.set(args.x, getProjectorHeight()/2.);
 
         // point of top arrow is mouse distance from left edge
-        arrows[1].start.set(getProjectorWidth()/2., args.x);
+        arrows[1].pointA.set(getProjectorWidth()/2., args.x);
 
         // set the point of the right arrow to the mouse x
-        arrows[2].start.set(getProjectorWidth() - args.x, getProjectorHeight()/2.);
+        arrows[2].pointA.set(getProjectorWidth() - args.x, getProjectorHeight()/2.);
     } else if (bWaitingForArrowEndClick) {
 
-        // make a vector from the left arrow point to the end
-        // (the end is your mouse cursor)
-        ofVec2f arrowVec = args - arrows[0].start;
-        arrowVec.rotate(90);
-
-        // set left arrow endpoint
-        arrows[0].end.set(args);
-        arrows[0].otherEnd.set(args.x, getProjectorHeight() - args.y);
-
-        // set top arrow endpoint
-        arrows[1].end = arrows[1].start + arrowVec;
-        arrows[1].otherEnd.set( getProjectorWidth() - arrows[1].end.x, arrows[1].end.y);
-
-        // set right arrow endpoint
-        arrows[2].end.set(getProjectorWidth() - args.x, args.y);
-        arrows[2].otherEnd.set(getProjectorWidth() - args.x, getProjectorHeight() - args.y);
+        calcArrowOuterEndpoints(args);
+        calcArrowInnerEndpoints();
+        calcArrowThickness();
 
     }
 
@@ -252,4 +298,22 @@ void GridMeter::mouseReleased(ofMouseEventArgs& args){
 //--------------------------------------------------------------
 void GridMeter::mouseDragged(ofMouseEventArgs& args){
     
+}
+
+#pragma mark Arrow
+
+//--------------------------------------------------------------
+void Arrow::calcInnerPoint(){
+    ofVec2f upperVec = pointC - pointB + pointA;
+    ofVec2f lowerVec = pointE - pointF + pointA;
+    ofLineSegmentIntersection(pointC, upperVec, pointE, lowerVec, pointD);
+
+    shape.clear();
+    shape.addVertex(pointA);
+    shape.addVertex(pointB);
+    shape.addVertex(pointC);
+    shape.addVertex(pointD);
+    shape.addVertex(pointE);
+    shape.addVertex(pointF);
+    shape.close();
 }

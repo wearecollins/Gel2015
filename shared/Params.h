@@ -17,7 +17,8 @@ public:
     static float level1partyModeSegmentLengthMax;
     static float level1partySpeed;
 
-    static int level2gridStepsX;
-    static int level2gridStepsY;
+    static int   level2gridStepsX;
+    static int   level2gridStepsY;
+    static float level2arrowThickness;
     
 };
