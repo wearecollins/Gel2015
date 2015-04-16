@@ -22,3 +22,6 @@ ${PREFIX}latrokles/ofxSpeech.git
 
 # animation
 ${PREFIX}armadillu/ofxAnimatable.git
+
+# viewz
+${PREFIX}Flightphase/ofxImageSequence.git

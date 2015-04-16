@@ -1,7 +1,7 @@
 <settings>
 	<overlay>level1_start.mp4</overlay>
 	<overlay>level1_intro.png</overlay>
-	<overlay>level1_guide.png</overlay>
-	<overlay>level1_prompt.png</overlay>
+	<overlay>level1_guide.mp4</overlay>
+	<overlay>level1_prompt.mp4</overlay>
 	<outro>level1_outro.png</outro>
 </settings>

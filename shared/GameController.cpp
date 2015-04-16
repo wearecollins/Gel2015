@@ -64,6 +64,7 @@ void GameController::update( ofEventArgs & e ){
 
 //--------------------------------------------------------------
 void GameController::draw(){
+    ofEnableAlphaBlending();
     colorBackground.draw();
     
     if ( currentState != STATE_INTRO ){
