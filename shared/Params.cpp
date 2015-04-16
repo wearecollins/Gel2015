@@ -15,3 +15,5 @@ float Params::level1partySpeed = 5.;
 int   Params::level2gridStepsX = 35;
 int   Params::level2gridStepsY = 20;
 float Params::level2arrowThickness = 120;
+float Params::level2partySpeed = 2.;
+float Params::level2partyNoiseStepSize = 0.5;

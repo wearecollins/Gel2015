@@ -35,8 +35,8 @@ void GridPoint::draw(){
 }
 
 //--------------------------------------------------------------
-void GridPoint::activate( float level ){
-    if (color.a < level) {
+void GridPoint::activate( float level, bool force ){
+    if (color.a < level || force) {
         color.a = level;
     }
 }
@@ -134,20 +134,29 @@ void GridMeter::render(){
     static bool blogged = false;
     
     for (auto & g : grid ){
-        if ( bActive && !blogged ){
-//            cout << abs( g.distance(pnt)) << endl;
-        }
-        if ( abs( g.distance(pnt)) < rad && bActive ){
-            g.activate();
-        }
-        for (auto& arrow : arrows) {
-            if (arrow.shape.inside(g)) {
-                if (pulses[0].shape.inside(g)) {
-                    g.activate(200);
-                } else {
+        if (!bPartyMode) {
+            // MF: I dont' know what this 'blogged' is
+            if ( bActive && !blogged ){
+    //            cout << abs( g.distance(pnt)) << endl;
+            }
+            // activate based on averager value
+            if ( abs( g.distance(pnt)) < rad && bActive ){
+                g.activate();
+            }
+            // activate based on arrows/pulses
+            for (auto& arrow : arrows) {
+                if (arrow.shape.inside(g)) {
                     g.activate(100);
+
+                    if (pulses[0].shape.inside(g)) {
+                        g.activate(200);
+                    }
                 }
             }
+        } else {
+            // partaaaayyyy
+            float noiseVal = ofNoise(g.x * Params::level2partyNoiseStepSize, g.y * Params::level2partyNoiseStepSize, ofGetElapsedTimef() * Params::level2partySpeed);
+            g.activate(noiseVal * 150, true);
         }
         g.draw();
     }
@@ -187,9 +196,9 @@ void GridMeter::render(){
 }
 
 //--------------------------------------------------------------
-void GridMeter::partyMode(){
-    
-}
+//void GridMeter::partyMode(){
+//    
+//}
 
 //--------------------------------------------------------------
 void GridMeter::editArrows(){

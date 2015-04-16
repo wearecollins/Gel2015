@@ -61,7 +61,7 @@ class GridPoint : public ofVec2f {
 public:
     GridPoint();
     void draw();
-    void activate( float level=255);
+    void activate( float level=255, bool force = false);
 
     float   radius;
     ofColor color;
@@ -76,7 +76,7 @@ public:
     
     void setup();
     void render();
-    void partyMode();
+//    void partyMode();
 
     void editArrows();
     void calcArrowOuterEndpoints(ofVec2f pos);
