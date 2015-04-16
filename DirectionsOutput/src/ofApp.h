@@ -51,4 +51,7 @@ class ofApp : public ofBaseApp{
     
         // process stuff from spacebrew
         InputProcessor inputProcessor;
+    
+        // ignore updates
+        int currentLevel;
 };

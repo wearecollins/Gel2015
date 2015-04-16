@@ -111,6 +111,9 @@ void ofApp::setup(){
     rates[DIRECTION_STOP].lastSent = 0;
     rates[DIRECTION_STOP].sendRate = 1000;
     
+    // level marker
+    currentLevel = 0;
+    
     // spacebrew game messages
     spacebrew.addSubscribe("gameevent", "event");
     
@@ -199,7 +202,19 @@ void ofApp::onMessage( Spacebrew::Message & m ){
             string value = json["value"].asString();
             
             if (name == "level") {
-                speech.speakPhrase(value);
+                int l = currentLevel;
+                if (value == "level one"){
+                    currentLevel = 1;
+                    
+                } else if ( value == "level two" ){
+                    currentLevel = 2;
+                    
+                } else if ( value == "level three"){
+                    currentLevel = 3;
+                }
+                
+                if ( l != currentLevel )
+                    speech.speakPhrase(value);
             } else if(name == "trigger"){
                 speech.speakPhrase(value);
             }
