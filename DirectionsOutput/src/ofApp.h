@@ -19,7 +19,9 @@ class ofApp : public ofBaseApp{
             DIRECTION_LEFT = 0,
             DIRECTION_STRAIGHT,
             DIRECTION_RIGHT,
-            DIRECTION_LOOK,
+//            DIRECTION_LOOK,
+            DIRECTION_STRAIGHT_FAST,
+            DIRECTION_STRAIGHT_FASTER,
             DIRECTION_STOP
         };
     
