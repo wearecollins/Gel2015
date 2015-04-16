@@ -86,7 +86,7 @@ void GridMeter::render(){
     if ( messages != NULL ){
         for (auto & g : grid ){
             for ( auto & m : *messages ){
-                ofVec2f pnt2 = getGridPoint(m.second.direction);
+                ofVec2f pnt2 = getGridPoint(m.direction);
                 if ( abs( g.distance(pnt2)) < rad/4. && bActive ){
                     g.activate(50);
                 }

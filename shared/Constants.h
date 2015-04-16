@@ -47,7 +47,8 @@ struct PointMessage {
     ofVec2f point; // deprecated
     string uniqueId;
     ofColor color;
-    int     direction; //0-3 = L U R D
+    int     direction;  //0-3 = L U R D
+    int     power;      //0-2, only used in voice app
 };
 
 class Settings {
