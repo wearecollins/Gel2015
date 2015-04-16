@@ -64,7 +64,7 @@ void GameController::guiSetup(){
 
     gui->addSlider("Party Segment Min", 0, 300, &Params::level1partyModeSegmentLengthMin);
     gui->addSlider("Party Segment Max", 0, 300, &Params::level1partyModeSegmentLengthMax);
-    gui->addSlider("Party Speed", 0, 10, &Params::level1partySpeed);
+    gui->addSlider("Party Speed", 0, 11, &Params::level1partySpeed);
 
     guiPanels.push_back(gui);
 
@@ -78,6 +78,10 @@ void GameController::guiSetup(){
 
     gui->addSlider("Arrow Thickness", 0, 300, &Params::level2arrowThickness);
     gui->addLabelButton("Edit Arrows", false);
+    gui->addSpacer();
+
+    gui->addSlider("Party Speed", 0, 11, &Params::level2partySpeed);
+    gui->addSlider("Party Noise Field Step Size", 0, 1, &Params::level2partyNoiseStepSize)->setLabelPrecision(3);
 
     guiPanels.push_back(gui);
 
