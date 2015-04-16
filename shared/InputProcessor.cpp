@@ -109,8 +109,8 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
         vector<string> exp = ofSplitString(m.value, ":");
         
         if ( exp.size() >= 2 ){
-            int dir = ofToInt(exp[1]);
-            string ID = exp[0];
+            int dir = ofToInt(exp[0]);
+            string ID = exp[1];
 //            if ( messages.count(ID) == 0 ){
 //                messages[ID] = PointMessage();
 //            }
@@ -122,6 +122,7 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
             p.time       = now;
             p.uniqueId   = ID;
             p.direction  = dir;
+            
             messages.push_back(p);
         }
     }

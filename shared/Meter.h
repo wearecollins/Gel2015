@@ -10,7 +10,15 @@
 #include "LiveInput.h"
 
 #include "ofxSvg.h"
+#include "Svg2Mesh.h"
 #include "ofxAnimatableFloat.h"
+
+// animated point in mesh
+struct MeshBlip {
+    int vertexIndex;
+    ofxAnimatableFloat * animation;
+    ofMesh * parent;
+};
 
 // Holds 1/3 of the Raibow (left/middle/right)
 struct RainbowSegment {
@@ -47,8 +55,10 @@ protected:
     ofMesh createMesh(ofPolyline& line, int lowerBound, int higherBound, ofColor color);
     float calcAlphaForPulse(float percent, int index, int numLines, float overlap);
     void createPulse(float value);
+    void createBlip(string name, float value);
     void drawClosestPoint();
     void onAnimFinished(ofxAnimatable::AnimationEvent& args);
+    void onBlipFinished(ofxAnimatable::AnimationEvent& args);
 
     Poco::LocalDateTime lastPulse;  // not actually used!
     vector<ofPolyline> lines;       // only used to create meshes & in drawClosestPoint()
@@ -56,4 +66,8 @@ protected:
     vector<RainbowSegment> segments;
     vector<PartySegment> partyModeSegments;
 
+    // 'live view' meshes (L,U,R)
+    vector<vector<ofMesh> > liveViewMeshes;
+    std::map<string, MeshBlip* > blips;
+    
 };
