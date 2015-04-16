@@ -46,6 +46,8 @@ var App = function(){
 		sender.setup("spacebrew.robotconscience.com", app_name);// get_local_url());
 
 		sender.getSpacebrew().addSubscribe("gameevent", "event");
+		sender.getSpacebrew().addSubscribe("statusupdate", "event");
+
 		sender.getSpacebrew().onCustomMessage = onCustomMessage;
 			
 		gestureHandler.setup();
@@ -377,7 +379,7 @@ var App = function(){
 	/**********************************************************************/
 	// @begin 	Spacebrew events
 	function onCustomMessage( name, data, type ){
-		if ( name == "gameevent" ){
+		if ( name == "gameevent" || name == "statusupdate" ){
 			// console.log( value );
 			// value = JSON.parse( value );
 
