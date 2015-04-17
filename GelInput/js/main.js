@@ -36,7 +36,7 @@ var App = function(){
 	var lastStates = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0};
 	var vel = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0};
 
-	var targetNorth = 500;
+	var targetNorth = 300;
 	var moveThreshold = 0;
 	var power = 0;
 
