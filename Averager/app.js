@@ -15,7 +15,7 @@ var spacebrewHost = "localhost";
 
 var MODES = [ "MODE_AVERAGE", "MODE_RANDOM_LEAD", "MODE_LIVE"];
 var mode = "MODE_AVERAGE";
-var messageTimeoutSeconds = .1;
+var messageTimeoutSeconds = 0.;
 
 /******************************************************************
 	STORAGE
@@ -78,16 +78,6 @@ function onCustomMessage( name, value, type ){
 function update(){
 	// cleanup messages
     var now = Date.now();
-
-    // jam through messages
-    for (var key in messages) {
-  		if (messages.hasOwnProperty(key)) {
-			var timediff = now - messages[key].time;
-			if ( timediff / 1000.0 > messageTimeoutSeconds ){
-				delete messages[key];
-			}
-		}
-    }
     
     // updated?
     var bShouldSend = false;
@@ -176,6 +166,16 @@ function update(){
         bShouldSend = false;
         // drift back to 0
         // currentValue = currentValue * .9;
+    }
+    
+    // jam through messages
+    for (var key in messages) {
+        if (messages.hasOwnProperty(key)) {
+            var timediff = now - messages[key].time;
+            if ( timediff / 1000.0 > messageTimeoutSeconds ){
+                delete messages[key];
+            }
+        }
     }
 }
 
