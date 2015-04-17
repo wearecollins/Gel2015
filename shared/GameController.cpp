@@ -180,6 +180,7 @@ void GameController::update( ofEventArgs & e ){
     Poco::Timespan timediff = now - lastStatusSent;
     
     if ( timediff.milliseconds() >= statusSendMillis ){
+        lastStatusSent = now;
         if ( currentState == STATE_PARTY ){
             spacebrew->send("statusupdate", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
         } else {

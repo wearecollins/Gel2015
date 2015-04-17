@@ -15,7 +15,10 @@ InputProcessor::InputProcessor(){
     bEaseValue = true;
     currentValue = 0;
     currentPower = 0;
-    messageTimeoutSeconds = .2;
+    messageTimeoutSeconds = .5;
+    messageDeleteSeconds = .1;
+    
+    lastAverage = Poco::Timestamp();
 }
 
 //--------------------------------------------------------------
@@ -50,7 +53,7 @@ void InputProcessor::update( ofEventArgs & e ){
     for ( auto it = messages.begin(); it != messages.end(); ){
 //        timediff = now - m.second.time;
         timediff = now - it->time;
-        if ( (float) timediff.milliseconds() / 1000.0f > messageTimeoutSeconds ){
+        if ( (float) timediff.milliseconds() / 1000.0f > messageDeleteSeconds ){
 //            messages.erase(m.first);
             messages.erase(it);
         } else {
@@ -59,10 +62,8 @@ void InputProcessor::update( ofEventArgs & e ){
     }
     mux.unlock();
     
-    timediff = now - lastAverage;
-    
     // process current value
-    if ( messages.size() > 0 ){//&& timediff.milliseconds() / 1000.0f > messageTimeoutSeconds ){
+    if ( (lastAverage.elapsed())/1000000.f < messageTimeoutSeconds ){
         bShouldSend = true;
     } else {
         bShouldSend = false;
@@ -98,7 +99,7 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
             int dir = ofToInt(exp[1]);
             string ID = exp[0];
             currentValue = dir;
-            lastAverage = now;
+            lastAverage = Poco::Timestamp();
             if ( exp.size() > 2 ){
                 currentPower = ofToInt(exp[2]);
             }

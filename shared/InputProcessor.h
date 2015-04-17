@@ -37,7 +37,7 @@ public:
     bool shouldSend();
     
     // externally modifiable settings
-    float messageTimeoutSeconds;
+    float messageTimeoutSeconds, messageDeleteSeconds;
     
 protected:
     void onMessage( Spacebrew::Message & m );
@@ -50,7 +50,7 @@ protected:
     // updated live from average
     int currentValue;
     int currentPower;
-    Poco::DateTime lastAverage; // last time we got an "average" value
+    Poco::Timestamp lastAverage; // last time we got an "average" value
     
     bool bShouldSend, bEaseValue;
     
