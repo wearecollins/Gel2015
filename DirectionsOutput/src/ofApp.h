@@ -20,8 +20,6 @@ class ofApp : public ofBaseApp{
             DIRECTION_STRAIGHT,
             DIRECTION_RIGHT,
 //            DIRECTION_LOOK,
-            DIRECTION_STRAIGHT_FAST,
-            DIRECTION_STRAIGHT_FASTER,
             DIRECTION_STOP
         };
     
@@ -44,7 +42,7 @@ class ofApp : public ofBaseApp{
     
         ofxSpeechSynthesizer speech;
     
-        void speak( int direction );
+        void speak( int direction, int power = 0 );
         map<Direction, RateLimiter> rates;
     
         bool bWalking;

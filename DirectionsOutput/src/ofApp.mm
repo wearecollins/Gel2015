@@ -98,12 +98,7 @@ void ofApp::setup(){
     rates[DIRECTION_RIGHT].sendRate = 1000;
     
     rates[DIRECTION_STRAIGHT].lastSent = 0;
-    rates[DIRECTION_STRAIGHT].sendRate = 1000;
-    
-    rates[DIRECTION_STRAIGHT_FAST].lastSent = 0;
-    rates[DIRECTION_STRAIGHT_FASTER].lastSent = 0;
-    rates[DIRECTION_STRAIGHT_FAST].sendRate = 1000;
-    rates[DIRECTION_STRAIGHT_FASTER].sendRate = 1000;
+    rates[DIRECTION_STRAIGHT].sendRate = 500;
     
 //    rates[DIRECTION_LOOK].lastSent = 0;
 //    rates[DIRECTION_LOOK].sendRate = 500;
@@ -124,7 +119,7 @@ void ofApp::setup(){
 
 
 //--------------------------------------------------------------
-void ofApp::speak( int dir ){
+void ofApp::speak( int dir, int power  ){
     Direction d = (Direction) dir;
     
     if ( ofGetElapsedTimeMillis() - rates[d].lastSent > rates[d].sendRate ){
@@ -143,7 +138,24 @@ void ofApp::speak( int dir ){
                 
                 case DIRECTION_STRAIGHT:
                 bWalking = true;
-                speech.speakPhrase("walk");
+                {
+                    switch (power) {
+                        case 0:
+                            speech.speakPhrase("walk");
+                            break;
+                            
+                        case 1:
+                            rates[DIRECTION_STRAIGHT].lastSent = ofGetElapsedTimeMillis();
+                            speech.speakPhrase("walk fast");
+                            break;
+                            
+                        case 2:
+                            rates[DIRECTION_STRAIGHT].lastSent = ofGetElapsedTimeMillis();
+                            speech.speakPhrase("walk really fast");
+                            break;
+                    }
+                }
+                
                 break;
                 
                 case DIRECTION_STOP:
@@ -153,18 +165,6 @@ void ofApp::speak( int dir ){
                 }
                 
                 break;
-                
-                case DIRECTION_STRAIGHT_FAST:
-                    bWalking = true;
-                    rates[DIRECTION_STRAIGHT].lastSent = ofGetElapsedTimeMillis();
-                    speech.speakPhrase("walk fast");
-                break;
-                
-                case DIRECTION_STRAIGHT_FASTER:
-                    rates[DIRECTION_STRAIGHT].lastSent = ofGetElapsedTimeMillis();
-                    bWalking = true;
-                    speech.speakPhrase("walk really fast");
-                    break;
         }
     }
 }
@@ -172,7 +172,7 @@ void ofApp::speak( int dir ){
 //--------------------------------------------------------------
 void ofApp::update(){
     if (inputProcessor.shouldSend()){
-        speak( inputProcessor.getCurrentValue() + inputProcessor.getCurrentPower() );
+        speak( inputProcessor.getCurrentValue(), inputProcessor.getCurrentPower() );
     } else {
         speak( (int) DIRECTION_STOP );
     }
