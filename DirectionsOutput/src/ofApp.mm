@@ -133,12 +133,12 @@ void ofApp::speak( int dir ){
         switch ( d ){
                 case DIRECTION_LEFT:
                 bWalking = false;
-                speech.speakPhrase("left");
+                speech.speakPhrase(currentLevel == 3 ? "hot" : "left");
                 break;
                 
                 case DIRECTION_RIGHT:
                 bWalking = false;
-                speech.speakPhrase("right");
+                speech.speakPhrase(currentLevel == 3 ? "cold" : "right");
                 break;
                 
                 case DIRECTION_STRAIGHT:
@@ -213,7 +213,7 @@ void ofApp::onMessage( Spacebrew::Message & m ){
                     currentLevel = 3;
                 }
                 
-                if ( l != currentLevel )
+//                if ( l != currentLevel )
                     speech.speakPhrase(value);
             } else if(name == "trigger"){
                 speech.speakPhrase(value);
@@ -225,9 +225,9 @@ void ofApp::onMessage( Spacebrew::Message & m ){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if ( key == 'l'){
-        speech.speakPhrase("left");
+        speech.speakPhrase(currentLevel == 3 ? "cold" : "left");
     } else if ( key == 'r' ){
-        speech.speakPhrase("right");
+        speech.speakPhrase(currentLevel == 3 ? "hot" : "right");
     } else if ( key == 's' ){
         speech.speakPhrase("stop");
     } else if ( key == 'f' ){

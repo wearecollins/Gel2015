@@ -33,7 +33,7 @@ public:
         if ( !bActive ){
             color.a *= .9;
         } else {
-            //color.a = color.a * .9 + targetAlpha * .1;
+            color.a = color.a * .9 + targetAlpha * .1;
         }
         ofPushStyle();
         ofSetColor(color);
