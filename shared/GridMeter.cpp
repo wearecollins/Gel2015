@@ -26,10 +26,6 @@ void GridPoint::draw(){
     ofSetColor(color);
     ofCircle(*this, radius);
     
-//    ofSetColor(255);
-//    ofNoFill();
-//    ofCircle(*this, radius);
-    
     ofPopMatrix();
     ofPopStyle();
 }
@@ -53,7 +49,9 @@ GridMeter::GridMeter()  : LiveInput(){
 void GridMeter::setup(){
     ofRegisterMouseEvents(this);
     setupGrid();
-
+    
+    pulseRateSeconds = .5;
+    
     arrows.resize(3);
 
     // left arrow
@@ -74,9 +72,9 @@ void GridMeter::setup(){
     calcArrowInnerEndpoints();
     calcArrowThickness();
 
-    pulses.resize(1);
-    pulses[0].shape.setWidth(100);
-    pulses[0].shape.setHeight(600);
+//    pulses.resize(1);
+//    pulses[0].shape.setWidth(100);
+//    pulses[0].shape.setHeight(600);
 
     bWaitingForArrowStartClick = false;
     bWaitingForArrowEndClick = false;
@@ -103,7 +101,6 @@ void GridMeter::setupGrid(){
             grid.back().radius = rad;
             grid.back().color.setSaturation(255);
             grid.back().color.setBrightness(255);
-            grid.back().color.setHue(ofMap(x, 0, Params::level2gridStepsX, 0, 125) + ofMap(y, 0, Params::level2gridStepsY, 0, 130));
         }
     }
 }
@@ -114,8 +111,24 @@ void GridMeter::render(){
     ofClear(255);
     ofPushMatrix();
     
-    // activate based on value
-    ofVec2f pnt = getGridPoint(value);
+    Poco::LocalDateTime now;
+    Poco::Timespan timediff;
+    
+    // update pulses
+    for (auto &p :pulses ){
+        p.anim->update(1./60.);
+        switch (p.dir) {
+            case 0:
+            case 2:
+                p.shape.x = p.anim->val();
+                break;
+                
+            case 1:
+                p.shape.y = p.anim->val();
+                break;
+        }
+//        ofRect(p.shape); // debug zones
+    }
     
     // radius of "hit" based on grid point
     float rad = 300;
@@ -131,48 +144,111 @@ void GridMeter::render(){
         }
     }
     
-    static bool blogged = false;
+    // Fire off pulses if necessary
+    if ( bActive ){
+        int absValue = round(value);
+        
+        if ( absValue < arrows.size()){
+            
+            timediff = now - arrows[absValue].lastPulse;
+            // annoying math, but seconds == int so...
+            if ( timediff.milliseconds() / 1000.f > pulseRateSeconds ){
+                arrows[absValue].lastPulse = now;
+                pulses.push_back(Pulse());
+                
+                pulses.back().dir = absValue;
+                
+                switch (absValue) {
+                    case 0:
+                    {
+                        pulses.back().shape.setWidth(100);
+                        pulses.back().shape.setHeight(600);
+                        pulses.back().shape.x = arrows[absValue].pointB.x + 20;// whatever
+                        pulses.back().shape.y = arrows[absValue].pointB.y;
+                        
+                        pulses.back().anim = new ofxAnimatableFloat();
+                        pulses.back().anim->reset(arrows[absValue].pointB.x);
+                        pulses.back().anim->setCurve(LINEAR);
+                        pulses.back().anim->setDuration( pulseRateSeconds );
+                        pulses.back().anim->animateTo(arrows[absValue].pointA.x - pulses.back().shape.width );
+                    }
+                        break;
+                        
+                    case 1:
+                    {
+                        pulses.back().shape.setWidth(600);
+                        pulses.back().shape.setHeight(100);
+                        pulses.back().shape.x = arrows[absValue].pointF.x;
+                        pulses.back().shape.y = arrows[absValue].pointF.y;
+                        
+                        pulses.back().anim = new ofxAnimatableFloat();
+                        pulses.back().anim->reset(arrows[absValue].pointF.y);
+                        pulses.back().anim->setCurve(LINEAR);
+                        pulses.back().anim->setDuration( pulseRateSeconds );
+                        pulses.back().anim->animateTo(arrows[absValue].pointA.y - pulses.back().shape.height );
+                    }
+                        break;
+                        
+                    case 2:
+                    {
+                        pulses.back().shape.setWidth(100);
+                        pulses.back().shape.setHeight(600);
+                        pulses.back().shape.x = arrows[absValue].pointB.x - 20;// whatever
+                        pulses.back().shape.y = arrows[absValue].pointB.y;
+                        
+                        pulses.back().anim = new ofxAnimatableFloat();
+                        pulses.back().anim->reset(arrows[absValue].pointB.x);
+                        pulses.back().anim->setCurve(LINEAR);
+                        pulses.back().anim->setDuration( pulseRateSeconds );
+                        pulses.back().anim->animateTo(arrows[absValue].pointA.x + pulses.back().shape.width );
+                    }
+                        break;
+                }
+                
+                
+            }
+        }
+    }
     
     for (auto & g : grid ){
         if (!bPartyMode) {
-            // MF: I dont' know what this 'blogged' is
-            if ( bActive && !blogged ){
-    //            cout << abs( g.distance(pnt)) << endl;
-            }
-            // activate based on averager value
-            if ( abs( g.distance(pnt)) < rad && bActive ){
-                g.activate();
-            }
             // activate based on arrows/pulses
             for (auto& arrow : arrows) {
                 if (arrow.shape.inside(g)) {
-                    g.activate(100);
-
-                    if (pulses[0].shape.inside(g)) {
-                        g.activate(200);
+                    for (auto& p : pulses) {
+                        if (p.shape.inside(g)) {
+                            g.color.set(GEL_COLORS[p.dir]);
+                            g.activate(200);
+                            break;
+                        }
                     }
                 }
             }
         } else {
             // partaaaayyyy
             float noiseVal = ofNoise(g.x * Params::level2partyNoiseStepSize, g.y * Params::level2partyNoiseStepSize, ofGetElapsedTimef() * Params::level2partySpeed);
-            g.activate(noiseVal * 150, true);
+            g.activate(noiseVal * 255, true);
         }
         g.draw();
     }
-
-    if ( !blogged && bActive){
-        blogged = true;
+    
+    // clean up pulses
+    
+    for (auto it = pulses.begin(); it != pulses.end(); ) {
+        if ( it->anim->hasFinishedAnimating() ){
+            pulses.erase(it);
+        } else {
+            ++it;
+        }
     }
-
 
     // for "editing" the arrow endpoints
     ofPushStyle();
 
     ofNoFill();
     ofSetColor(ofColor::yellow);
-    ofRect(pulses[0].shape);
-
+    if ( bWaitingForArrowStartClick || bWaitingForArrowEndClick){
+    }
     ofSetColor(ofColor::cyan, 150);
     if (bWaitingForArrowStartClick) {
         ofFill();
@@ -196,9 +272,14 @@ void GridMeter::render(){
 }
 
 //--------------------------------------------------------------
-//void GridMeter::partyMode(){
-//    
-//}
+void GridMeter::partyMode(){
+    LiveInput::partyMode();
+    
+    for ( auto & g : grid ){
+        g.color.set(GEL_COLORS[ (int) floor(ofRandom(3)) ] );
+        g.color.a = 0;
+    }
+}
 
 //--------------------------------------------------------------
 void GridMeter::editArrows(){
@@ -278,8 +359,8 @@ void GridMeter::mousePressed(ofMouseEventArgs& args){
 //--------------------------------------------------------------
 void GridMeter::mouseMoved(ofMouseEventArgs& args){
 
-    pulses[0].shape.setX(args.x - pulses[0].shape.getWidth()/2);
-    pulses[0].shape.setY(args.y - pulses[0].shape.getHeight()/2);
+//    pulses[0].shape.setX(args.x - pulses[0].shape.getWidth()/2);
+//    pulses[0].shape.setY(args.y - pulses[0].shape.getHeight()/2);
 
     if (bWaitingForArrowStartClick) {
         // point of the left arrow is mouse x

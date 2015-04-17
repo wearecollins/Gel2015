@@ -14,6 +14,7 @@
 
 // This is an arrow
 // Am I crazy or brilliant?
+// --Both? - BR
 
 /*
            ____B
@@ -41,6 +42,8 @@ class Arrow {
 public:
     void calcInnerEndPoints();
     void calcInnerPoint();
+    
+    Poco::LocalDateTime lastPulse;
 
 protected:
     ofPoint pointA;
@@ -53,8 +56,11 @@ protected:
 };
 
 struct Pulse {
-    ofxAnimatableFloat anim;
+    // makes me crazy that these have to be pointers :(
+    ofxAnimatableFloat * anim;
     ofRectangle shape;
+    
+    int dir; //0-2
 };
 
 class GridPoint : public ofVec2f {
@@ -76,7 +82,7 @@ public:
     
     void setup();
     void render();
-//    void partyMode();
+    void partyMode();
 
     void editArrows();
     void calcArrowOuterEndpoints(ofVec2f pos);
@@ -95,6 +101,8 @@ protected:
     vector<Arrow> arrows;
     vector<Pulse> pulses;
 
+    float pulseRateSeconds;
+    
     bool bWaitingForArrowStartClick;
     bool bWaitingForArrowEndClick;
 };

@@ -21,6 +21,10 @@ public:
         bFadeOut = true;
         bPartyMode = false;
         
+        GEL_COLORS.push_back(ofColor::yellow);
+        GEL_COLORS.push_back(ofColor::cyan);
+        GEL_COLORS.push_back(ofColor::magenta);
+        
         value = 0;
         
         renderTexture.allocate( getProjectorWidth(), getProjectorHeight());//, GL_RGBA );
@@ -75,6 +79,9 @@ public:
     virtual void render() = 0;
     
 protected:
+    // the holy gel colors
+    vector<ofColor> GEL_COLORS;
+    
     ofColor fill;
     float value;
     bool bActive, bFadeOut, bPartyMode;
