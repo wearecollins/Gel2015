@@ -15,7 +15,7 @@ var spacebrewHost = "localhost";
 
 var MODES = [ "MODE_AVERAGE", "MODE_RANDOM_LEAD", "MODE_LIVE"];
 var mode = "MODE_AVERAGE";
-var messageTimeoutSeconds = 0.;
+var messageTimeoutSeconds = 0.01;
 
 /******************************************************************
 	STORAGE
@@ -28,6 +28,7 @@ function Message( ID, dir ){
 	this.id   		= ID;
 	this.direction 	= dir;
     this.power      = 0;
+    this.sent       = false;
 }
 
 // running value
@@ -93,6 +94,7 @@ function update(){
                 var totalPower = 0;
 			    for (var key in messages) {
 			  		if (messages.hasOwnProperty(key)) {
+                        messages[key].sent = true;
                     	total += messages[key].direction;
                         totalPower += messages[key].power;
                     }
@@ -112,6 +114,7 @@ function update(){
                 var totalPower = 0;
 			    for (var key in messages) {
 			  		if (messages.hasOwnProperty(key)) {
+                        messages[key].sent = true;
                     	total += messages[key].direction;
                         totalPower += messages[key].power;
                     }
@@ -140,6 +143,7 @@ function update(){
 			  		if (messages.hasOwnProperty(key)) {
 						var timediff = now - messages[key].time;
 	                    if ( timediff < least ){
+                            messages[key].sent = true;
 	                        tempCurrent = messages[key].direction;
                             tempPower = messages[key].power;
 	                        least = timediff;
@@ -172,7 +176,7 @@ function update(){
     for (var key in messages) {
         if (messages.hasOwnProperty(key)) {
             var timediff = now - messages[key].time;
-            if ( timediff / 1000.0 > messageTimeoutSeconds ){
+            if ( timediff / 1000.0 > messageTimeoutSeconds && messages[key].sent === true ){
                 delete messages[key];
             }
         }
