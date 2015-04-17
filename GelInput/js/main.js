@@ -33,12 +33,14 @@ var App = function(){
 	/**********************************************************************/
 	// ACCEL STATE STUFF
 	// 
-	var lastStates = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0};
+	var lastStates = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0, dir:-1};
 	var vel = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0};
 
 	var targetNorth = 200;
 	var moveThreshold = 0;
 	var power = 0;
+
+	var supportsOrientation = false;
 
 	/**********************************************************************/
 	function setup(){
@@ -53,10 +55,15 @@ var App = function(){
 		gestureHandler.setup();
 
 		// orientation stuff
-		window.promptTimeout = null;
-		window.addEventListener('orientationchange', orientationChange, true);
+		if( 'onorientationchange' in window) {
+			supportsOrientation = true; 
+			window.promptTimeout = null;
+			window.addEventListener('orientationchange', orientationChange, true);
 
-		orientationChange();
+			orientationChange();
+		} else {
+			supportsOrientation = false;
+		}
 
 		// all done
 	}
@@ -89,6 +96,8 @@ var App = function(){
 	}
 
 	function orientationChange() {
+		if ( current_level == 2 ) return;
+
         var ua = navigator.userAgent.toLowerCase();
         var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
         if (isAndroid) {
@@ -106,6 +115,40 @@ var App = function(){
             }
             else if (window.orientation == 0 || window.orientation == 180) { //Portrait Mode
             	showLandscapePrompt();
+            }
+        }
+    }
+
+    function getOrientationDirection() {
+        var ua = navigator.userAgent.toLowerCase();
+        var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
+        if (isAndroid) {
+            //window.orientation is different for iOS and Android
+            switch ( window.orientation ){
+            	case 0:
+            		return 0;
+            	break;
+
+            	case 90:
+            	case -90:
+            		return 1;
+
+            	case 180:
+            		return 2;
+            }
+        }
+        else {
+        	switch ( window.orientation ){
+            	case 90:
+            		return 0;
+            	break;
+
+            	case 0:
+            	case 180:
+            		return 1;
+
+            	case -90:
+            		return 2;
             }
         }
     }
@@ -172,9 +215,14 @@ var App = function(){
 		teardownLevelThree();
 		teardownGetReady();
 
-		$("#level_two").css("opacity",1);
-		$("#level_two").css("display","block");
-		$("#level_two").css("visibility","visible");
+		if ( supportsOrientation ){
+			$("#level_two").css("opacity",1);
+			$("#level_two").css("display","block");
+			$("#level_two").css("visibility","visible");
+		} else {
+			setupLevelOne();
+		}
+
 		// listen to events
 	}
 
@@ -304,7 +352,7 @@ var App = function(){
 		window.requestAnimationFrame(draw.bind(this));
 
 		var shaking = false;
-		if ( current_level == 2 ){
+		if ( current_level == 2 && supportsOrientation ){
 			vel.max = 0;
 
 			// Check if shaking
@@ -318,18 +366,21 @@ var App = function(){
 				lastStates[state] = gestureHandler.getState().accel[state];
 			}
 
-			// offset by "target"
-			var compass = gestureHandler.getState().gyro.alpha - targetNorth;
-			if ( compass < 0 ){
-				// wrap around
-				compass = 1024 + compass;
-			}
-
-			var dir = Math.round(map(compass, 0, 1024, 0, 2));
 			power = power * .5 + Math.round(map(vel.max, 0, 10, 0, 3)) * .5;
 
-			if ( lastStates.alpha != compass){
-				lastStates.alpha = compass;
+			var dir = getOrientationDirection();
+
+			/* 
+
+			-webkit-transform: translate(-50%,-50%);
+			transform: translateY(-50%);
+			left: 50%;
+			width:170%;
+
+			*/
+
+			if ( lastStates.dir != dir){
+				lastStates.dir = dir;
 				$("#l2_border").css("background-color", colors[dir]);
 				$("#l2arrow_u").css("stroke", colors[dir]);
 				$("#l2arrow_m").css("stroke", colors[dir]);
