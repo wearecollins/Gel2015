@@ -91,7 +91,10 @@ void GameController::guiSetup(){
         ofAddListener(guiPanels[i]->newGUIEvent, this, &GameController::guiEvent);
     }
     guiLayout();
-
+    
+    for (int i = 0; i < guiPanels.size(); i++) {
+        guiPanels[i]->toggleVisible();
+    }
 }
 
 //--------------------------------------------------------------
