@@ -16,6 +16,78 @@ void Meter::setup(){
     renderShader.load("","shaders/meterRender.frag");
     svg.load("graphics/level1/level1_meter.svg");
 
+    colors.push_back(ofColor::yellow);
+    colors.push_back(ofColor::cyan);
+    colors.push_back(ofColor::magenta);
+    
+    vector<ofMesh> tempLiveMesh;
+    Svg2Mesh::addSvgToMeshVector("graphics/level1/live_view.svg", tempLiveMesh);
+    
+    liveViewMeshes.push_back(vector<ofMesh>());
+    liveViewMeshes.push_back(vector<ofMesh>());
+    liveViewMeshes.push_back(vector<ofMesh>());
+    
+    for ( auto & m : tempLiveMesh ){
+        auto c = m.getColor(0);
+        ofFloatColor color;
+        
+        if ( c == ofFloatColor::green ){
+            liveViewMeshes[1].push_back(m);
+            for ( auto & c : liveViewMeshes[1].back().getColors() ){
+                c.set(ofFloatColor::cyan);
+            }
+            
+        } else if ( c == ofFloatColor::red ){
+            liveViewMeshes[0].push_back(m);
+            for ( auto & c : liveViewMeshes[0].back().getColors() ){
+                c.set(ofFloatColor::yellow);
+            }
+
+        } else if ( c == ofFloatColor::blue ){
+            liveViewMeshes[2].push_back(m);
+            
+            for ( auto & c : liveViewMeshes[2].back().getColors() ){
+                c.set(ofFloatColor::magenta);
+            }
+        }
+        
+    }
+    
+    
+    
+    
+//    liveViewMesh.push_back(ofMesh());
+//    liveViewMesh.push_back(ofMesh());
+//    liveViewMesh.push_back(ofMesh());
+//    
+//    int i1 = 0;
+//    int i2 = 0;
+//    int i3 = 0;
+//    
+//    for ( auto & i : tempLiveMesh.getIndices() ){
+//        auto v = tempLiveMesh.getVertex(i);
+//        auto c = tempLiveMesh.getColor(i);
+//        if ( c == ofFloatColor::green ){
+//            liveViewMesh[1].addColor(ofFloatColor(255.,0));
+//            liveViewMesh[1].addVertex(v);
+//            liveViewMesh[1].addIndex(i1);
+//            i1++;
+//            
+//        } else if ( c == ofFloatColor::red ){
+//            liveViewMesh[0].addColor(ofFloatColor(255.,0));
+//            liveViewMesh[0].addVertex(v);
+//            liveViewMesh[0].addIndex(i2);
+//            i2++;
+//            
+//        } else if ( c == ofFloatColor::blue ){
+//            liveViewMesh[2].addColor(ofFloatColor(255.,0));
+//            liveViewMesh[2].addVertex(v);
+//            liveViewMesh[2].addIndex(i3);
+//            i3++;
+//            
+//        }
+//    }
+    
     segments.resize(3);
 
     // load full line paths from SVG file
@@ -25,9 +97,6 @@ void Meter::setup(){
         lines.push_back( outline );
     }
 
-    colors.push_back(ofColor::yellow);
-    colors.push_back(ofColor::cyan);
-    colors.push_back(ofColor::magenta);
 
     // chop each line into parts between the corners and make a mesh for each
 
@@ -129,7 +198,6 @@ float Meter::calcAlphaForPulse(float percent, int index, int numLines, float ove
 
 //--------------------------------------------------------------
 void Meter::createPulse(float value){
-
     Poco::LocalDateTime now;
     Poco::Timespan timediff;
     int segmentIndex;
@@ -156,7 +224,46 @@ void Meter::createPulse(float value){
     segments[segmentIndex].lastPulse = now;
     segments[segmentIndex].pulses.push_back(anim);
     ofAddListener(anim->animFinished, this, &Meter::onAnimFinished);
+}
+
+//--------------------------------------------------------------
+void Meter::createBlip(string name, float value){
+    Poco::LocalDateTime now;
+    Poco::Timespan timediff;
+    int segmentIndex;
     
+    // figure out which rainbow segment the pulse should correspond to
+    if (value < 0.5)
+        segmentIndex = 0;
+    else if (value >= 0.5 && value < 1.5)
+        segmentIndex = 1;
+    else if (value > 0.5)
+        segmentIndex = 2;
+    
+    if ( blips.count(name) == 0 ){
+//        blips[name] = MeshBlip();
+    } else if ( blips[name]->vertexIndex == segmentIndex){
+        return;
+    } else if ( blips[name]->vertexIndex != segmentIndex){
+        auto * kill = blips[name];
+        blips.erase(name);
+        delete kill;
+    }
+    MeshBlip * blip = new MeshBlip();
+    
+    auto & ranMesh = liveViewMeshes[segmentIndex][floor(ofRandom(0, liveViewMeshes[segmentIndex].size()))];
+//    blip.vertexIndex = floor(ofRandom(0, 111));
+    blip->vertexIndex = segmentIndex;
+    blip->parent = &ranMesh;
+    blip->animation = new ofxAnimatableFloat();
+    
+    blip->animation->reset(0.0);
+    blip->animation->setCurve(BLINK_AND_FADE_1);
+    blip->animation->setDuration(0.33);
+    blip->animation->animateTo(1.);
+    ofAddListener(blip->animation->animFinished, this, &Meter::onBlipFinished);
+    
+    blips[name] = blip;
 }
 
 //--------------------------------------------------------------
@@ -175,6 +282,15 @@ void Meter::onAnimFinished(ofxAnimatable::AnimationEvent &args){
 }
 
 //--------------------------------------------------------------
+void Meter::onBlipFinished(ofxAnimatable::AnimationEvent& args){
+//    for (auto & it : blips ){
+//        if ( args.who == it.second->animation ){
+//            blips.erase(it.first);
+//        }
+//    }
+}
+
+//--------------------------------------------------------------
 void Meter::render(){
     ofPushStyle();
 
@@ -185,11 +301,13 @@ void Meter::render(){
     // @MATT: IT WOULD BE SUPER HELPFUL TO SEE SOME LIGHT FEEDBACK
     // FROM ALL INPUT; IS THERE A WAY TO MAKE A "LIGHT" FEEDBACK?
     
-//    if ( messages != NULL ){
-//        for ( auto & m : *messages ){
-//            createPulse(m.second.direction);
-//        }
-//    }
+    if (bActive) {
+        if ( messages != NULL ){
+            for ( auto & m : *messages ){
+                createBlip(m.uniqueId, m.direction);
+            }
+        }
+    }
 
     // update animatables
     for (auto& segment : segments) {
@@ -244,6 +362,29 @@ void Meter::render(){
                 segment.meshes[i].drawWireframe();
             }
         }
+        
+        for (auto& it : blips) {
+            it.second->animation->update(1.0 / 60.0);
+            if ( it.second->animation->hasFinishedAnimating() ){
+                blips.erase(it.first);
+            }
+        }
+        
+        for (auto& it : blips) {
+            for ( auto & c : it.second->parent->getColors() ){
+                c.set(c.r,c.g,c.b, it.second->animation->val());
+            }
+        }
+        
+        for ( auto & g : liveViewMeshes ){
+            for ( auto & m : g ){
+                m.draw();
+                for ( auto & c : m.getColors() ){
+                    c.set(c.r,c.g,c.b,0.);
+                }
+            }
+        }
+        
     } else {
         // draw the meshes
         for (auto& rainbowSegment : segments) {

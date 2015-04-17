@@ -55,12 +55,12 @@ var Sender = function(){
 	 * @param  {Integer} direction 0-3
 	 * @param  {Object} data      Note in use, but maybe later?
 	 */
-	this.send = function( direction, data ){
-		if ( direction > 3 ){
-			console.error("Data must be 0-3! Sending 0 (left)");
-			direction = 0;
-		}
-		sb.send("direction", "pad", direction + ":" + app_name );
+	this.send = function( direction, power ){
+		// if ( direction > 3 ){
+		// 	console.error("Data must be 0-3! Sending 0 (left)");
+		// 	direction = 0;
+		// }
+		sb.send("direction", "pad", direction + ":" + app_name +":"+ power );
 	}
 
 	// private

@@ -44,9 +44,9 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     this->spacebrew = &sb;
     spacebrew->addSubscribe("infoevent", "event" );
     spacebrew->addPublish("gameevent", "event" );
-
     guiSetup();
-
+    spacebrew->addPublish("statusupdate", "event" );
+    
     // let's go
     setLevel( currentLevel );
     
@@ -172,6 +172,7 @@ void GameController::update( ofEventArgs & e ){
 
 //--------------------------------------------------------------
 void GameController::draw(){
+    ofEnableAlphaBlending();
     colorBackground.draw();
     
     if ( currentState != STATE_INTRO ){
@@ -303,9 +304,9 @@ void GameController::onMessage( Spacebrew::Message & m ){
         // for now, just broadcast current level and if we're in party mode
         
         if ( currentState == STATE_PARTY ){
-            spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
+            spacebrew->send("statusupdate", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
         } else {
-            spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( currentLevel ) + "\"}");
+            spacebrew->send("statusupdate", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( currentLevel ) + "\"}");
         }
     }
 //    Json::Reader    jsonReader;

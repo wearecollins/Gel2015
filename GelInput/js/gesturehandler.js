@@ -1,3 +1,4 @@
+/**********************************************************************/
 var GestureHandler = function(){
 	var state = {};
 
@@ -146,14 +147,6 @@ var GestureHandler = function(){
 				if (Math.abs(state[sensor][part] - new_state) > thresh) {
 					state[sensor+"States"][part] = true;
 					state[sensor][part] = new_state;
-					// if (debug) console.log("[processEvent] new value for " + sensor + " part " + part + " val " + state[sensor][part] );
-
-					// if connected to spacebrew then send messages
-					// if (sb.connected) {
-					// 	var outlet_name = sensor + "_" + part;
-					// 	sb.connection.send(outlet_name, "range", state[sensor][part]); 
-					// 	new_data = true;
-					// }
 				} else {
 					state[sensor+"States"][part] = false;
 				}

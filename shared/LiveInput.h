@@ -32,7 +32,7 @@ public:
     virtual void setup() = 0;
     
     // "live"
-    virtual void updateAll( const std::map<string, PointMessage> & messages ){
+    virtual void updateAll( const vector<PointMessage> & messages ){
         this->messages = &messages;
     }
     
@@ -82,5 +82,5 @@ protected:
     
     ofFbo   renderTexture;
     
-    const std::map<string, PointMessage> * messages;
+    const vector<PointMessage> * messages;
 };

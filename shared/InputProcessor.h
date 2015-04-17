@@ -22,8 +22,13 @@ public:
     void update( ofEventArgs & e );
     
     int getCurrentValue();
+    int getCurrentPower();
     
-    const map<string, PointMessage> & getMessages(){
+//    const map<string, PointMessage> & getMessages(){
+//        return messages;
+//    }
+
+    const vector<PointMessage> & getMessages(){
         return messages;
     }
     
@@ -40,10 +45,11 @@ protected:
     string messageName, messageType;
     
     // dump of all current messages
-    map<string, PointMessage> messages;
+    vector<PointMessage> messages;
     
     // updated live from average
     int currentValue;
+    int currentPower;
     Poco::DateTime lastAverage; // last time we got an "average" value
     
     bool bShouldSend, bEaseValue;

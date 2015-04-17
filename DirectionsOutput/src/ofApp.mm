@@ -92,19 +92,27 @@ void ofApp::setup(){
     speech.initSynthesizer();
     
     rates[DIRECTION_LEFT].lastSent = 0;
-    rates[DIRECTION_LEFT].sendRate = 500;
+    rates[DIRECTION_LEFT].sendRate = 1000;
     
     rates[DIRECTION_RIGHT].lastSent = 0;
-    rates[DIRECTION_RIGHT].sendRate = 500;
+    rates[DIRECTION_RIGHT].sendRate = 1000;
     
     rates[DIRECTION_STRAIGHT].lastSent = 0;
-    rates[DIRECTION_STRAIGHT].sendRate = 500;
+    rates[DIRECTION_STRAIGHT].sendRate = 1000;
     
-    rates[DIRECTION_LOOK].lastSent = 0;
-    rates[DIRECTION_LOOK].sendRate = 500;
+    rates[DIRECTION_STRAIGHT_FAST].lastSent = 0;
+    rates[DIRECTION_STRAIGHT_FASTER].lastSent = 0;
+    rates[DIRECTION_STRAIGHT_FAST].sendRate = 1000;
+    rates[DIRECTION_STRAIGHT_FASTER].sendRate = 1000;
+    
+//    rates[DIRECTION_LOOK].lastSent = 0;
+//    rates[DIRECTION_LOOK].sendRate = 500;
     
     rates[DIRECTION_STOP].lastSent = 0;
-    rates[DIRECTION_STOP].sendRate = 500;
+    rates[DIRECTION_STOP].sendRate = 1000;
+    
+    // level marker
+    currentLevel = 0;
     
     // spacebrew game messages
     spacebrew.addSubscribe("gameevent", "event");
@@ -146,10 +154,17 @@ void ofApp::speak( int dir ){
                 
                 break;
                 
-                case DIRECTION_LOOK:
-                bWalking = false;
-                speech.speakPhrase("look around");
+                case DIRECTION_STRAIGHT_FAST:
+                    bWalking = true;
+                    rates[DIRECTION_STRAIGHT].lastSent = ofGetElapsedTimeMillis();
+                    speech.speakPhrase("walk fast");
                 break;
+                
+                case DIRECTION_STRAIGHT_FASTER:
+                    rates[DIRECTION_STRAIGHT].lastSent = ofGetElapsedTimeMillis();
+                    bWalking = true;
+                    speech.speakPhrase("walk really fast");
+                    break;
         }
     }
 }
@@ -157,9 +172,9 @@ void ofApp::speak( int dir ){
 //--------------------------------------------------------------
 void ofApp::update(){
     if (inputProcessor.shouldSend()){
-        speak( inputProcessor.getCurrentValue() );
+        speak( inputProcessor.getCurrentValue() + inputProcessor.getCurrentPower() );
     } else {
-        speak( 4 );
+        speak( (int) DIRECTION_STOP );
     }
 }
 
@@ -187,7 +202,19 @@ void ofApp::onMessage( Spacebrew::Message & m ){
             string value = json["value"].asString();
             
             if (name == "level") {
-                speech.speakPhrase(value);
+                int l = currentLevel;
+                if (value == "level one"){
+                    currentLevel = 1;
+                    
+                } else if ( value == "level two" ){
+                    currentLevel = 2;
+                    
+                } else if ( value == "level three"){
+                    currentLevel = 3;
+                }
+                
+                if ( l != currentLevel )
+                    speech.speakPhrase(value);
             } else if(name == "trigger"){
                 speech.speakPhrase(value);
             }

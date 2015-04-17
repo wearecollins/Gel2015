@@ -14,6 +14,7 @@ InputProcessor::InputProcessor(){
     bShouldSend = false;
     bEaseValue = true;
     currentValue = 0;
+    currentPower = 0;
     messageTimeoutSeconds = .2;
 }
 
@@ -46,10 +47,14 @@ void InputProcessor::update( ofEventArgs & e ){
     Poco::Timespan timediff;
     
     mux.lock();
-    for ( auto & m : messages ){
-        timediff = now - m.second.time;
+    for ( auto it = messages.begin(); it != messages.end(); ){
+//        timediff = now - m.second.time;
+        timediff = now - it->time;
         if ( (float) timediff.milliseconds() / 1000.0f > messageTimeoutSeconds ){
-            messages.erase(m.first);
+//            messages.erase(m.first);
+            messages.erase(it);
+        } else {
+            ++it;
         }
     }
     mux.unlock();
@@ -67,6 +72,11 @@ void InputProcessor::update( ofEventArgs & e ){
 //--------------------------------------------------------------
 int InputProcessor::getCurrentValue(){
     return currentValue;
+}
+
+//--------------------------------------------------------------
+int InputProcessor::getCurrentPower(){
+    return currentPower;
 }
 
 //--------------------------------------------------------------
@@ -89,6 +99,9 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
             string ID = exp[0];
             currentValue = dir;
             lastAverage = now;
+            if ( exp.size() > 2 ){
+                currentPower = ofToInt(exp[2]);
+            }
         }
         
     } else if ( m.name == "touch" ){
@@ -96,15 +109,21 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
         vector<string> exp = ofSplitString(m.value, ":");
         
         if ( exp.size() >= 2 ){
-            int dir = ofToInt(exp[1]);
-            string ID = exp[0];
-            if ( messages.count(ID) == 0 ){
-                messages[ID] = PointMessage();
-            }
+            int dir = ofToInt(exp[0]);
+            string ID = exp[1];
+//            if ( messages.count(ID) == 0 ){
+//                messages[ID] = PointMessage();
+//            }
             
-            messages[ID].time       = now;
-            messages[ID].uniqueId   = ID;
-            messages[ID].direction  = dir;
+            PointMessage p;
+//            messages[ID].time       = now;
+//            messages[ID].uniqueId   = ID;
+//            messages[ID].direction  = dir;
+            p.time       = now;
+            p.uniqueId   = ID;
+            p.direction  = dir;
+            
+            messages.push_back(p);
         }
     }
 }

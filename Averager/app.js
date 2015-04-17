@@ -15,7 +15,7 @@ var spacebrewHost = "localhost";
 
 var MODES = [ "MODE_AVERAGE", "MODE_RANDOM_LEAD", "MODE_LIVE"];
 var mode = "MODE_AVERAGE";
-var messageTimeoutSeconds = .2;
+var messageTimeoutSeconds = .1;
 
 /******************************************************************
 	STORAGE
@@ -27,10 +27,16 @@ function Message( ID, dir ){
 	this.time 		= Date.now();
 	this.id   		= ID;
 	this.direction 	= dir;
+    this.power      = 0;
 }
 
 // running value
 var currentValue = -1;
+var currentPower = 0;
+
+// send rate
+var sendRate = 500;
+var lastSent = 0;
 
 /******************************************************************
 	APP
@@ -47,7 +53,7 @@ function main(){
 	spacebrewLocal.connect();
 
 	spacebrewLocal.onCustomMessage = onCustomMessage;
-	setInterval( update, 33 ); //16.67 = 60 fps
+	setInterval( update, 16.67 ); //16.67 = 60 fps
 }
 
 function onCustomMessage( name, value, type ){
@@ -62,6 +68,9 @@ function onCustomMessage( name, value, type ){
             messages[id] = m;
             messages[id].direction = parseInt(res[0]);
 			messages[id].id = res[1];
+            if ( res.length > 2 ){
+                messages[id].power = parseInt(res[2]);
+            }
 		}
 	}	
 }
@@ -91,14 +100,18 @@ function update(){
             case "MODE_AVERAGE":
             {
                 var total = 0;
+                var totalPower = 0;
 			    for (var key in messages) {
 			  		if (messages.hasOwnProperty(key)) {
                     	total += messages[key].direction;
+                        totalPower += messages[key].power;
                     }
                 }
 
                 total /= length;
+                totalPower /= length;
                 currentValue = total;
+                currentPower = totalPower;
             }
             break;
                 
@@ -106,9 +119,11 @@ function update(){
             {
                 // first average
                 var total = 0;
+                var totalPower = 0;
 			    for (var key in messages) {
 			  		if (messages.hasOwnProperty(key)) {
                     	total += messages[key].direction;
+                        totalPower += messages[key].power;
                     }
                 }
 
@@ -116,9 +131,11 @@ function update(){
                 
                 var index = Math.floor(Math.random() * Object.keys(messages).length);
                 var key = Object.keys(messages)[index];
-                total = total * .5 + messages[key] * .5;
+                total = total * .5 + messages[key].direction * .5;
+                totalPower = totalPower * .5 + messages[key].power * .5;
 
                 currentValue = total;
+                currentPower = totalPower;
             }
             break;
                 
@@ -127,17 +144,20 @@ function update(){
                 // found the most recent point
                 var least = 99999999;
                 var tempCurrent = currentValue;
+                var tempPower = currentPower;
 
 			    for (var key in messages) {
 			  		if (messages.hasOwnProperty(key)) {
 						var timediff = now - messages[key].time;
 	                    if ( timediff < least ){
-	                        tempCurrent = messages[key];
+	                        tempCurrent = messages[key].direction;
+                            tempPower = messages[key].power;
 	                        least = timediff;
 	                    }
                 	}
                 }
                 currentValue = tempCurrent;
+                currentPower = tempPower;
             }
             break;
                 
@@ -147,7 +167,10 @@ function update(){
         bShouldSend = true;
 
         // console.log( currentValue )
-        spacebrewLocal.send("average", "pad", "averager:"+ currentValue);
+        if ( now - lastSent > sendRate ){
+            lastSent = now;
+           spacebrewLocal.send("average", "pad", "averager:"+ currentValue+":"+currentPower);
+       }
 
     } else {
         bShouldSend = false;

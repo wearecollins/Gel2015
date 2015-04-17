@@ -149,6 +149,7 @@
 		012B26991AC1A5E10026D2EA /* svgtiny_list.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = svgtiny_list.cpp; sourceTree = "<group>"; };
 		012B269B1AC1A5E10026D2EA /* ofxSvg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSvg.cpp; sourceTree = "<group>"; };
 		012B269C1AC1A5E10026D2EA /* ofxSvg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSvg.h; sourceTree = "<group>"; };
+		012D8B6A1AE0407C0081E1D0 /* Svg2Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Svg2Mesh.h; path = ../../shared/Svg2Mesh.h; sourceTree = "<group>"; };
 		016D22461AAA6823003840C7 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		016D22471AAA6823003840C7 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofApp.h; sourceTree = "<group>"; };
 		016D22481AAA6823003840C7 /* ofApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofApp.mm; sourceTree = "<group>"; };
@@ -369,6 +370,7 @@
 		010F33381ABB329800413531 /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				012D8B6A1AE0407C0081E1D0 /* Svg2Mesh.h */,
 				01E6639D1ACDCA00009BBB91 /* input_processor */,
 				017D04BB1AC47A96003E75F7 /* overlays */,
 				017D04B51AC45D0E003E75F7 /* live_meter */,

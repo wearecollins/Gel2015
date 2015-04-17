@@ -37,14 +37,18 @@ public:
             do {
                 string path = "graphics/" + name + "/" + XML.getValue();
                 
-                if ( path.find(".mov") == string::npos && path.find(".mp4") == string::npos ){
-                    overlays.push_back( new ImageOverlay());
-                    ImageOverlay* lo = dynamic_cast<ImageOverlay*>(overlays.back());
-                    lo->load( path );
-                } else {
+                if ( path.find(".mov") != string::npos || path.find(".mp4") != string::npos ){
                     overlays.push_back( new VideoOverlay());
                     VideoOverlay* vo = dynamic_cast<VideoOverlay*>(overlays.back());
                     vo->load( path );
+                /*} else if ( path.find(".png") == string::npos ){
+                    overlays.push_back( new ImageSeqOverlay());
+                    ImageSeqOverlay* vo = dynamic_cast<ImageSeqOverlay*>(overlays.back());
+                    vo->load( path );*/
+                } else {
+                    overlays.push_back( new ImageOverlay());
+                    ImageOverlay* lo = dynamic_cast<ImageOverlay*>(overlays.back());
+                    lo->load( path );
                 }
             }
             while( XML.setToSibling() && XML.getName() == "overlay" ); // go to the next overlay

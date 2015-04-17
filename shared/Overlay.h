@@ -127,3 +127,84 @@ public:
 protected:
     ofQTKitPlayer overlay;
 };
+
+//#include "ofxImageSequence.h"
+//
+///**
+// @class ImageSeqOverlay
+// */
+//class ImageSeqOverlay : public Overlay {
+//public:
+//    void load( string sequenceDir ){
+//        color.set(255,0);
+//        sequence.loadSequence(sequenceDir);
+//    }
+//
+//    void activate( float level = 255 ){
+//        bActive = true;
+//        targetAlpha = level;
+//    }
+//
+//    void deactivate(){
+//        bActive = false;
+//    }
+//
+//    void draw(){
+//        if ( !bActive ){
+//            color.a *= .9;
+//        } else {
+//            color.a = color.a * .9 + targetAlpha * .1;
+//        }
+//
+//        ofPushStyle();
+//        ofSetColor(color);
+//        sequence.getTextureForTime(ofGetElapsedTimef()).draw(0, 0);
+//        ofPopStyle();
+//    }
+//
+//
+//protected:
+//    ofxImageSequence sequence;
+//};
+
+//#include "ofxGifDecoder.h"
+//
+///**
+// @class GIFOverlay
+// */
+//class GIFOverlay : public Overlay {
+//public:
+//    void load( string gifFile ){
+//        color.set(255,0);
+//        overlay.decode(gifFile);
+////        overlay.setLoopState(OF_LOOP_NORMAL);
+////        overlay.play();
+////        overlay.stop();
+//    }
+//    
+//    void activate( float level = 255 ){
+//        bActive = true;
+//        targetAlpha = level;
+//    }
+//    
+//    void deactivate(){
+//        bActive = false;
+//    }
+//    
+//    void draw(){
+//        if ( !bActive ){
+//            color.a *= .9;
+//        } else {
+//            color.a = color.a * .9 + targetAlpha * .1;
+//        }
+//        
+//        ofPushStyle();
+//        ofSetColor(color);
+//        if ( overlay.isLoaded()) overlay.getFile().draw(0,0);
+//        ofPopStyle();
+//    }
+//    
+//    
+//protected:
+//    ofxGifDecoder overlay;
+//};
