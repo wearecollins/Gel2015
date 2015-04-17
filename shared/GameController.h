@@ -90,4 +90,8 @@ protected:
     // connection to controller app
     Spacebrew::Connection * spacebrew;
     void onMessage( Spacebrew::Message & message );
+    
+    // send out pings to phones regularly
+    int statusSendMillis;
+    Poco::LocalDateTime lastStatusSent;
 };

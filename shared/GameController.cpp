@@ -47,6 +47,9 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     guiSetup();
     spacebrew->addPublish("statusupdate", "event" );
     
+    // send status every 5s
+    statusSendMillis = 5000;
+    
     // let's go
     setLevel( currentLevel );
     
@@ -171,6 +174,18 @@ void GameController::update( ofEventArgs & e ){
     currentLive->update( inputProcessor->getCurrentValue());
     currentLive->updateAll( inputProcessor->getMessages() );
     currentLive->setActive( inputProcessor->shouldSend() );
+    
+    // check if we need to send
+    Poco::LocalDateTime now;
+    Poco::Timespan timediff = now - lastStatusSent;
+    
+    if ( timediff.milliseconds() >= statusSendMillis ){
+        if ( currentState == STATE_PARTY ){
+            spacebrew->send("statusupdate", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
+        } else {
+            spacebrew->send("statusupdate", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( currentLevel ) + "\"}");
+        }
+    }
 }
 
 //--------------------------------------------------------------
