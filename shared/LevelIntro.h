@@ -67,13 +67,8 @@ public:
     }
     
     void draw(){
-        
         if ( currentFrame != NULL ){
-            
-//            ofSetColor(0,255);
-//            ofRect(0,0, getProjectorWidth(), getProjectorHeight());
             ofSetColor(255);
-            
             currentFrame->draw();
         }
         
@@ -93,7 +88,9 @@ public:
         bActive = false;
         if ( currentFrame != NULL ){
             currentFrame->deactivate();
+            currentFrame = NULL;
         }
+        setFrame(0, false);
     }
     
     void nextFrame(){
