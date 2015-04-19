@@ -59,9 +59,9 @@ void InputProcessor::update( ofEventArgs & e ){
         timediff = now - it->time;
         if ( (float) timediff.milliseconds() / 1000.0f > messageDeleteSeconds ){
 //            messages.erase(m.first);
-            messages.erase(it);
+            it = messages.erase(it);
         } else {
-            ++it;
+            it++;
         }
     }
     

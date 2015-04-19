@@ -84,6 +84,7 @@ protected:
     InputProcessor * inputProcessor;
     void setLevel ( Level level );
     void saveState();
+    void setBackgroundTransparent(bool transparent = true);
     
     string levelToString( Level level );
     string stateToString( State level );

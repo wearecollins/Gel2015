@@ -7,6 +7,7 @@
 //
 
 #include "GameController.h"
+#include "ofxCocoa.h"
 
 //--------------------------------------------------------------
 GameController::GameController(){
@@ -213,7 +214,6 @@ void GameController::update( ofEventArgs & e ){
 
 //--------------------------------------------------------------
 void GameController::draw(){
-    ofEnableAlphaBlending();
     colorBackground.draw();
     
     if ( currentState != STATE_INTRO ){
@@ -290,6 +290,7 @@ void GameController::triggerLive(){
     
     spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"let's go\"}");
     saveState();
+    setBackgroundTransparent(true);
 }
 
 //--------------------------------------------------------------
@@ -302,6 +303,7 @@ void GameController::setLevel ( Level level ){
     currentIntro->activate();
     
     colorBackground.activate();
+    setBackgroundTransparent(false);
     
     spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( level ) + "\"}");
     
@@ -321,6 +323,12 @@ void GameController::saveState(){
     settings.setValue("state", ofToString((int) currentState));
     settings.setToParent();
     settings.save("state.xml");
+}
+
+//--------------------------------------------------------------
+void GameController::setBackgroundTransparent(bool transparent){
+    GLint i = !transparent;
+    [[MSA::ofxCocoa::glView() openGLContext] setValues:&i forParameter:NSOpenGLCPSurfaceOpacity];
 }
 
 //--------------------------------------------------------------

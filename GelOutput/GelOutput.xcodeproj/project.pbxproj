@@ -185,7 +185,7 @@
 		019DF1491AC316950028D667 /* Meter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Meter.cpp; path = ../../shared/Meter.cpp; sourceTree = "<group>"; };
 		019DF14A1AC316950028D667 /* Meter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Meter.h; path = ../../shared/Meter.h; sourceTree = "<group>"; };
 		019DF14C1AC316B50028D667 /* LiveInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LiveInput.h; path = ../../shared/LiveInput.h; sourceTree = "<group>"; };
-		019DF14D1AC3181E0028D667 /* GameController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameController.cpp; path = ../../shared/GameController.cpp; sourceTree = "<group>"; };
+		019DF14D1AC3181E0028D667 /* GameController.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = GameController.cpp; path = ../../shared/GameController.cpp; sourceTree = "<group>"; };
 		019DF14E1AC3181E0028D667 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameController.h; path = ../../shared/GameController.h; sourceTree = "<group>"; };
 		019DF1521AC338A80028D667 /* meterRender.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = meterRender.frag; path = bin/data/shaders/meterRender.frag; sourceTree = SOURCE_ROOT; };
 		01BADD711AE429FA00620589 /* ofxImageSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxImageSequence.cpp; sourceTree = "<group>"; };
