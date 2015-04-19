@@ -56,13 +56,13 @@ void GridMeter::setup(){
 
     // left arrow
     arrows[0].pointA.set(10, 540);
-    arrows[0].pointB.set(295, 262);
-    arrows[0].pointF.set(295, 818);
+    arrows[0].pointB.set(290, 262);
+    arrows[0].pointF.set(290, 818);
 
     // top arrow
-    arrows[1].pointA.set(960, 21);
-    arrows[1].pointB.set(1219, 287);
-    arrows[1].pointF.set(701, 287);
+    arrows[1].pointA.set(953, 8);
+    arrows[1].pointB.set(1206, 242);
+    arrows[1].pointF.set(702, 240);
 
     // right arrow
     arrows[2].pointA.set(1899, 540);
@@ -85,8 +85,8 @@ void GridMeter::setupGrid(){
 
     // grid of 300?
     float space = 10;
-    float w = getProjectorWidth() - space * 5.;
-    float h = getProjectorHeight() - space * 5.;
+    float w = getProjectorWidth();
+    float h = getProjectorHeight();
     
     float x_spacing = (float) w / Params::level2gridStepsX;
     float y_spacing = (float) h / Params::level2gridStepsY;
@@ -255,7 +255,7 @@ void GridMeter::render(){
         ofCircle(arrows[0].pointA, 15);  // point of left arrow where mouse is
         ofCircle(arrows[1].pointA, 15);  // point of right arrow is mirrored mouse point
         ofCircle(arrows[2].pointA, 15);  // point of top arrow is mouse distance from left edge
-    } else if (bWaitingForArrowEndClick) {
+    } else if (bWaitingForArrowEndClick || Params::level2drawArrows) {
         ofNoFill();
         ofSetLineWidth(10);
         for (auto& arrow : arrows) arrow.shape.draw();

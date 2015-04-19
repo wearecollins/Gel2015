@@ -99,6 +99,7 @@ void GameController::guiSetup(){
     gui->addSpacer();
 
     gui->addSlider("Arrow Thickness", 0, 300, &Params::level2arrowThickness);
+    gui->addToggle("Draw Arrows", &Params::level2drawArrows);
     gui->addLabelButton("Edit Arrows", false);
     gui->addSpacer();
 

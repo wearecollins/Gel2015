@@ -20,6 +20,7 @@ public:
     static int   level2gridStepsX;
     static int   level2gridStepsY;
     static float level2arrowThickness;
+    static bool  level2drawArrows;
     static float level2partySpeed;
     static float level2partyNoiseStepSize;
     
