@@ -141,35 +141,7 @@ void GridMeter::render(){
         }
 //        ofRect(p.shape); // debug zones
     }
-    
-    // radius of "hit" based on grid point
-    float rad = 300;
-    
-    if ( messages != NULL ){
-        for ( auto & m : *messages ){
-            // pick a random X/Y inside the neighborhood of the arrow for that direction
-            ofRectangle& bbox = arrows[m.direction].neighborhood;
-            float randX = ofRandom(bbox.getWidth());
-            float randY = ofRandom(bbox.getHeight());
 
-            // now find the GridPoint that is closest to that random point
-            float closestDistance = 999999999999;
-            GridPoint& closestGridPoint = grid.front(); // just assign whatever, can't initialize an empty reference
-
-            for (auto& g : grid){
-                // skip any points not inside
-                if (!bbox.inside(g)) continue;
-
-                float distSquared = ofDistSquared(randX, randY, g.x, g.y);
-                if (distSquared < closestDistance) {
-                    closestGridPoint = g;
-                    closestDistance = distSquared;
-                }
-            }
-
-            closestGridPoint.activate(50, true);
-        }
-    }
 
     // Fire off pulses if necessary
     if ( bActive ){
@@ -232,7 +204,33 @@ void GridMeter::render(){
                         break;
                 }
                 
-                
+                // live feedback for messages
+                if ( messages != NULL ){
+                    for ( auto & m : *messages ){
+                        // pick a random X/Y inside the neighborhood of the arrow for that direction
+                        ofRectangle& bbox = arrows[m.direction].neighborhood;
+                        float randX = ofRandom(bbox.getWidth());
+                        float randY = ofRandom(bbox.getHeight());
+
+                        // now find the GridPoint that is closest to that random point
+                        float closestDistance = 999999999999;
+                        GridPoint& closestGridPoint = grid.front(); // just assign whatever, can't initialize an empty reference
+
+                        for (auto& g : grid){
+                            // skip any points not inside
+                            if (!bbox.inside(g)) continue;
+
+                            float distSquared = ofDistSquared(randX, randY, g.x, g.y);
+                            if (distSquared < closestDistance) {
+                                closestGridPoint = g;
+                                closestDistance = distSquared;
+                            }
+                        }
+                        
+                        closestGridPoint.activate(50);
+                    }
+                }
+
             }
         }
     }
