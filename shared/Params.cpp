@@ -13,7 +13,8 @@ float Params::level1partyModeSegmentLengthMax = 150.;
 float Params::level1partySpeed = 5.;
 
 int   Params::level2gridStepsX = 35;
-int   Params::level2gridStepsY = 20;
-float Params::level2arrowThickness = 120;
+int   Params::level2gridStepsY = 21;
+float Params::level2arrowThickness = 154;
+bool  Params::level2drawArrows = false;
 float Params::level2partySpeed = 2.;
 float Params::level2partyNoiseStepSize = 0.5;
