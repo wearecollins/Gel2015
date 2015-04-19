@@ -13,6 +13,7 @@ var App = function(){
 	/** @type {GestureHandler} */
 	var gestureHandler = new GestureHandler();
 
+	// GAME STATES
 	var current_level = 0;
 	var bPartyMode = false;
 
@@ -31,16 +32,17 @@ var App = function(){
 	var orientationState = 0;
 
 	/**********************************************************************/
-	// ACCEL STATE STUFF
+	// LEVEL TWO
 	// 
 	var lastStates = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0, dir:-1};
 	var vel = {alpha:0, beta:0, gamma:0, x:0, y:0, z:0, max:0};
 
-	var targetNorth = 200;
 	var moveThreshold = 0;
 	var power = 0;
 
 	var supportsOrientation = false;
+
+	var lastSent = 0;
 
 	/**********************************************************************/
 	function setup(){
@@ -96,8 +98,6 @@ var App = function(){
 	}
 
 	function orientationChange() {
-		if ( current_level == 2 ) return;
-
         var ua = navigator.userAgent.toLowerCase();
         var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
         if (isAndroid) {
@@ -115,40 +115,6 @@ var App = function(){
             }
             else if (window.orientation == 0 || window.orientation == 180) { //Portrait Mode
             	showLandscapePrompt();
-            }
-        }
-    }
-
-    function getOrientationDirection() {
-        var ua = navigator.userAgent.toLowerCase();
-        var isAndroid = ua.indexOf("android") > -1; // Detect Android devices
-        if (isAndroid) {
-            //window.orientation is different for iOS and Android
-            switch ( window.orientation ){
-            	case 0:
-            		return 0;
-            	break;
-
-            	case 90:
-            	case -90:
-            		return 1;
-
-            	case 180:
-            		return 2;
-            }
-        }
-        else {
-        	switch ( window.orientation ){
-            	case 90:
-            		return 0;
-            	break;
-
-            	case 0:
-            	case 180:
-            		return 1;
-
-            	case -90:
-            		return 2;
             }
         }
     }
@@ -351,78 +317,70 @@ var App = function(){
 	function draw(){
 		window.requestAnimationFrame(draw.bind(this));
 
-		var shaking = false;
 		if ( current_level == 2 && supportsOrientation ){
-			vel.max = 0;
+			// send every second
+			var now = Date.now();
 
-			// Check if shaking
-			for ( var state in gestureHandler.getState().accelStates ){
-				vel[state] = Math.abs(lastStates[state] -  gestureHandler.getState().accel[state]);
-				if ( vel[state] > vel.max ) vel.max = vel[state];
+			if ( now - lastSent > 1000 ){
+				lastSent = now;
 
-				if ( vel[state] > moveThreshold/10. ){
-					shaking = true;
+				var state = mapRounded( gestureHandler.getState().gyro.beta, 0, 1024, 0, 2);
+
+				if ( lastStates.dir != state){
+					lastStates.dir = state;
+					$("#l2_border").css("background-color", colors[state]);
+					$("#l2arrow_u").css("stroke", colors[state]);
+					$("#l2arrow_m").css("stroke", colors[state]);
+					$("#l2arrow_d").css("stroke", colors[state]);
+
+					var deg = 0;
+					switch(state){
+						case 0:
+							deg = -90;
+							break;
+						case 1:
+							deg = 0;
+							break;
+						case 2:
+							deg = 90;
+							break;
+					}
+
+					// TO DO: THESE SHOULD BE SVGS!!
+					// $("#l2arrow").css("-webkit-transform", "rotate(" + deg + "deg)")
 				}
-				lastStates[state] = gestureHandler.getState().accel[state];
+
+				// if ( vel.max != lastStates.max ){
+				// 	switch (Math.round(power)){
+				// 		case 0:
+				// 			$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
+				// 			$("#l2arrow_m").css("fill", colors_alpha[dir] + "0)");
+				// 			$("#l2arrow_d").css("fill", colors_alpha[dir] + "0)");
+				// 			break;
+				// 		case 1:
+				// 			$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
+				// 			$("#l2arrow_m").css("fill", colors_alpha[dir] + "0)");
+				// 			$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
+				// 			break;
+
+				// 		case 2:
+				// 			$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
+				// 			$("#l2arrow_m").css("fill", colors_alpha[dir] + "1)");
+				// 			$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
+				// 			break;
+
+				// 		case 3:
+				// 			$("#l2arrow_u").css("fill", colors_alpha[dir] + "1)");
+				// 			$("#l2arrow_m").css("fill", colors_alpha[dir] + "1)");
+				// 			$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
+				// 			break;
+				// 	}
+				// }
+
+
+				sender.send( state, state == 1 ? 0 : 0 );//Math.max(power-1,0) : 0 );
+
 			}
-
-			power = power * .5 + Math.round(map(vel.max, 0, 10, 0, 3)) * .5;
-
-			var dir = getOrientationDirection();
-
-			/* 
-
-			-webkit-transform: translate(-50%,-50%);
-			transform: translateY(-50%);
-			left: 50%;
-			width:170%;
-
-			*/
-
-			if ( lastStates.dir != dir){
-				lastStates.dir = dir;
-				$("#l2_border").css("background-color", colors[dir]);
-				$("#l2arrow_u").css("stroke", colors[dir]);
-				$("#l2arrow_m").css("stroke", colors[dir]);
-				$("#l2arrow_d").css("stroke", colors[dir]);
-			}
-
-			if ( vel.max != lastStates.max ){
-				switch (Math.round(power)){
-					case 0:
-						$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
-						$("#l2arrow_m").css("fill", colors_alpha[dir] + "0)");
-						$("#l2arrow_d").css("fill", colors_alpha[dir] + "0)");
-						break;
-					case 1:
-						$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
-						$("#l2arrow_m").css("fill", colors_alpha[dir] + "0)");
-						$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
-						break;
-
-					case 2:
-						$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
-						$("#l2arrow_m").css("fill", colors_alpha[dir] + "1)");
-						$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
-						break;
-
-					case 3:
-						$("#l2arrow_u").css("fill", colors_alpha[dir] + "1)");
-						$("#l2arrow_m").css("fill", colors_alpha[dir] + "1)");
-						$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
-						break;
-				}
-			}
-			power *= .9;
-
-			lastStates.max = vel.max;
-
-			// only send if moving!
-			if ( shaking && Math.round(power) > 0){
-				sender.send( dir, dir == 1 ? Math.max(power-1,0) : 0 );
-			}
-
-			// gestureHandler.getState().gamma
 		} else if ( current_level == 3 ){
 		}
 	}
