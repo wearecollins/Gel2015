@@ -50,8 +50,27 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     // send status every 5s
     statusSendMillis = 5000;
     
+    // load state from state.xml
+    ofXml settings;
+    bool settingsLoaded = settings.load("state.xml");
+    
+    State tempState;
+    
+    if( settingsLoaded ){
+        currentLevel = (Level) ofToInt(settings.getValue("//value"));
+        tempState = (State) ofToInt(settings.getValue("//state"));
+    }
+    
     // let's go
     setLevel( currentLevel );
+    
+    if ( settingsLoaded ){
+        if ( tempState == STATE_LIVE ){
+            triggerLive();
+        } else if ( tempState == STATE_PARTY ){
+            triggerCelebration();
+        }
+    }
     
     // setup OF events
     ofAddListener(ofEvents().update, this, &GameController::update);
@@ -210,6 +229,7 @@ void GameController::triggerCelebration(){
     
     spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
     currentState = STATE_PARTY;
+    saveState();
 }
 
 //--------------------------------------------------------------
@@ -264,6 +284,7 @@ void GameController::triggerLive(){
     colorBackground.deactivate();
     
     spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"let's go\"}");
+    saveState();
 }
 
 //--------------------------------------------------------------
@@ -278,8 +299,24 @@ void GameController::setLevel ( Level level ){
     colorBackground.activate();
     
     spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( level ) + "\"}");
+    
+    saveState();
 }
 
+
+//--------------------------------------------------------------
+void GameController::saveState(){
+    ofXml settings;
+    settings.addChild("settings");
+    settings.setToChild(0);
+    settings.addChild("value");
+    settings.setValue("value", ofToString((int) currentLevel));
+    
+    settings.addChild("state");
+    settings.setValue("state", ofToString((int) currentState));
+    settings.setToParent();
+    settings.save("state.xml");
+}
 
 //--------------------------------------------------------------
 string GameController::levelToString( Level level ){

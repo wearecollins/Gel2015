@@ -83,6 +83,7 @@ protected:
     // internal mechanics
     InputProcessor * inputProcessor;
     void setLevel ( Level level );
+    void saveState();
     
     string levelToString( Level level );
     string stateToString( State level );
