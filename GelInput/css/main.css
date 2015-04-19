@@ -287,6 +287,11 @@ td {
   height: 100%;
 }
 
+.l2_arrow {
+  -webkit-transition: stroke ease-out .25s, fill ease-out .5s;
+  transition: stroke ease-out .25s, fill ease-out .5s;
+}
+
 #l2_left_text, #l2_straight_text, #l2_right_text {
   visibility: hidden;
   left:50%;
@@ -299,12 +304,6 @@ td {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-color: rgb(255,0,255);
-}
-
-#l2arrow_u, #l2arrow_m, #l2arrow_d {
-  stroke: rgb(255,0,255);
-  -webkit-transition: fill ease-out .5s;
-  transition: fill ease-out .5s;
 }
 
 .box_l2 {

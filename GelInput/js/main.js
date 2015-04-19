@@ -326,63 +326,39 @@ var App = function(){
 			// send every second
 			var now = Date.now();
 
-			var state = mapRounded( gestureHandler.getState().gyro.beta, 300, 724, window.orientation == -90 ? 2 : 0, window.orientation == -90 ? 0 : 2);
+			var active = mapRounded( gestureHandler.getState().gyro.beta, 412, 612, window.orientation == -90 ? 11 : 0, window.orientation == -90 ? 0 : 11);
+			
+			state = active < 4 ? 0 : (active >= 4 && active < 8 ? 1 : 2);
 
-			if ( lastStates.dir != state){
-				lastStates.dir = state;
-				$("#l2_border").css("background-color", colors[state]);
-				$("#l2arrow_u").css("stroke", colors[state]);
-				$("#l2arrow_m").css("stroke", colors[state]);
-				$("#l2arrow_d").css("stroke", colors[state]);
+			if ( lastStates.dir != active){
+				lastStates.dir = active;
+				for ( var i=0; i<12; i++){
+					if ( i != active ){
+						var s = i < 4 ? 0 : (i >= 4 && i < 8 ? 1 : 2);
+						$("#a"+i).css("stroke", colors_alpha[s]+"0)");
+						$("#a"+i).css("fill", "black");
+					}
+				}
+
+				$("#a"+active).css("stroke", colors_alpha[state]+"1)");
+
 				for ( var s in textStates ){
 					if ( s != state )
 						$("#" + textStates[s]).css("visibility", "hidden");
 				}
 				$("#" + textStates[state]).css("visibility", "visible");
-
-				// TO DO: THESE SHOULD BE SVGS!!
-				// $("#l2arrow").css("-webkit-transform", "rotate(" + deg + "deg)")
 			}
 
 			if ( now - lastSent > 1000 ){
 				lastSent = now;
 
-				// switch (Math.round(power)){
-				// 	case 0:
-				// 		$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
-				// 		$("#l2arrow_m").css("fill", colors_alpha[dir] + "0)");
-				// 		$("#l2arrow_d").css("fill", colors_alpha[dir] + "0)");
-				// 		break;
-				// 	case 1:
-				// 		$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
-				// 		$("#l2arrow_m").css("fill", colors_alpha[dir] + "0)");
-				// 		$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
-				// 		break;
-
-				// 	case 2:
-				// 		$("#l2arrow_u").css("fill", colors_alpha[dir] + "0)");
-				// 		$("#l2arrow_m").css("fill", colors_alpha[dir] + "1)");
-				// 		$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
-				// 		break;
-
-				// 	case 3:
-				// 		$("#l2arrow_u").css("fill", colors_alpha[dir] + "1)");
-				// 		$("#l2arrow_m").css("fill", colors_alpha[dir] + "1)");
-				// 		$("#l2arrow_d").css("fill", colors_alpha[dir] + "1)");
-				// 		break;
-				// }
+				$("#a"+active).css("fill", colors_alpha[state]+"1)");
 				
-				$("#l2arrow_u").css("fill", colors_alpha[state] + "1)");
-				$("#l2arrow_m").css("fill", colors_alpha[state] + "1)");
-				$("#l2arrow_d").css("fill", colors_alpha[state] + "1)");
-
 				sender.send( state, state == 1 ? 0 : 0 );//Math.max(power-1,0) : 0 );
 				resetColor = false;
 			} else if (now - lastSent > 500 && !resetColor ){
 				resetColor = true;
-				$("#l2arrow_u").css("fill", colors_alpha[state] + "0)");
-				$("#l2arrow_m").css("fill", colors_alpha[state] + "0)");
-				$("#l2arrow_d").css("fill", colors_alpha[state] + "0)");
+				$("#a"+active).css("fill", colors_alpha[state]+"0)");
 			}
 		} else if ( current_level == 3 ){
 		}
@@ -394,6 +370,8 @@ var App = function(){
 		if ( name == "gameevent" || name == "statusupdate" ){
 			// console.log( value );
 			// value = JSON.parse( value );
+			
+			console.log( data );
 
 			if ( data.name == "level" ){
 				if ( data.value == "level one"){
