@@ -10,6 +10,7 @@
 
 #include "ofMain.h"
 #include "Constants.h"
+#include "ofxAVFVideoPlayer.h"
 
 class Overlay : public ofVec2f {
     friend class LevelIntro;
@@ -93,10 +94,8 @@ class VideoOverlay : public Overlay {
 public:
     void load( string video ){
         color.set(255,0);
-        overlay.loadMovie(video, OF_QTKIT_DECODE_TEXTURE_ONLY);
+        overlay.loadMovie(video);
         overlay.setLoopState(OF_LOOP_NORMAL);
-        overlay.play();
-        overlay.stop();
     }
     
     void activate( float level = 255 ){
@@ -111,6 +110,8 @@ public:
     }
     
     void draw(){
+        overlay.update();
+
         if ( !bActive ){
             color.a *= .9;
         } else {
@@ -125,7 +126,7 @@ public:
     
     
 protected:
-    ofQTKitPlayer overlay;
+    ofxAVFVideoPlayer overlay;
 };
 
 //#include "ofxImageSequence.h"
