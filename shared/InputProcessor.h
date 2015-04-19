@@ -36,6 +36,8 @@ public:
     
     bool shouldSend();
     
+    Poco::Timestamp lastAverageReceived();
+    
     // externally modifiable settings
     float messageTimeoutSeconds, messageDeleteSeconds;
     

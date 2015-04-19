@@ -42,7 +42,9 @@ static ofVec2f getGridPoint( float value ){
     return pnt;
 }
 
-struct PointMessage {
+class PointMessage {
+public:
+    ~PointMessage(){};
     Poco::LocalDateTime time;
     ofVec2f point; // deprecated
     string uniqueId;

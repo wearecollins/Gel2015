@@ -122,6 +122,10 @@ public:
         return bActive;
     }
     
+    bool shouldDraw(){
+        return bActive || ( currentFrame != NULL && currentFrame->color.a > 0);
+    }
+    
     Overlay & getOutro(){
         return outro;
     }

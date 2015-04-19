@@ -217,7 +217,10 @@ void GameController::draw(){
     if ( currentState != STATE_INTRO ){
         currentLive->draw();
     }
-    currentIntro->draw();
+    
+    if ( currentState != STATE_LIVE || (currentIntro != NULL && currentIntro->shouldDraw() )){
+        currentIntro->draw();
+    }
 }
 
 

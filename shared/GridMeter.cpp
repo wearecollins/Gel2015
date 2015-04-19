@@ -119,8 +119,6 @@ void GridMeter::setupGrid(){
 
 //--------------------------------------------------------------
 void GridMeter::createBlip(string name, float value){
-    Poco::LocalDateTime now;
-    Poco::Timespan timediff;
 
     if ( blips.count(name) == 0 ){
         //        blips[name] = GridBlip();
@@ -253,10 +251,15 @@ void GridMeter::render(){
     }
 
     // live feedback for messages
-    for (auto& it : blips) {
+    std::list< string > keys;
+    for (auto it : blips) {
         if ( it.second->gridPoint->color.a <= 0 ){
-            blips.erase(it.first);
+            keys.push_back(it.first);
         }
+    }
+    
+    for ( auto k : keys ){
+        blips.erase(k);
     }
 
     if ( messages != NULL ){

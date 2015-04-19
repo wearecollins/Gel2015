@@ -15,7 +15,7 @@ InputProcessor::InputProcessor(){
     bEaseValue = true;
     currentValue = 0;
     currentPower = 0;
-    messageTimeoutSeconds = .5;
+    messageTimeoutSeconds = 1.;
     messageDeleteSeconds = .1;
     
     lastAverage = Poco::Timestamp();
@@ -49,10 +49,10 @@ void InputProcessor::update( ofEventArgs & e ){
     Poco::LocalDateTime now;
     Poco::Timespan timediff;
     
-    mux.lock();
+//    mux.lock();
     messages.insert(messages.end(), queue.begin(), queue.end());
     queue.clear();
-    mux.unlock();
+//    mux.unlock();
     
     for ( auto it = messages.begin(); it != messages.end(); ){
 //        timediff = now - m.second.time;
@@ -61,7 +61,7 @@ void InputProcessor::update( ofEventArgs & e ){
 //            messages.erase(m.first);
             it = messages.erase(it);
         } else {
-            it++;
+            ++it;
         }
     }
     
@@ -136,4 +136,9 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
 //--------------------------------------------------------------
 bool InputProcessor::shouldSend(){
     return bShouldSend;
+}
+
+//--------------------------------------------------------------
+Poco::Timestamp InputProcessor::lastAverageReceived(){
+    return lastAverage;
 }
