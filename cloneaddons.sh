@@ -25,3 +25,6 @@ ${PREFIX}armadillu/ofxAnimatable.git
 
 # viewz
 ${PREFIX}Flightphase/ofxImageSequence.git
+
+# vidz
+${PREFIX}obviousjim/ofxAVFVideoPlayer.git

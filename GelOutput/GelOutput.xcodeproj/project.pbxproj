@@ -50,6 +50,11 @@
 		6645B5FE1AD628E90079AA65 /* ofxAnimatableFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6645B5F71AD628E90079AA65 /* ofxAnimatableFloat.cpp */; };
 		6645B5FF1AD628E90079AA65 /* ofxAnimatableOfColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6645B5F91AD628E90079AA65 /* ofxAnimatableOfColor.cpp */; };
 		6645B6001AD628E90079AA65 /* ofxAnimatableOfPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6645B5FB1AD628E90079AA65 /* ofxAnimatableOfPoint.cpp */; };
+		66C6BC401AE405EF00BB59E5 /* ofxAVFVideoPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 66C6BC3D1AE405EF00BB59E5 /* ofxAVFVideoPlayer.mm */; };
+		66C6BC411AE405EF00BB59E5 /* ofxAVFVideoRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C6BC3F1AE405EF00BB59E5 /* ofxAVFVideoRenderer.m */; };
+		66C6BC431AE4061500BB59E5 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C6BC421AE4061500BB59E5 /* QuartzCore.framework */; };
+		66C6BC451AE4061A00BB59E5 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C6BC441AE4061A00BB59E5 /* CoreMedia.framework */; };
+		66C6BC471AE4062400BB59E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C6BC461AE4062400BB59E5 /* AVFoundation.framework */; };
 		66D681351ADDFE4900DB8273 /* Params.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66D681331ADDFE4900DB8273 /* Params.cpp */; };
 		6D73A566CFEC0B462FE6E43C /* Reactor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2232A9453E355593EF36ADA7 /* Reactor.cpp */; };
 		7252706DA14C1BE63950ADDA /* ofxUIFPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEB61645EF9120F5BACB7462 /* ofxUIFPS.cpp */; };
@@ -249,6 +254,13 @@
 		6645B5FB1AD628E90079AA65 /* ofxAnimatableOfPoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatableOfPoint.cpp; sourceTree = "<group>"; };
 		6645B5FC1AD628E90079AA65 /* ofxAnimatableOfPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAnimatableOfPoint.h; sourceTree = "<group>"; };
 		664D65407BE633C038FA9498 /* ofxUIFPSSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIFPSSlider.h; path = ../../../addons/ofxUI/src/ofxUIFPSSlider.h; sourceTree = SOURCE_ROOT; };
+		66C6BC3C1AE405EF00BB59E5 /* ofxAVFVideoPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAVFVideoPlayer.h; sourceTree = "<group>"; };
+		66C6BC3D1AE405EF00BB59E5 /* ofxAVFVideoPlayer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxAVFVideoPlayer.mm; sourceTree = "<group>"; };
+		66C6BC3E1AE405EF00BB59E5 /* ofxAVFVideoRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxAVFVideoRenderer.h; sourceTree = "<group>"; };
+		66C6BC3F1AE405EF00BB59E5 /* ofxAVFVideoRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ofxAVFVideoRenderer.m; sourceTree = "<group>"; };
+		66C6BC421AE4061500BB59E5 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		66C6BC441AE4061A00BB59E5 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		66C6BC461AE4062400BB59E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		66D681331ADDFE4900DB8273 /* Params.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Params.cpp; path = ../shared/Params.cpp; sourceTree = "<group>"; };
 		66D681341ADDFE4900DB8273 /* Params.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Params.h; path = ../shared/Params.h; sourceTree = "<group>"; };
 		69668FDE141262BC3C6CA929 /* jsoncpp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = jsoncpp.cpp; path = ../../../addons/ofxLibwebsockets/libs/jsoncpp/jsoncpp.cpp; sourceTree = SOURCE_ROOT; };
@@ -344,6 +356,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66C6BC471AE4062400BB59E5 /* AVFoundation.framework in Frameworks */,
+				66C6BC451AE4061A00BB59E5 /* CoreMedia.framework in Frameworks */,
+				66C6BC431AE4061500BB59E5 /* QuartzCore.framework in Frameworks */,
 				E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */,
 				E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */,
 				E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */,
@@ -608,6 +623,26 @@
 			path = ../../../addons/ofxAnimatable/src;
 			sourceTree = "<group>";
 		};
+		66C6BC3A1AE405EF00BB59E5 /* ofxAVFVideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				66C6BC3B1AE405EF00BB59E5 /* src */,
+			);
+			name = ofxAVFVideoPlayer;
+			sourceTree = "<group>";
+		};
+		66C6BC3B1AE405EF00BB59E5 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				66C6BC3C1AE405EF00BB59E5 /* ofxAVFVideoPlayer.h */,
+				66C6BC3D1AE405EF00BB59E5 /* ofxAVFVideoPlayer.mm */,
+				66C6BC3E1AE405EF00BB59E5 /* ofxAVFVideoRenderer.h */,
+				66C6BC3F1AE405EF00BB59E5 /* ofxAVFVideoRenderer.m */,
+			);
+			name = src;
+			path = ../../../addons/ofxAVFVideoPlayer/src;
+			sourceTree = "<group>";
+		};
 		6E54289412D2D94F45A05113 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -690,6 +725,7 @@
 				961F0189D3FC79A9A11F56E1 /* ofxSpacebrew */,
 				A492CE86424AB8905550BFD8 /* ofxUI */,
 				6645B5F31AD628E90079AA65 /* ofxAnimatable */,
+				66C6BC3A1AE405EF00BB59E5 /* ofxAVFVideoPlayer */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -697,20 +733,23 @@
 		BBAB23C913894ECA00AA2426 /* system frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				016D22521AAA6953003840C7 /* Carbon.framework */,
 				E7F985F515E0DE99003869B5 /* Accelerate.framework */,
 				E45BE9710E8CC7DD009D7055 /* AGL.framework */,
 				E4C2424410CC5A17004149E2 /* AppKit.framework */,
 				E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */,
 				E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */,
+				66C6BC461AE4062400BB59E5 /* AVFoundation.framework */,
+				016D22521AAA6953003840C7 /* Carbon.framework */,
 				E4C2424510CC5A17004149E2 /* Cocoa.framework */,
 				E45BE9750E8CC7DD009D7055 /* CoreAudio.framework */,
 				E45BE9760E8CC7DD009D7055 /* CoreFoundation.framework */,
+				66C6BC441AE4061A00BB59E5 /* CoreMedia.framework */,
 				E45BE9770E8CC7DD009D7055 /* CoreServices.framework */,
 				E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */,
 				E4C2424610CC5A17004149E2 /* IOKit.framework */,
 				E45BE9790E8CC7DD009D7055 /* OpenGL.framework */,
 				E7E077E715D3B6510020DFD4 /* QTKit.framework */,
+				66C6BC421AE4061500BB59E5 /* QuartzCore.framework */,
 				E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */,
 			);
 			name = "system frameworks";
@@ -1033,6 +1072,7 @@
 				019DF14B1AC316950028D667 /* Meter.cpp in Sources */,
 				26874B150C8535AEA0F24C8C /* ofxUIImageSlider.cpp in Sources */,
 				FB8AA9FA6535767BE31806BC /* ofxUIImageToggle.cpp in Sources */,
+				66C6BC401AE405EF00BB59E5 /* ofxAVFVideoPlayer.mm in Sources */,
 				7C3DC84C9BFCBD2866DB2B6C /* ofxUILabel.cpp in Sources */,
 				FFD1EBFCA24DFB4E4427B4FE /* ofxUILabelButton.cpp in Sources */,
 				C30B3A2A37F8F32EE7318718 /* ofxUILabelToggle.cpp in Sources */,
@@ -1057,6 +1097,7 @@
 				6645B5FE1AD628E90079AA65 /* ofxAnimatableFloat.cpp in Sources */,
 				BFEFCE32DAFE10A8EB519F6C /* ofxUISpacer.cpp in Sources */,
 				016D224E1AAA6823003840C7 /* main.mm in Sources */,
+				66C6BC411AE405EF00BB59E5 /* ofxAVFVideoRenderer.m in Sources */,
 				52AFF80A869790144ACCC9BA /* ofxUISpectrum.cpp in Sources */,
 				1DAAC3FB4B98B08AE63F4687 /* ofxUISuperCanvas.cpp in Sources */,
 				66D681351ADDFE4900DB8273 /* Params.cpp in Sources */,
