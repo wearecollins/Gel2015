@@ -75,6 +75,12 @@ public:
     
 };
 
+struct GridBlip {
+    Poco::LocalDateTime lastPulse;
+    int direction;
+    GridPoint* gridPoint;
+};
+
 class GridMeter : public LiveInput {
     friend class GameController;
 public:
@@ -103,8 +109,10 @@ protected:
     vector<Pulse> pulses;
 
     float pulseRateSeconds;
-    float liveFeedbackRateSeconds;
-    Poco::LocalDateTime lastLiveFeedback;
+
+    // live feedback stuff
+    std::map<string, GridBlip* > blips;
+    void createBlip(string name, float value);
     
     bool bWaitingForArrowStartClick;
     bool bWaitingForArrowEndClick;
