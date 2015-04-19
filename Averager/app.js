@@ -21,7 +21,7 @@ var messageTimeoutSeconds = 0.01;
 	STORAGE
 ******************************************************************/
 
-var messages = {};
+var messages = [];
 
 function Message( ID, dir ){
 	this.time 		= Date.now();
@@ -66,12 +66,12 @@ function onCustomMessage( name, value, type ){
 		if ( res.length > 0 ){
             var id = res[1];
 			var m = new Message();
-            messages[id] = m;
-            messages[id].direction = parseInt(res[0]);
-			messages[id].id = res[1];
+            m.direction = parseInt(res[0]);
+			m.id = res[1];
             if ( res.length > 2 ){
-                messages[id].power = parseInt(res[2]);
+                m.power = parseInt(res[2]);
             }
+			messages.push(m);
 		}
 	}	
 }
@@ -83,7 +83,7 @@ function update(){
     // updated?
     var bShouldSend = false;
 
-    var length = Object.keys(messages).length;
+    var length = messages.length;
 
     // process current value
     if ( length > 0 ){
@@ -92,12 +92,10 @@ function update(){
             {
                 var total = 0;
                 var totalPower = 0;
-			    for (var key in messages) {
-			  		if (messages.hasOwnProperty(key)) {
-                        messages[key].sent = true;
-                    	total += messages[key].direction;
-                        totalPower += messages[key].power;
-                    }
+			    for (var i=0; i<length; i++) {
+                    messages[i].sent = true;
+                	total += messages[i].direction;
+                    totalPower += messages[i].power;
                 }
 
                 total /= length;
@@ -107,53 +105,53 @@ function update(){
             }
             break;
                 
-            case "MODE_RANDOM_LEAD":
-            {
-                // first average
-                var total = 0;
-                var totalPower = 0;
-			    for (var key in messages) {
-			  		if (messages.hasOwnProperty(key)) {
-                        messages[key].sent = true;
-                    	total += messages[key].direction;
-                        totalPower += messages[key].power;
-                    }
-                }
+      //       case "MODE_RANDOM_LEAD":
+      //       {
+      //           // first average
+      //           var total = 0;
+      //           var totalPower = 0;
+			   //  for (var key in messages) {
+			  	// 	if (messages.hasOwnProperty(key)) {
+      //                   messages[key].sent = true;
+      //               	total += messages[key].direction;
+      //                   totalPower += messages[key].power;
+      //               }
+      //           }
 
-                total /= length;
+      //           total /= length;
                 
-                var index = Math.floor(Math.random() * Object.keys(messages).length);
-                var key = Object.keys(messages)[index];
-                total = total * .5 + messages[key].direction * .5;
-                totalPower = totalPower * .5 + messages[key].power * .5;
+      //           var index = Math.floor(Math.random() * Object.keys(messages).length);
+      //           var key = Object.keys(messages)[index];
+      //           total = total * .5 + messages[key].direction * .5;
+      //           totalPower = totalPower * .5 + messages[key].power * .5;
 
-                currentValue = total;
-                currentPower = totalPower;
-            }
-            break;
+      //           currentValue = total;
+      //           currentPower = totalPower;
+      //       }
+      //       break;
                 
-            case "MODE_LIVE":
-            {
-                // found the most recent point
-                var least = 99999999;
-                var tempCurrent = currentValue;
-                var tempPower = currentPower;
+      //       case "MODE_LIVE":
+      //       {
+      //           // found the most recent point
+      //           var least = 99999999;
+      //           var tempCurrent = currentValue;
+      //           var tempPower = currentPower;
 
-			    for (var key in messages) {
-			  		if (messages.hasOwnProperty(key)) {
-						var timediff = now - messages[key].time;
-	                    if ( timediff < least ){
-                            messages[key].sent = true;
-	                        tempCurrent = messages[key].direction;
-                            tempPower = messages[key].power;
-	                        least = timediff;
-	                    }
-                	}
-                }
-                currentValue = tempCurrent;
-                currentPower = tempPower;
-            }
-            break;
+			   //  for (var key in messages) {
+			  	// 	if (messages.hasOwnProperty(key)) {
+						// var timediff = now - messages[key].time;
+	     //                if ( timediff < least ){
+      //                       messages[key].sent = true;
+	     //                    tempCurrent = messages[key].direction;
+      //                       tempPower = messages[key].power;
+	     //                    least = timediff;
+	     //                }
+      //           	}
+      //           }
+      //           currentValue = tempCurrent;
+      //           currentPower = tempPower;
+      //       }
+      //       break;
                 
             default:
                 break;
@@ -173,13 +171,13 @@ function update(){
     }
     
     // jam through messages
-    for (var key in messages) {
-        if (messages.hasOwnProperty(key)) {
-            var timediff = now - messages[key].time;
-            if ( timediff / 1000.0 > messageTimeoutSeconds && messages[key].sent === true ){
-                delete messages[key];
+    for (var i=messages.length-1; i>=0; i--) {
+        // if (messages.hasOwnProperty(key)) {
+            var timediff = now - messages[i].time;
+            if ( timediff / 1000.0 > messageTimeoutSeconds && messages[i].sent === true ){
+                delete messages[i];
+                messages.splice(i,1);
             }
-        }
     }
 }
 

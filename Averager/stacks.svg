@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" width="1200" height="132" onload="init(evt)" viewBox="0 0 1200 132" xmlns="http://www.w3.org/2000/svg" >
+    <defs >
+        <linearGradient id="background" y1="0" y2="1" x1="0" x2="0" >
+            <stop stop-color="#eeeeee" offset="5%" />
+            <stop stop-color="#eeeeb0" offset="95%" />
+        </linearGradient>
+    </defs>
+    <style type="text/css" >
+	rect[rx]:hover { stroke:black; stroke-width:1; }
+	text:hover { stroke:black; stroke-width:1; stroke-opacity:0.35; }
+    </style>
+    <script type="text/ecmascript" >
+	var details;
+	function init(evt) {
+		details = document.getElementById(&quot;details&quot;).
+		    firstChild;
+	}
+	function s(info) { details.nodeValue = info; }
+	function c() { details.nodeValue = &quot; &quot;; }
+    </script>
+    <rect x="0.0" y="0.0" width="1200.0" height="132.0" fill="url(#background)" />
+    <text text-anchor="middle" x="600" y="24" font-size="17" font-family="Verdana" fill="rgb(0, 0, 0)" >Flame Graph</text>
+    <text text-anchor="left" x="10" y="48" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" >Function:</text>
+    <text text-anchor="left" x="70" y="48" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" id="details" > </text>
+    <rect x="10.0" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x1 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="50.7" y="67.0" width="81.4" height="15.0" fill="rgb(255,255,166)" rx="2" ry="2" onmouseover="s(&quot;node`0x1222e00 (2 samples, 6.90%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="53.689655172413794" y="77.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`0x1222e00 (2 samples, 6.90%)&quot;)" onmouseout="c()" >node`0x12..</text>
+    <rect x="132.1" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x1225600 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="172.8" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x1226000 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="213.4" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x1239e00 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="254.1" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x1804c20 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="294.8" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x1805030 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="335.5" y="67.0" width="81.4" height="15.0" fill="rgb(255,255,166)" rx="2" ry="2" onmouseover="s(&quot;node`0x1809ee0 (2 samples, 6.90%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="338.51724137931035" y="77.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`0x1809ee0 (2 samples, 6.90%)&quot;)" onmouseout="c()" >node`0x18..</text>
+    <rect x="416.9" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x1846e50 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="457.6" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x1846e78 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="498.3" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x2 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="539.0" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x35c04181 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="579.7" y="67.0" width="122.1" height="15.0" fill="rgb(255,255,160)" rx="2" ry="2" onmouseover="s(&quot;node`0x35c041a1 (3 samples, 10.34%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="582.6551724137931" y="77.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;node`0x35c041a1 (3 samples, 10.34%)&quot;)" onmouseout="c()" >node`0x35c041a..</text>
+    <rect x="701.7" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x49071f0 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="742.4" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x5fbf6f40 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="783.1" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x5fbf7010 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="823.8" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x5fbf70e0 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="864.5" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x5fbff6d8 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="905.2" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x61 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="945.9" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x63 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="986.6" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x7542c43c (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="1027.2" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x94100000 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="1067.9" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x94391a28 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="1108.6" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0x954aed99 (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="1149.3" y="67.0" width="40.7" height="15.0" fill="rgb(255,255,172)" rx="2" ry="2" onmouseover="s(&quot;node`0xbeeddead (1 samples, 3.45%)&quot;)" onmouseout="c()" />
+    <rect x="10.0" y="83.0" width="1180.0" height="15.0" fill="rgb(204,0,0)" rx="2" ry="2" onmouseover="s(&quot;all samples (29 samples, 100%)&quot;)" onmouseout="c()" />
+    <text text-anchor="left" x="13" y="93.5" font-size="12" font-family="Verdana" fill="rgb(0, 0, 0)" onmouseover="s(&quot;all samples (29 samples, 100%)&quot;)" onmouseout="c()" ></text>
+</svg>
