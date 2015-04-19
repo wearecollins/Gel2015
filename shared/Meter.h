@@ -49,7 +49,6 @@ public:
 protected:
     
     ofImage meter;
-    ofShader renderShader;
     ofxSVG svg;
 
     // helpers & callbacks
