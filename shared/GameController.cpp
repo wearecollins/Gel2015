@@ -227,6 +227,8 @@ void GameController::triggerCelebration(){
     currentIntro->activate();
     currentLive->partyMode();
     
+    colorBackground.activate(150);
+    
     spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
     currentState = STATE_PARTY;
     saveState();
