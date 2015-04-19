@@ -50,14 +50,12 @@ void InputProcessor::update( ofEventArgs & e ){
     Poco::Timespan timediff;
     
     mux.lock();
-    for ( auto it = messages.begin(); it != messages.end(); ){
+    for ( auto it = messages.begin(); it != messages.end(); it++){
 //        timediff = now - m.second.time;
         timediff = now - it->time;
         if ( (float) timediff.milliseconds() / 1000.0f > messageDeleteSeconds ){
 //            messages.erase(m.first);
-            messages.erase(it);
-        } else {
-            ++it;
+            it = messages.erase(it);
         }
     }
     mux.unlock();
