@@ -268,6 +268,7 @@ void Meter::onAnimFinished(ofxAnimatable::AnimationEvent &args){
     for (auto& segment : segments) {
         for (int i = 0; i < segment.pulses.size(); i++) {
             if (args.who == segment.pulses[i]) {
+                delete segment.pulses[i];
                 segment.pulses.erase(segment.pulses.begin()+i);
                 break;
             }
@@ -344,6 +345,7 @@ void Meter::render(){
         for (auto& it : blips) {
             it.second->animation->update(1.0 / 60.0);
             if ( it.second->animation->hasFinishedAnimating() ){
+                delete it.second->animation;
                 blips.erase(it.first);
             }
         }

@@ -301,6 +301,7 @@ void GridMeter::render(){
     
     for (auto it = pulses.begin(); it != pulses.end(); ) {
         if ( it->anim->hasFinishedAnimating() ){
+            delete it->anim;
             pulses.erase(it);
         } else {
             ++it;
