@@ -84,11 +84,11 @@ void ofApp::setup(){
     spacebrew.setAutoReconnect();
     spacebrew.connect(server, port, "gelVoice");
     
-    cout << device << endl;
+    isLive = false;
     
     bool success = setAudioOutput(device);
     
-    speech.listVoices();
+//    speech.listVoices();
     speech.initSynthesizer();
     
     rates[DIRECTION_LEFT].lastSent = 0;
@@ -98,7 +98,7 @@ void ofApp::setup(){
     rates[DIRECTION_RIGHT].sendRate = 1000;
     
     rates[DIRECTION_STRAIGHT].lastSent = 0;
-    rates[DIRECTION_STRAIGHT].sendRate = 500;
+    rates[DIRECTION_STRAIGHT].sendRate = 1000;
     
 //    rates[DIRECTION_LOOK].lastSent = 0;
 //    rates[DIRECTION_LOOK].sendRate = 500;
@@ -171,7 +171,8 @@ void ofApp::speak( int dir, int power  ){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    if (inputProcessor.shouldSend()){
+    if ( !isLive ) return;
+    if (inputProcessor.shouldSend() ){
         speak( inputProcessor.getCurrentValue(), inputProcessor.getCurrentPower() );
     } else {
         speak( (int) DIRECTION_STOP );
@@ -202,6 +203,7 @@ void ofApp::onMessage( Spacebrew::Message & m ){
             string value = json["value"].asString();
             
             if (name == "level") {
+                isLive = false;
                 int l = currentLevel;
                 if (value == "level one"){
                     currentLevel = 1;
@@ -216,6 +218,11 @@ void ofApp::onMessage( Spacebrew::Message & m ){
 //                if ( l != currentLevel )
                     speech.speakPhrase(value);
             } else if(name == "trigger"){
+                if ( value == "let's go"){
+                    isLive = true;
+                } else {
+                    isLive = false;
+                }
                 speech.speakPhrase(value);
             }
         }

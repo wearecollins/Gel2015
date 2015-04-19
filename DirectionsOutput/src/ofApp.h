@@ -52,4 +52,5 @@ class ofApp : public ofBaseApp{
     
         // ignore updates
         int currentLevel;
+        bool isLive;
 };

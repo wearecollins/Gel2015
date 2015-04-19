@@ -177,6 +177,11 @@ html, body, table, tr, div, svg {
   padding: 4% 6% 4% 6%;
 }
 
+#getready {
+  visibility: hidden;
+  display: none;
+}
+
 #getready img {
   height: 100%;
   position: relative;
@@ -277,6 +282,8 @@ td {
 
 #l2arrow_u, #l2arrow_m, #l2arrow_d {
   stroke: rgb(255,0,255);
+  -webkit-transition: fill ease-out .5s;
+  transition: fill ease-out .5s;
 }
 
 .box_l2 {
