@@ -46,6 +46,7 @@ protected:
     
     // dump of all current messages
     vector<PointMessage> messages;
+    vector<PointMessage> queue;
     
     // updated live from average
     int currentValue;
