@@ -225,6 +225,20 @@ html, body, table, tr, div, svg {
 
 /* LEVEL 1 */
 
+.l1_text {
+  position: absolute;
+  width: 29%;
+  bottom: 10%;
+}
+
+.l1_text img {
+  position: relative;
+  -webkit-transform: translate(-50%,0);
+  transform: translate(-50%,0);
+  left:50%;
+  width: 100%;
+}
+
 #left .border {
   background-color: rgb(255,255,0);
 }
