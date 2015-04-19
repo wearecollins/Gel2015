@@ -44,6 +44,8 @@ var App = function(){
 
 	var lastSent = 0;
 
+	var textStates = ["l2_left_text", "l2_straight_text", "l2_right_text"]
+
 	/**********************************************************************/
 	function setup(){
 		// setup Sender, which connects to Spacebrew + handles in/out
@@ -332,6 +334,11 @@ var App = function(){
 				$("#l2arrow_u").css("stroke", colors[state]);
 				$("#l2arrow_m").css("stroke", colors[state]);
 				$("#l2arrow_d").css("stroke", colors[state]);
+				for ( var s in textStates ){
+					if ( s != state )
+						$("#" + textStates[s]).css("visibility", "hidden");
+				}
+				$("#" + textStates[state]).css("visibility", "visible");
 
 				// TO DO: THESE SHOULD BE SVGS!!
 				// $("#l2arrow").css("-webkit-transform", "rotate(" + deg + "deg)")

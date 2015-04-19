@@ -287,6 +287,13 @@ td {
   height: 100%;
 }
 
+#l2_left_text, #l2_straight_text, #l2_right_text {
+  visibility: hidden;
+  left:50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
 #level_two .border {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
