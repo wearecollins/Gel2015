@@ -104,8 +104,9 @@ void GameController::guiSetup(){
     gui->addSpacer();
 
     gui->addSlider("Party Speed", 0, 11, &Params::level2partySpeed);
-    gui->addSlider("Party Noise Field Step Size", 0, 0.01, &Params::level2partyNoiseStepSize)->setLabelPrecision(5);
+    gui->addSlider("Party Noise Field Step Size", 0, 1, &Params::level2partyNoiseStepSize)->setLabelPrecision(5);
     gui->addSlider("Grid Vignette Radius", 0, 1920, &Params::level2partyVignetteRadius);
+    gui->addIntSlider("Grid Vignette Curve Power", 0, 10, &Params::level2partyVignetteCurvePower);
 
     guiPanels.push_back(gui);
 

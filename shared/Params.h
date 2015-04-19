@@ -24,5 +24,6 @@ public:
     static float level2partySpeed;
     static float level2partyNoiseStepSize;
     static float level2partyVignetteRadius;
+    static int   level2partyVignetteCurvePower;
     
 };

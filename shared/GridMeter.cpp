@@ -232,7 +232,8 @@ void GridMeter::render(){
             // dim out the dot based on its distance to the center
             float dist = ofDist(g.x, g.y, 970, 550);
             if (dist < Params::level2partyVignetteRadius) {
-                g.color.a *= ofMap(dist, 0, Params::level2partyVignetteRadius, 0, 1, true);
+                float distMapped = ofMap(dist, 0, Params::level2partyVignetteRadius, 0, 1, true);
+                g.color.a *= powf(distMapped, Params::level2partyVignetteCurvePower);
             }
         }
         g.draw();
