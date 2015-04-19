@@ -11,6 +11,8 @@
 #include "ofMain.h"
 #include "Poco/LocalDateTime.h"
 
+#define NUM_SERVERS 4
+
 static float getProjectorWidth(){
     return 1920.;
 }

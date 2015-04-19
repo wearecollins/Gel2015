@@ -11,6 +11,7 @@
 
 #include "ofxSpacebrew.h"
 
+#include "Constants.h"
 #include "InputProcessor.h"
 #include "GameController.h"
 
@@ -38,7 +39,7 @@ public:
     
     string type;
     
-    Spacebrew::Connection spacebrew;
+    vector<Spacebrew::Connection *> spacebrew;
     
     void onMessage( Spacebrew::Message & m );
     

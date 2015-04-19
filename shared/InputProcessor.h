@@ -18,7 +18,7 @@ public:
     InputProcessor();
     ~InputProcessor();
     
-    void setup( Spacebrew::Connection & spacebrew );
+    void setup( vector<Spacebrew::Connection *> & sb );
     void update( ofEventArgs & e );
     
     int getCurrentValue();
@@ -41,7 +41,7 @@ public:
     
 protected:
     void onMessage( Spacebrew::Message & m );
-    Spacebrew::Connection * spacebrew;
+    vector<Spacebrew::Connection *> * spacebrew;
     string messageName, messageType;
     
     // dump of all current messages

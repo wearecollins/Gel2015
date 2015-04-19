@@ -20,5 +20,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		
-        Spacebrew::Connection spacebrew;
+        vector<Spacebrew::Connection *> spacebrew;
+        vector<int> values;
+        vector<int> times;
 };

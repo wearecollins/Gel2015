@@ -44,7 +44,7 @@ public:
     
     GameController();
     
-    void setup( InputProcessor & input, Spacebrew::Connection & spacebrew );
+    void setup( InputProcessor & input, vector<Spacebrew::Connection *> & spacebrew );
     void update( ofEventArgs & e );
     void draw();
 
@@ -89,8 +89,9 @@ protected:
     string stateToString( State level );
     
     // connection to controller app
-    Spacebrew::Connection * spacebrew;
+    vector<Spacebrew::Connection *> * spacebrew;
     void onMessage( Spacebrew::Message & message );
+    void sendToAll( string name, string type, string value );
     
     // send out pings to phones regularly
     int statusSendMillis;

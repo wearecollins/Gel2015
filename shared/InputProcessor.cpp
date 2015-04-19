@@ -24,20 +24,24 @@ InputProcessor::InputProcessor(){
 //--------------------------------------------------------------
 InputProcessor::~InputProcessor(){
     if ( spacebrew != NULL ){
-        ofRemoveListener(spacebrew->onMessageEvent, this, &InputProcessor::onMessage);
+        for ( auto * sb : *spacebrew){
+            ofRemoveListener(sb->onMessageEvent, this, &InputProcessor::onMessage);
+        }
     }
     ofRemoveListener(ofEvents().update, this, &InputProcessor::update);
 }
 
 //--------------------------------------------------------------
-void InputProcessor::setup( Spacebrew::Connection & sb ){
+void InputProcessor::setup( vector<Spacebrew::Connection *> & sb ){
     // attach to local spacebrew connection + subscriber(s)
     this->spacebrew = &sb;
-    ofAddListener(spacebrew->onMessageEvent, this, &InputProcessor::onMessage);
-    
-    spacebrew->addSubscribe("average", "pad");
-    spacebrew->addSubscribe("touch", "pad");
-    
+    int which = 1;
+    for ( auto & sb : *spacebrew){
+        ofAddListener(sb->onMessageEvent, this, &InputProcessor::onMessage);
+        
+        sb->addSubscribe("average"+ofToString(which++), "pad");
+        sb->addSubscribe("touch", "pad");
+    }
     // setup OF events
     ofAddListener(ofEvents().update, this, &InputProcessor::update);
 }
@@ -91,6 +95,8 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
     Json::Value root;
     
     Poco::DateTime now;
+    
+    // TODO: AVERAGE1, AVERAGE2...
     
     if ( m.name == "average" ){
         vector<string> exp = ofSplitString(m.value, ":");

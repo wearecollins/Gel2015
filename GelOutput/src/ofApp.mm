@@ -17,14 +17,20 @@ void ofApp::setup(){
     string server   = "spacebrew.robotconscience.com";
     string name     = "Gel master";
     
+    
+    for (int i=0; i<NUM_SERVERS; i++){
+        spacebrew.push_back(new Spacebrew::Connection());
+        spacebrew[i]->setAutoReconnect();
+        spacebrew[i]->addSubscribe("windowEvent", "string");
+        ofAddListener(spacebrew[i]->onMessageEvent, this, &ofApp::onMessage);
+    }
+    
     processor.setup(spacebrew);
     gameController.setup(processor,spacebrew);
     
-    spacebrew.setAutoReconnect();
-    spacebrew.connect( server, name, "");
-    spacebrew.addSubscribe("windowEvent", "string");
-    
-    ofAddListener(spacebrew.onMessageEvent, this, &ofApp::onMessage);
+    for (int i=0; i<NUM_SERVERS; i++){
+        spacebrew[i]->connect( server, 9000 + i, name, "");
+    }
     
     ofSetCircleResolution(60);
 }

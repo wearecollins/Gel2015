@@ -16,7 +16,7 @@ GameController::GameController(){
 }
 
 //--------------------------------------------------------------
-void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb ){
+void GameController::setup( InputProcessor & input, vector<Spacebrew::Connection *> & sb ){
     inputProcessor = &input;
     
     // setup each overlay
@@ -42,10 +42,14 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     
     // setup connection to control app
     this->spacebrew = &sb;
-    spacebrew->addSubscribe("infoevent", "event" );
-    spacebrew->addPublish("gameevent", "event" );
+    
+    for ( auto * conn : *spacebrew ){
+        conn->addSubscribe("infoevent", "event" );
+        conn->addPublish("gameevent", "event" );
+        conn->addPublish("statusupdate", "event" );
+        ofAddListener(conn->onMessageEvent, this, &GameController::onMessage);
+    }
     guiSetup();
-    spacebrew->addPublish("statusupdate", "event" );
     
     // send status every 5s
     statusSendMillis = 5000;
@@ -74,7 +78,6 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     
     // setup OF events
     ofAddListener(ofEvents().update, this, &GameController::update);
-    ofAddListener(this->spacebrew->onMessageEvent, this, &GameController::onMessage);
 }
 
 //--------------------------------------------------------------
@@ -204,9 +207,9 @@ void GameController::update( ofEventArgs & e ){
     if ( timediff.milliseconds() >= statusSendMillis ){
         lastStatusSent = now;
         if ( currentState == STATE_PARTY ){
-            spacebrew->send("statusupdate", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
+            sendToAll("statusupdate", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
         } else {
-            spacebrew->send("statusupdate", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( currentLevel ) + "\"}");
+            sendToAll("statusupdate", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( currentLevel ) + "\"}");
         }
     }
 }
@@ -232,7 +235,7 @@ void GameController::triggerCelebration(){
     
     colorBackground.activate(150);
     
-    spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
+    sendToAll("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
     currentState = STATE_PARTY;
     saveState();
 }
@@ -288,7 +291,7 @@ void GameController::triggerLive(){
     currentLive->activate();
     colorBackground.deactivate();
     
-    spacebrew->send("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"let's go\"}");
+    sendToAll("gameevent", "event", "{\"name\":\"trigger\",\"value\":\"let's go\"}");
     saveState();
 }
 
@@ -303,11 +306,17 @@ void GameController::setLevel ( Level level ){
     
     colorBackground.activate();
     
-    spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( level ) + "\"}");
+    sendToAll("gameevent", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( level ) + "\"}");
     
     saveState();
 }
 
+
+void GameController::sendToAll( string name, string type, string value ){
+    for ( auto * conn : *spacebrew ){
+        conn->send(name, type, value);
+    }
+}
 
 //--------------------------------------------------------------
 void GameController::saveState(){
@@ -365,9 +374,9 @@ void GameController::onMessage( Spacebrew::Message & m ){
         // for now, just broadcast current level and if we're in party mode
         
         if ( currentState == STATE_PARTY ){
-            spacebrew->send("statusupdate", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
+            sendToAll("statusupdate", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
         } else {
-            spacebrew->send("statusupdate", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( currentLevel ) + "\"}");
+            sendToAll("statusupdate", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( currentLevel ) + "\"}");
         }
     }
 //    Json::Reader    jsonReader;
