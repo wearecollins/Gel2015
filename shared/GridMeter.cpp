@@ -51,7 +51,6 @@ void GridMeter::setup(){
     setupGrid();
     
     pulseRateSeconds = .5;
-    liveFeedbackRateSeconds = .25;
     
     arrows.resize(3);
 
@@ -119,6 +118,51 @@ void GridMeter::setupGrid(){
 }
 
 //--------------------------------------------------------------
+void GridMeter::createBlip(string name, float value){
+    Poco::LocalDateTime now;
+    Poco::Timespan timediff;
+
+    if ( blips.count(name) == 0 ){
+        //        blips[name] = GridBlip();
+    } else if ( blips[name]->direction == value){
+        return;
+    } else if ( blips[name]->direction != value){
+        auto * kill = blips[name];
+        blips.erase(name);
+        delete kill;
+    }
+    GridBlip * blip = new GridBlip();
+
+    // pick a random X/Y inside the neighborhood of the arrow for that direction
+    ofRectangle& bbox = arrows[value].neighborhood;
+    float randX = ofRandom(bbox.getWidth());
+    float randY = ofRandom(bbox.getHeight());
+
+    // now find the GridPoint that is closest to that random point
+    float closestDistance = 999999999999;
+    GridPoint& closestGridPoint = grid.front(); // just assign whatever, can't initialize an empty reference
+
+    for (auto& g : grid){
+        // skip any points not inside
+        if (!bbox.inside(g)) continue;
+
+        float distSquared = ofDistSquared(randX, randY, g.x, g.y);
+        if (distSquared < closestDistance) {
+            closestGridPoint = g;
+            closestDistance = distSquared;
+        }
+    }
+
+    closestGridPoint.color = GEL_COLORS[value];
+    closestGridPoint.activate(50);
+
+    blip->direction = value;
+    blip->gridPoint = &closestGridPoint;
+
+    blips[name] = blip;
+}
+
+//--------------------------------------------------------------
 void GridMeter::render(){
     renderTexture.begin();
     ofClear(255);
@@ -126,7 +170,6 @@ void GridMeter::render(){
     
     Poco::LocalDateTime now;
     Poco::Timespan timediff;
-    Poco::Timespan timediffLiveFeedback;
     
     // update pulses
     for (auto &p :pulses ){
@@ -210,36 +253,15 @@ void GridMeter::render(){
     }
 
     // live feedback for messages
-    timediffLiveFeedback = now - lastLiveFeedback;
-    // annoying math, but seconds == int so...
-    if ( timediffLiveFeedback.milliseconds() / 1000.f > liveFeedbackRateSeconds ){
-        lastLiveFeedback = now;
+    for (auto& it : blips) {
+        if ( it.second->gridPoint->color.a <= 0 ){
+            blips.erase(it.first);
+        }
+    }
 
-        if ( messages != NULL ){
-            for ( auto & m : *messages ){
-                // pick a random X/Y inside the neighborhood of the arrow for that direction
-                ofRectangle& bbox = arrows[m.direction].neighborhood;
-                float randX = ofRandom(bbox.getWidth());
-                float randY = ofRandom(bbox.getHeight());
-
-                // now find the GridPoint that is closest to that random point
-                float closestDistance = 999999999999;
-                GridPoint& closestGridPoint = grid.front(); // just assign whatever, can't initialize an empty reference
-
-                for (auto& g : grid){
-                    // skip any points not inside
-                    if (!bbox.inside(g)) continue;
-
-                    float distSquared = ofDistSquared(randX, randY, g.x, g.y);
-                    if (distSquared < closestDistance) {
-                        closestGridPoint = g;
-                        closestDistance = distSquared;
-                    }
-                }
-
-                closestGridPoint.color = GEL_COLORS[m.direction];
-                closestGridPoint.activate(50);
-            }
+    if ( messages != NULL ){
+        for ( auto & m : *messages ){
+            createBlip(m.uniqueId, m.direction);
         }
     }
 
