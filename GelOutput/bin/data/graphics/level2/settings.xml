@@ -3,5 +3,5 @@
 	<overlay>level2_guide.mp4</overlay>
 	<overlay>level2_prompt.mp4</overlay>
 	<overlay>level2_map.png</overlay>
-	<outro>level2_outro.png</outro>
+	<outro>level2_outro</outro>
 </settings>

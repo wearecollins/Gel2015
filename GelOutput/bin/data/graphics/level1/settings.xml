@@ -2,5 +2,5 @@
 	<overlay>level1_start.mp4</overlay>
 	<overlay>level1_guide.mp4</overlay>
 	<overlay>level1_prompt.mp4</overlay>
-	<outro>level1_outro.png</outro>
+	<outro>level1_outro</outro>
 </settings>

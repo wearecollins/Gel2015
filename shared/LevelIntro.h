@@ -41,10 +41,10 @@ public:
                     overlays.push_back( new VideoOverlay());
                     VideoOverlay* vo = dynamic_cast<VideoOverlay*>(overlays.back());
                     vo->load( path );
-                /*} else if ( path.find(".png") == string::npos ){
+                } else if ( path.find(".png") == string::npos ){
                     overlays.push_back( new ImageSeqOverlay());
                     ImageSeqOverlay* vo = dynamic_cast<ImageSeqOverlay*>(overlays.back());
-                    vo->load( path );*/
+                    vo->load( path );
                 } else {
                     overlays.push_back( new ImageOverlay());
                     ImageOverlay* lo = dynamic_cast<ImageOverlay*>(overlays.back());
@@ -60,6 +60,8 @@ public:
         {
             string path = "graphics/" + name + "/" + XML.getValue("outro");
             outro.load( path );
+            
+            cout << "OUTRO LOADED "<<path<<endl;
         }
         
         // set to frame 0, but don't fade in
@@ -138,7 +140,7 @@ protected:
     Overlay * previousFrame;
     Overlay * currentFrame;
     
-    ImageOverlay outro;
+    ImageSeqOverlay outro;
     
     bool bActive;
     

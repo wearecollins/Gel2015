@@ -28,6 +28,7 @@
 		019DF1441AC3017C0028D667 /* ofxCocoa.mm in Sources */ = {isa = PBXBuildFile; fileRef = 019DF13B1AC3017C0028D667 /* ofxCocoa.mm */; };
 		019DF14B1AC316950028D667 /* Meter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 019DF1491AC316950028D667 /* Meter.cpp */; };
 		019DF14F1AC3181E0028D667 /* GameController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 019DF14D1AC3181E0028D667 /* GameController.cpp */; };
+		01BADD731AE429FA00620589 /* ofxImageSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01BADD711AE429FA00620589 /* ofxImageSequence.cpp */; };
 		01E663A01ACDCA19009BBB91 /* InputProcessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01E6639E1ACDCA19009BBB91 /* InputProcessor.cpp */; };
 		04C82720B149CE576B8CBB06 /* ofxUIToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48CCCEA0C681DE8B4945111B /* ofxUIToggle.cpp */; };
 		084025DA517D8329301FE1B6 /* ofxUIEventArgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A8896AC3BECAAA504E3828F4 /* ofxUIEventArgs.cpp */; };
@@ -187,6 +188,8 @@
 		019DF14D1AC3181E0028D667 /* GameController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameController.cpp; path = ../../shared/GameController.cpp; sourceTree = "<group>"; };
 		019DF14E1AC3181E0028D667 /* GameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameController.h; path = ../../shared/GameController.h; sourceTree = "<group>"; };
 		019DF1521AC338A80028D667 /* meterRender.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = meterRender.frag; path = bin/data/shaders/meterRender.frag; sourceTree = SOURCE_ROOT; };
+		01BADD711AE429FA00620589 /* ofxImageSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxImageSequence.cpp; sourceTree = "<group>"; };
+		01BADD721AE429FA00620589 /* ofxImageSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxImageSequence.h; sourceTree = "<group>"; };
 		01DCC0911400F9ACF5B65578 /* ofxXmlSettings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxXmlSettings.h; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SOURCE_ROOT; };
 		01E6639E1ACDCA19009BBB91 /* InputProcessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InputProcessor.cpp; path = ../../shared/InputProcessor.cpp; sourceTree = "<group>"; };
 		01E6639F1ACDCA19009BBB91 /* InputProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InputProcessor.h; path = ../../shared/InputProcessor.h; sourceTree = "<group>"; };
@@ -520,6 +523,24 @@
 			path = ../../p_Magnet/bin/data/shaders;
 			sourceTree = "<group>";
 		};
+		01BADD6F1AE429EB00620589 /* ofxImageSequence */ = {
+			isa = PBXGroup;
+			children = (
+				01BADD701AE429FA00620589 /* src */,
+			);
+			name = ofxImageSequence;
+			sourceTree = "<group>";
+		};
+		01BADD701AE429FA00620589 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				01BADD711AE429FA00620589 /* ofxImageSequence.cpp */,
+				01BADD721AE429FA00620589 /* ofxImageSequence.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxImageSequence/src;
+			sourceTree = "<group>";
+		};
 		01E6639D1ACDCA00009BBB91 /* input_processor */ = {
 			isa = PBXGroup;
 			children = (
@@ -718,6 +739,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				01BADD6F1AE429EB00620589 /* ofxImageSequence */,
 				019DF1291AC3016D0028D667 /* ofxCocoa */,
 				012B26901AC1A5A80026D2EA /* ofxSvg */,
 				1F4FB5C423662B96ADFDCC0B /* ofxXmlSettings */,
@@ -1080,6 +1102,7 @@
 				F440B307990F8F5CE40B9111 /* ofxUIMovingGraph.cpp in Sources */,
 				222C3AB10FA3158602718602 /* ofxUIMultiImageButton.cpp in Sources */,
 				F9C20834354ACC8337320B8C /* ofxUIMultiImageToggle.cpp in Sources */,
+				01BADD731AE429FA00620589 /* ofxImageSequence.cpp in Sources */,
 				E3D59A6B55F05669B3FBF8BD /* ofxUINumberDialer.cpp in Sources */,
 				D60E54E7FD6E19BC8636E0D2 /* ofxUIRadio.cpp in Sources */,
 				1587708E3CAC72997E43504E /* ofxUIRangeSlider.cpp in Sources */,

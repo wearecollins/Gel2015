@@ -94,6 +94,7 @@ class VideoOverlay : public Overlay {
 public:
     void load( string video ){
         color.set(255,0);
+        overlay.setPixelFormat(OF_PIXELS_RGBA);
         overlay.loadMovie(video);
         overlay.setLoopState(OF_LOOP_NORMAL);
     }
@@ -129,44 +130,45 @@ protected:
     ofxAVFVideoPlayer overlay;
 };
 
-//#include "ofxImageSequence.h"
-//
-///**
-// @class ImageSeqOverlay
-// */
-//class ImageSeqOverlay : public Overlay {
-//public:
-//    void load( string sequenceDir ){
-//        color.set(255,0);
-//        sequence.loadSequence(sequenceDir);
-//    }
-//
-//    void activate( float level = 255 ){
-//        bActive = true;
-//        targetAlpha = level;
-//    }
-//
-//    void deactivate(){
-//        bActive = false;
-//    }
-//
-//    void draw(){
-//        if ( !bActive ){
-//            color.a *= .9;
-//        } else {
-//            color.a = color.a * .9 + targetAlpha * .1;
-//        }
-//
-//        ofPushStyle();
-//        ofSetColor(color);
-//        sequence.getTextureForTime(ofGetElapsedTimef()).draw(0, 0);
-//        ofPopStyle();
-//    }
-//
-//
-//protected:
-//    ofxImageSequence sequence;
-//};
+#include "ofxImageSequence.h"
+
+/**
+ @class ImageSeqOverlay
+ */
+class ImageSeqOverlay : public Overlay {
+public:
+    void load( string sequenceDir ){
+        color.set(255,0);
+        sequence.loadSequence(sequenceDir);
+        sequence.setFrameRate(8.);
+    }
+
+    void activate( float level = 255 ){
+        bActive = true;
+        targetAlpha = level;
+    }
+
+    void deactivate(){
+        bActive = false;
+    }
+
+    void draw(){
+        if ( !bActive ){
+            color.a *= .9;
+        } else {
+            color.a = color.a * .9 + targetAlpha * .1;
+        }
+
+        ofPushStyle();
+        ofSetColor(color);
+        sequence.getTextureForTime(ofGetElapsedTimef()).draw(0, 0);
+        ofPopStyle();
+    }
+
+
+protected:
+    ofxImageSequence sequence;
+};
 
 //#include "ofxGifDecoder.h"
 //
