@@ -11,9 +11,8 @@
 //--------------------------------------------------------------
 void Meter::setup(){
 
-    // load shader + image
+    // load svg + image
     meter.loadImage("graphics/level1/level1_meter_no_background.png");
-    renderShader.load("","shaders/meterRender.frag");
     svg.load("graphics/level1/level1_meter.svg");
     
     vector<ofMesh> tempLiveMesh;
@@ -294,9 +293,6 @@ void Meter::render(){
         createPulse(value);
     }
     
-    // @MATT: IT WOULD BE SUPER HELPFUL TO SEE SOME LIGHT FEEDBACK
-    // FROM ALL INPUT; IS THERE A WAY TO MAKE A "LIGHT" FEEDBACK?
-    
     if (bActive) {
         if ( messages != NULL ){
             for ( auto & m : *messages ){
@@ -312,11 +308,6 @@ void Meter::render(){
         }
     }
 
-
-//    renderTexture.begin();
-    ofSetColor(255,10);
-    ofRect(0, 0, renderTexture.getWidth(), renderTexture.getHeight());
-
     ofSetColor(ofColor::white, 50);
     meter.draw(0, 0);
 
@@ -324,15 +315,6 @@ void Meter::render(){
     ofNoFill();
     ofSetLineWidth(10);
     ofSetColor(ofColor::white);
-    
-//    for (auto& line : lines){
-//
-//        ofBeginShape();
-//        for (int i = 0; i < line.size(); i++){
-//            ofVertex(line[i]);
-//        }
-//        ofEndShape();
-//    }
 
     if (!bPartyMode) {
         // draw the meshes
@@ -420,18 +402,6 @@ void Meter::render(){
     // line begins & ends
 //    if (ofGetKeyPressed(OF_KEY_SHIFT))
 //        drawClosestPoint();
-
-//    renderTexture.end();
-//
-////    ofSetColor(ofColor::white);
-//    ofSetColor(255, fill.a);
-//
-//    renderShader.begin();
-//    renderShader.setUniformTexture("alpha", meter.getTextureReference(), 2);
-//    renderShader.setUniformTexture("render", renderTexture.getTextureReference(), 3);
-//    renderTexture.draw(0,0 );
-//    renderShader.end();
-
     
     ofPopStyle();
 }
