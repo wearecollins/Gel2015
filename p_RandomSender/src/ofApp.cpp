@@ -31,12 +31,23 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    float x =0;
+    float y = 20;
+    float w = ofGetWidth() / 15.;
+    float h = (ofGetHeight()-20) / 20.;
+    
     for (int i=0; i<times.size(); i++){
         if ( ofGetElapsedTimeMillis() - times[i] > rate){
             times[i] = ofGetElapsedTimeMillis();
-            values[i] = round(ofRandom(2));
+            values[i] = round(ofNoise( x + ofGetElapsedTimef())* 2 );
             
             spacebrew[i]->send("direction", "pad", "\""+ofToString(values[i]) +":"+spacebrew[i]->getConfig()->clientName+":0\"");
+        }
+        
+        x += w;
+        if ( x + w > ofGetWidth() ){
+            x = 0;
+            y += h;
         }
     }
     
