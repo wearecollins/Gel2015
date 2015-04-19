@@ -50,6 +50,10 @@ void InputProcessor::update( ofEventArgs & e ){
     Poco::Timespan timediff;
     
     mux.lock();
+    messages.insert(messages.end(), queue.begin(), queue.end());
+    queue.clear();
+    mux.unlock();
+    
     for ( auto it = messages.begin(); it != messages.end(); ){
 //        timediff = now - m.second.time;
         timediff = now - it->time;
@@ -60,7 +64,6 @@ void InputProcessor::update( ofEventArgs & e ){
             ++it;
         }
     }
-    mux.unlock();
     
     // process current value
     if ( (lastAverage.elapsed())/1000000.f < messageTimeoutSeconds ){
@@ -124,7 +127,7 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
             p.uniqueId   = ID;
             p.direction  = dir;
             
-            messages.push_back(p);
+            queue.push_back(p);
         }
     }
 }
