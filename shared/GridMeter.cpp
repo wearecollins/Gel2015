@@ -228,6 +228,12 @@ void GridMeter::render(){
             // partaaaayyyy
             float noiseVal = ofNoise(g.x * Params::level2partyNoiseStepSize, g.y * Params::level2partyNoiseStepSize, ofGetElapsedTimef() * Params::level2partySpeed);
             g.activate(noiseVal * 255, true);
+
+            // dim out the dot based on its distance to the center
+            float dist = ofDist(g.x, g.y, 970, 550);
+            if (dist < Params::level2partyVignetteRadius) {
+                g.color.a *= ofMap(dist, 0, Params::level2partyVignetteRadius, 0, 1, true);
+            }
         }
         g.draw();
     }

@@ -23,5 +23,6 @@ public:
     static bool  level2drawArrows;
     static float level2partySpeed;
     static float level2partyNoiseStepSize;
+    static float level2partyVignetteRadius;
     
 };
