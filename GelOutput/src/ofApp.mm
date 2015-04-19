@@ -92,6 +92,8 @@ void ofApp::keyPressed(int key){
         gameController.triggerLive();
     } else if ( key == 'n'){
         gameController.triggerNextLevel();
+    } else if ( key == 'p'){
+        gameController.triggerPrevLevel();
     } else if ( key == '+'){
         gameController.triggerNextFrame();
     } else if ( key == '-'){
