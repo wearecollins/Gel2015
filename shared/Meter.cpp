@@ -100,32 +100,32 @@ void Meter::setup(){
 
     // left segment
     segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), GEL_COLORS[i]);
-    segments[i].meshes.push_back( createMesh(lines[i], 4525, 5310, GEL_COLORS[i]) ); // innermost line
-    segments[i].meshes.push_back( createMesh(lines[i], 3675, 4484, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 2797, 3633, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 1898, 2760, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 963, 1856, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 0, 925, GEL_COLORS[i]) );     // outermost line
+    segments[i].meshes.push_back( createMesh(lines[i], 4507, 5310, GEL_COLORS[i]) ); // innermost line
+    segments[i].meshes.push_back( createMesh(lines[i], 3654, 4508, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 2780, 3655, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 1877, 2781, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 943, 1878, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 0, 944, GEL_COLORS[i]) );     // outermost line
 
     // middle segment
     i++;
     segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), GEL_COLORS[i]);
-    segments[i].meshes.push_back( createMesh(lines[i], 4540, 5321, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 3682, 4500, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 2802, 3648, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 1893, 2766, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 962, 1857, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 0, 922, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 4516, 5321, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 3663, 4517, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 2785, 3664, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 1877, 2784, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 941, 1878, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 0, 942, GEL_COLORS[i]) );
 
     // right segment
     i++;
     segments[i].fullMesh = createMesh(lines[i], 0, lines[i].getVertices().size(), GEL_COLORS[i]);
-    segments[i].meshes.push_back( createMesh(lines[i], 4525, 5310, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 3675, 4484, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 2797, 3633, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 1898, 2760, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 963, 1856, GEL_COLORS[i]) );
-    segments[i].meshes.push_back( createMesh(lines[i], 0, 925, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 4507, 5310, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 3654, 4508, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 2780, 3655, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 1877, 2781, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 943, 1878, GEL_COLORS[i]) );
+    segments[i].meshes.push_back( createMesh(lines[i], 0, 944, GEL_COLORS[i]) );
 
 }
 
