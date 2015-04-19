@@ -45,7 +45,7 @@ static ofVec2f getGridPoint( float value ){
 class PointMessage {
 public:
     ~PointMessage(){};
-    Poco::LocalDateTime time;
+    Poco::Timestamp time;
     ofVec2f point; // deprecated
     string uniqueId;
     ofColor color;

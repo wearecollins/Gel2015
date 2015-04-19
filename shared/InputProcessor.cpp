@@ -46,8 +46,6 @@ void InputProcessor::setup( Spacebrew::Connection & sb ){
 //--------------------------------------------------------------
 void InputProcessor::update( ofEventArgs & e ){
     // cleanup messages
-    Poco::LocalDateTime now;
-    Poco::Timespan timediff;
     
 //    mux.lock();
     messages.insert(messages.end(), queue.begin(), queue.end());
@@ -55,9 +53,7 @@ void InputProcessor::update( ofEventArgs & e ){
 //    mux.unlock();
     
     for ( auto it = messages.begin(); it != messages.end(); ){
-//        timediff = now - m.second.time;
-        timediff = now - it->time;
-        if ( (float) timediff.milliseconds() / 1000.0f > messageDeleteSeconds ){
+        if ( it->time.elapsed()/1000000.f > messageDeleteSeconds ){
 //            messages.erase(m.first);
             it = messages.erase(it);
         } else {
@@ -93,7 +89,7 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
     static Json::Reader reader;
     Json::Value root;
     
-    Poco::DateTime now;
+    Poco::Timestamp now;
     
     if ( m.name == "average" ){
         vector<string> exp = ofSplitString(m.value, ":");
