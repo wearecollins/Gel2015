@@ -103,6 +103,8 @@ protected:
     vector<Pulse> pulses;
 
     float pulseRateSeconds;
+    float liveFeedbackRateSeconds;
+    Poco::LocalDateTime lastLiveFeedback;
     
     bool bWaitingForArrowStartClick;
     bool bWaitingForArrowEndClick;
