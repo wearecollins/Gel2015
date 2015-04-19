@@ -72,9 +72,21 @@ void GridMeter::setup(){
     calcArrowInnerEndpoints();
     calcArrowThickness();
 
-//    pulses.resize(1);
-//    pulses[0].shape.setWidth(100);
-//    pulses[0].shape.setHeight(600);
+    // set up "neighborhoods" for live feedback pulses
+    ofRectangle rect = ofRectangle(0, 185, 415, 700);
+
+    // left
+    arrows[0].neighborhood = rect;
+
+    // right
+    arrows[2].neighborhood = rect;
+    arrows[2].neighborhood.setX(getProjectorWidth()-rect.getWidth());
+
+    // top
+    arrows[1].neighborhood.setWidth(rect.height);
+    arrows[1].neighborhood.setHeight(rect.width);
+    arrows[1].neighborhood.setX(getProjectorWidth()/2 - rect.height/2);
+    arrows[1].neighborhood.setY(0);
 
     bWaitingForArrowStartClick = false;
     bWaitingForArrowEndClick = false;
@@ -134,16 +146,31 @@ void GridMeter::render(){
     float rad = 300;
     
     if ( messages != NULL ){
-        for (auto & g : grid ){
-            for ( auto & m : *messages ){
-                ofVec2f pnt2 = getGridPoint(m.direction);
-                if ( abs( g.distance(pnt2)) < rad/4. && bActive ){
-                    g.activate(50);
+        for ( auto & m : *messages ){
+            // pick a random X/Y inside the neighborhood of the arrow for that direction
+            ofRectangle& bbox = arrows[m.direction].neighborhood;
+            float randX = ofRandom(bbox.getWidth());
+            float randY = ofRandom(bbox.getHeight());
+
+            // now find the GridPoint that is closest to that random point
+            float closestDistance = 999999999999;
+            GridPoint& closestGridPoint = grid.front(); // just assign whatever, can't initialize an empty reference
+
+            for (auto& g : grid){
+                // skip any points not inside
+                if (!bbox.inside(g)) continue;
+
+                float distSquared = ofDistSquared(randX, randY, g.x, g.y);
+                if (distSquared < closestDistance) {
+                    closestGridPoint = g;
+                    closestDistance = distSquared;
                 }
             }
+
+            closestGridPoint.activate(50, true);
         }
     }
-    
+
     // Fire off pulses if necessary
     if ( bActive ){
         int absValue = round(value);
@@ -265,7 +292,10 @@ void GridMeter::render(){
     } else if (bWaitingForArrowEndClick || Params::level2drawArrows) {
         ofNoFill();
         ofSetLineWidth(10);
-        for (auto& arrow : arrows) arrow.shape.draw();
+        for (auto& arrow : arrows) {
+            arrow.shape.draw();
+            ofRect(arrow.neighborhood); // what, an ofRectangle has no draw() ??
+        }
     }
 
     ofPopStyle();

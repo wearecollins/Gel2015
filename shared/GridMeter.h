@@ -53,6 +53,7 @@ protected:
     ofPoint pointE;
     ofPoint pointF;
     ofPolyline shape;
+    ofRectangle neighborhood;
 };
 
 struct Pulse {
