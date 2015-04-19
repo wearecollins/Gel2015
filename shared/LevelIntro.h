@@ -60,8 +60,6 @@ public:
         {
             string path = "graphics/" + name + "/" + XML.getValue("outro");
             outro.load( path );
-            
-            cout << "OUTRO LOADED "<<path<<endl;
         }
         
         // set to frame 0, but don't fade in

@@ -97,7 +97,7 @@ public:
         overlay.setPixelFormat(OF_PIXELS_RGBA);
         overlay.loadMovie(video);
         overlay.setLoopState(OF_LOOP_NORMAL);
-        overlay.stop();
+//        overlay.stop();
     }
     
     void activate( float level = 255 ){

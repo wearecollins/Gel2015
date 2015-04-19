@@ -1,6 +1,8 @@
 #include "ofApp.h"
 #include "ofxCocoa.h"
 
+//#define DEBUG_ZONE
+
 //--------------------------------------------------------------
 ofApp::ofApp(){
 }
@@ -14,14 +16,18 @@ void ofApp::setup(){
     ofBackground( ofColor(0,0,0,0) );
 //	ofSetFrameRate(60);
     
-    string server   = "spacebrew.robotconscience.com";
     string name     = "Gel master";
+    
+    ofXml settings;
+    settings.load("settings.xml");
+    string server = settings.getValue("server", "spacebrew.robotconscience.com");
+    int port = settings.getValue("port", 9000);
     
     processor.setup(spacebrew);
     gameController.setup(processor,spacebrew);
     
     spacebrew.setAutoReconnect();
-    spacebrew.connect( server, name, "");
+    spacebrew.connect(server, port, name);
     spacebrew.addSubscribe("windowEvent", "string");
     
     ofAddListener(spacebrew.onMessageEvent, this, &ofApp::onMessage);
@@ -47,14 +53,16 @@ void ofApp::draw(){
     
     ofPopMatrix();
     
-    static bool bSet = false;
-    if (!bSet){
-        
-//        [MSA::ofxCocoa::glView() setSyncToDisplayLink:YES];
-        bSet = true;
-    }
-    
+#ifdef DEBUG_ZONE
     ofDrawBitmapString(ofToString(ofGetFrameRate(),3), 20,20);
+    
+    Poco::Timestamp ts;
+    
+    float millis = (ts - processor.lastAverageReceived()) / 1000000.;
+    
+    ofDrawBitmapString(ofToString(millis,3), 20,40);
+    ofDrawBitmapString(ofToString(processor.getMessages().size(),3), 20,60);
+#endif
 }
 
 //--------------------------------------------------------------
