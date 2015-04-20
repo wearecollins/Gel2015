@@ -11,6 +11,8 @@
 #include "ofMain.h"
 #include "Poco/LocalDateTime.h"
 
+//#define DEBUG_ZONE
+
 static float getProjectorWidth(){
     return 1920.;
 }

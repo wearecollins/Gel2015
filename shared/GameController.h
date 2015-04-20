@@ -33,7 +33,8 @@ public:
         LEVEL_ZERO = 0,
         LEVEL_ONE,
         LEVEL_TWO,
-        LEVEL_THREE
+        LEVEL_THREE,
+        LEVEL_END
     };
     
     enum State {

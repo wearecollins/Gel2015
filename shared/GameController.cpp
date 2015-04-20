@@ -25,11 +25,13 @@ void GameController::setup( InputProcessor & input, Spacebrew::Connection & sb )
     levelInputs[LEVEL_ONE]      = new Meter();
     levelInputs[LEVEL_TWO]      = new GridMeter();
     levelInputs[LEVEL_THREE]    = new DropMeter();
+    levelInputs[LEVEL_END]      = new DropMeter();
     
     levelIntros[LEVEL_ZERO]     = new LevelIntro();
     levelIntros[LEVEL_ONE]      = new LevelIntro();
     levelIntros[LEVEL_TWO]      = new LevelIntro();
     levelIntros[LEVEL_THREE]    = new LevelIntro();
+    levelIntros[LEVEL_END]      = new LevelIntro();
     
     int index = 0;
     
@@ -83,7 +85,7 @@ void GameController::guiSetup(){
     ofxUISuperCanvas* gui;
 
     gui = new ofxUISuperCanvas("Level 1");
-    gui->addSpacer();
+    gui->addSpacer(); 
 
     gui->addSlider("Party Segment Min", 0, 300, &Params::level1partyModeSegmentLengthMin);
     gui->addSlider("Party Segment Max", 0, 300, &Params::level1partyModeSegmentLengthMax);
@@ -260,8 +262,8 @@ void GameController::triggerNextLevel(){
     Level next = currentLevel;
     next = (Level) ((int) currentLevel + 1);
     
-    if ( next > LEVEL_THREE ){
-        next = LEVEL_THREE;
+    if ( next > LEVEL_END ){
+        next = LEVEL_END;
     }
     setLevel(next);
 }
@@ -306,8 +308,9 @@ void GameController::setLevel ( Level level ){
     colorBackground.activate();
     setBackgroundTransparent(false);
     
-    spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( level ) + "\"}");
-    
+    if ( level != LEVEL_END ){
+        spacebrew->send("gameevent", "event", "{\"name\":\"level\",\"value\":\"" +  levelToString( level ) + "\"}");
+    }
     saveState();
 }
 
@@ -349,6 +352,8 @@ string GameController::levelToString( Level level ){
             case LEVEL_THREE:
             return "level three";
             break;
+        default:
+            return"";
     }
 }
 

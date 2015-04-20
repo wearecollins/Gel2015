@@ -36,41 +36,47 @@ void DropMeter::render(){
         partyMode();
     }
     
-    // activate based on value
-    ofVec2f pnt = getGridPoint( value );
-
-    // add a bit of randomness to the height for now until we re-think the
-    // mapped value distribution stuff
-    pnt.y += ofRandom(-100, 100);
-
-    // do something with individual (non-averaged) messages?
-    if ( messages != NULL ){
+    if (bPartyMode){
         
-    }
+        // activate based on value
+        ofVec2f pnt = getGridPoint( value );
 
-    // check for nearby drops so we don't draw a mess of drops on top of each other
-    float rad = 175;
-    bool bFound = false;
-    
-    for (auto & g : grid ){
-        if ( abs( g->distance(pnt)) < rad ){
-            bFound = true;
-            break;
+        // add a bit of randomness to the height for now until we re-think the
+        // mapped value distribution stuff
+        pnt.y += ofRandom(-100, 100);
+
+        // do something with individual (non-averaged) messages?
+        if ( messages != NULL ){
+            
         }
+
+        // check for nearby drops so we don't draw a mess of drops on top of each other
+        float rad = 175;
+        bool bFound = false;
+        
+        for (auto & g : grid ){
+            if ( abs( g->distance(pnt)) < rad ){
+                bFound = true;
+                break;
+            }
+        }
+        
+        if ( !bFound && bActive ){
+            DropPoint *dp = new DropPoint();
+            dp->setup(pnt);
+            grid.push_back(dp);
+    //        grid.back().activate();
+        }
+        
+        
+        for (auto & g : grid ){
+            g->draw();
+        }
+    } else {
+        ofSetColor(0);
+        ofRect(0, 0, getProjectorWidth(), getProjectorHeight());
+        ofSetColor(255);
     }
-    
-    if ( !bFound && bActive ){
-        DropPoint *dp = new DropPoint();
-        dp->setup(pnt);
-        grid.push_back(dp);
-//        grid.back().activate();
-    }
-    
-    
-    for (auto & g : grid ){
-        g->draw();
-    }
-    
     ofPopMatrix();
 }
 

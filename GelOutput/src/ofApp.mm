@@ -1,8 +1,6 @@
 #include "ofApp.h"
 #include "ofxCocoa.h"
 
-//#define DEBUG_ZONE
-
 //--------------------------------------------------------------
 ofApp::ofApp(){
 }
