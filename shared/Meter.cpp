@@ -193,8 +193,6 @@ float Meter::calcAlphaForPulse(float percent, int index, int numLines, float ove
 
 //--------------------------------------------------------------
 void Meter::createPulse(float value){
-    Poco::LocalDateTime now;
-    Poco::Timespan timediff;
     int segmentIndex;
 
     // figure out which rainbow segment the pulse should correspond to
@@ -206,8 +204,7 @@ void Meter::createPulse(float value){
         segmentIndex = 2;
 
     // make sure enough time has passed before creating a new pulse
-    timediff = now - segments[segmentIndex].lastPulse;
-    if (!( (float) timediff.milliseconds() / 1000.0f > 0.3 )) return;
+    if (!( (float) segments[segmentIndex].lastPulse.elapsed() / 1000000.0f > 0.3 )) return;
 
     // create a new pulse
     ofxAnimatableFloat* anim = new ofxAnimatableFloat();
@@ -216,15 +213,13 @@ void Meter::createPulse(float value){
     anim->setDuration(0.33);
     anim->animateTo(1.3);
 
-    segments[segmentIndex].lastPulse = now;
+    segments[segmentIndex].lastPulse = Poco::Timestamp();
     segments[segmentIndex].pulses.push_back(anim);
     ofAddListener(anim->animFinished, this, &Meter::onAnimFinished);
 }
 
 //--------------------------------------------------------------
 void Meter::createBlip(string name, float value){
-    Poco::LocalDateTime now;
-    Poco::Timespan timediff;
     int segmentIndex;
     
     // figure out which rainbow segment the pulse should correspond to

@@ -96,5 +96,5 @@ protected:
     
     // send out pings to phones regularly
     int statusSendMillis;
-    Poco::LocalDateTime lastStatusSent;
+    Poco::Timestamp lastStatusSent;
 };

@@ -166,9 +166,6 @@ void GridMeter::render(){
     ofClear(255);
     ofPushMatrix();
     
-    Poco::LocalDateTime now;
-    Poco::Timespan timediff;
-    
     // update pulses
     for (auto &p :pulses ){
         p.anim->update(1./60.);
@@ -192,10 +189,9 @@ void GridMeter::render(){
         
         if ( absValue < arrows.size()){
             
-            timediff = now - arrows[absValue].lastPulse;
             // annoying math, but seconds == int so...
-            if ( timediff.milliseconds() / 1000.f > pulseRateSeconds ){
-                arrows[absValue].lastPulse = now;
+            if ( arrows[absValue].lastPulse.elapsed() / 1000000. > pulseRateSeconds ){
+                arrows[absValue].lastPulse = Poco::Timestamp();
                 pulses.push_back(Pulse());
                 
                 pulses.back().dir = absValue;

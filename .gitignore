@@ -2,6 +2,7 @@
 *.app
 xcuserdata
 *.xccheckout
+.dropbox
 
 # Node
 node_modules

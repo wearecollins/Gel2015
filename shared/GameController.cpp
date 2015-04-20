@@ -199,11 +199,8 @@ void GameController::update( ofEventArgs & e ){
     currentLive->setActive( inputProcessor->shouldSend() );
     
     // check if we need to send
-    Poco::LocalDateTime now;
-    Poco::Timespan timediff = now - lastStatusSent;
-    
-    if ( timediff.milliseconds() >= statusSendMillis ){
-        lastStatusSent = now;
+    if ( lastStatusSent.elapsed() / 1000. >= statusSendMillis ){
+        lastStatusSent = Poco::Timestamp();
         if ( currentState == STATE_PARTY ){
             spacebrew->send("statusupdate", "event", "{\"name\":\"trigger\",\"value\":\"" + levelToString(currentLevel)+ " complete!\"}");
         } else {

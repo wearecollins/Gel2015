@@ -43,7 +43,7 @@ public:
     void calcInnerEndPoints();
     void calcInnerPoint();
     
-    Poco::LocalDateTime lastPulse;
+    Poco::Timestamp lastPulse;
 
 protected:
     ofPoint pointA;
@@ -76,7 +76,7 @@ public:
 };
 
 struct GridBlip {
-    Poco::LocalDateTime lastPulse;
+    Poco::Timestamp lastPulse;
     int direction;
     GridPoint* gridPoint;
 };

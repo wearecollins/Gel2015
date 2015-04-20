@@ -26,7 +26,7 @@ struct RainbowSegment {
     ofMesh fullMesh;                        // the full line
     vector<ofMesh> meshes;                  // "radiating" lines
     vector <ofxAnimatableFloat*> pulses;    // ~0->1 pulse through the segment
-    Poco::LocalDateTime lastPulse;
+    Poco::Timestamp lastPulse;
 };
 
 // Holds shorter segments within each RainbowSegment for party mode
@@ -60,7 +60,7 @@ protected:
     void onAnimFinished(ofxAnimatable::AnimationEvent& args);
     void onBlipFinished(ofxAnimatable::AnimationEvent& args);
 
-    Poco::LocalDateTime lastPulse;  // not actually used!
+    Poco::Timestamp lastPulse;  // not actually used!
     vector<ofPolyline> lines;       // only used to create meshes & in drawClosestPoint()
     vector<RainbowSegment> segments;
     vector<PartySegment> partyModeSegments;
