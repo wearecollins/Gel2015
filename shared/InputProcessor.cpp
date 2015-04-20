@@ -26,7 +26,9 @@ InputProcessor::~InputProcessor(){
     if ( spacebrew != NULL ){
         ofRemoveListener(spacebrew->onMessageEvent, this, &InputProcessor::onMessage);
     }
-    ofRemoveListener(ofEvents().update, this, &InputProcessor::update);
+    if (isThreadRunning()){
+        waitForThread();
+    }
 }
 
 //--------------------------------------------------------------
@@ -38,34 +40,40 @@ void InputProcessor::setup( Spacebrew::Connection & sb ){
     spacebrew->addSubscribe("average", "pad");
     spacebrew->addSubscribe("touch", "pad");
     
-    // setup OF events
-    ofAddListener(ofEvents().update, this, &InputProcessor::update);
+    // let's go
+    startThread();
 }
 
 
 //--------------------------------------------------------------
-void InputProcessor::update( ofEventArgs & e ){
+void InputProcessor::threadedFunction(){
+    while (isThreadRunning()){
     // cleanup messages
     
-//    mux.lock();
-    messages.insert(messages.end(), queue.begin(), queue.end());
-    queue.clear();
-//    mux.unlock();
-    
-    for ( auto it = messages.begin(); it != messages.end(); ){
-        if ( it->time.elapsed()/1000000.f > messageDeleteSeconds ){
-//            messages.erase(m.first);
-            it = messages.erase(it);
-        } else {
-            ++it;
+        lock();
+        messages.insert(messages.end(), queue.begin(), queue.end());
+        queue.clear();
+        unlock();
+        
+        std::list<vector<PointMessage>::iterator > itList;
+        
+        for ( auto it = messages.begin(); it != messages.end(); ++it){
+            if ( it->time.elapsed()/1000000.f > messageDeleteSeconds ){
+    //            messages.erase(m.first);
+                itList.push_back(it);
+            }
         }
-    }
-    
-    // process current value
-    if ( (lastAverage.elapsed())/1000000.f < messageTimeoutSeconds ){
-        bShouldSend = true;
-    } else {
-        bShouldSend = false;
+        for ( auto it : itList ){
+            messages.erase(it);
+        }
+        
+        // process current value
+        if ( (lastAverage.elapsed())/1000000.f < messageTimeoutSeconds ){
+            bShouldSend = true;
+        } else {
+            bShouldSend = false;
+        }
+        sleep(16);
     }
 }
 

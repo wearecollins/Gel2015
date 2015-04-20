@@ -11,7 +11,7 @@
 #include "Constants.h"
 #include "ofxSpacebrew.h"
 
-class InputProcessor {
+class InputProcessor : protected ofThread {
     friend class Spacebrew::Connection;
 public:
     
@@ -19,7 +19,6 @@ public:
     ~InputProcessor();
     
     void setup( Spacebrew::Connection & spacebrew );
-    void update( ofEventArgs & e );
     
     int getCurrentValue();
     int getCurrentPower();
@@ -42,6 +41,9 @@ public:
     float messageTimeoutSeconds, messageDeleteSeconds;
     
 protected:
+    
+    void threadedFunction();
+    
     void onMessage( Spacebrew::Message & m );
     Spacebrew::Connection * spacebrew;
     string messageName, messageType;
