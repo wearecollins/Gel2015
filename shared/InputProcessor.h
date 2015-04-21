@@ -27,8 +27,13 @@ public:
 //        return messages;
 //    }
 
-    const vector<PointMessage> & getMessages(){
-        return messages;
+    vector<PointMessage> & getMessages(){
+        safeMessages.clear();
+        lock();
+        safeMessages.insert(safeMessages.begin(), messages.begin(), messages.end());
+        unlock();
+        
+        return safeMessages;
     }
     
     void doEasing( bool bDo = true );
@@ -49,6 +54,7 @@ protected:
     string messageName, messageType;
     
     // dump of all current messages
+    vector<PointMessage> safeMessages;
     vector<PointMessage> messages;
     vector<PointMessage> queue;
     

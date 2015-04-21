@@ -258,12 +258,10 @@ void GridMeter::render(){
         blips.erase(k);
     }
 
-    if ( messages != NULL ){
-        for ( auto & m : *messages ){
-            createBlip(m.uniqueId, m.direction);
-        }
+    for ( auto & m : *messages ){
+        createBlip(m.uniqueId, m.direction);
     }
-
+    
     for (auto & g : grid ){
         if (!bPartyMode) {
             // activate based on arrows/pulses

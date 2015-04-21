@@ -74,6 +74,7 @@ void InputProcessor::threadedFunction(){
             bShouldSend = false;
         }
         sleep(16);
+        yield();
     }
 }
 
@@ -131,7 +132,9 @@ void InputProcessor::onMessage( Spacebrew::Message & m ){
             p.uniqueId   = ID;
             p.direction  = dir;
             
+            lock();
             queue.push_back(p);
+            unlock();
         }
     }
 }

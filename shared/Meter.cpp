@@ -30,12 +30,14 @@ void Meter::setup(){
             liveViewMeshes[1].push_back(m);
             for ( auto & c : liveViewMeshes[1].back().getColors() ){
                 c.set(ofFloatColor::cyan);
+                c.a = 0.;
             }
             
         } else if ( c == ofFloatColor::red ){
             liveViewMeshes[0].push_back(m);
             for ( auto & c : liveViewMeshes[0].back().getColors() ){
                 c.set(ofFloatColor::yellow);
+                c.a = 0.;
             }
 
         } else if ( c == ofFloatColor::blue ){
@@ -43,6 +45,7 @@ void Meter::setup(){
             
             for ( auto & c : liveViewMeshes[2].back().getColors() ){
                 c.set(ofFloatColor::magenta);
+                c.a = 0.;
             }
         }
         
@@ -290,10 +293,8 @@ void Meter::render(){
     }
     
     if (bActive) {
-        if ( messages != NULL ){
-            for ( auto & m : *messages ){
-                createBlip(m.uniqueId, m.direction);
-            }
+        for ( auto & m : *messages ){
+            createBlip(m.uniqueId, m.direction);
         }
     }
 
@@ -337,17 +338,27 @@ void Meter::render(){
             }
         }
         
+        list< string > keys;
+        
         for (auto& it : blips) {
             it.second->animation->update(1.0 / 60.0);
             if ( it.second->animation->hasFinishedAnimating() ){
-                delete it.second->animation;
-                blips.erase(it.first);
+                keys.push_back(it.first);
             }
         }
         
+        for (auto k : keys ){
+            auto * toKill = blips[k];
+            blips.erase(k);
+            delete toKill->animation;
+            delete toKill;
+        }
+        
         for (auto& it : blips) {
-            for ( auto & c : it.second->parent->getColors() ){
-                c.set(c.r,c.g,c.b, it.second->animation->val());
+            if ( it.second->parent ){
+                for ( auto & c : it.second->parent->getColors() ){
+                    c.set(c.r,c.g,c.b, it.second->animation->val());
+                }
             }
         }
         

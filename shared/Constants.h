@@ -44,15 +44,14 @@ static ofVec2f getGridPoint( float value ){
     return pnt;
 }
 
-class PointMessage {
-public:
-    ~PointMessage(){};
+struct PointMessage {
     Poco::Timestamp time;
     ofVec2f point; // deprecated
     string uniqueId;
     ofColor color;
     int     direction;  //0-3 = L U R D
     int     power;      //0-2, only used in voice app
+    bool    sent;
 };
 
 class Settings {

@@ -16,7 +16,6 @@ class LiveInput : public ofVec2f {
 public:
     
     LiveInput(){
-        messages = NULL;
         fill.a = 0;
         bFadeOut = true;
         bPartyMode = false;
@@ -36,8 +35,8 @@ public:
     virtual void setup() = 0;
     
     // "live"
-    virtual void updateAll( const vector<PointMessage> & messages ){
-        this->messages = &messages;
+    virtual void updateAll( vector<PointMessage> & messages_in ){
+        messages = &messages_in;
     }
     
     // average
@@ -89,5 +88,5 @@ protected:
     
     ofFbo   renderTexture;
     
-    const vector<PointMessage> * messages;
+    vector<PointMessage> * messages;
 };

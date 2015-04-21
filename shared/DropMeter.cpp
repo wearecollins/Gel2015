@@ -45,11 +45,6 @@ void DropMeter::render(){
         // mapped value distribution stuff
         pnt.y += ofRandom(-100, 100);
 
-        // do something with individual (non-averaged) messages?
-        if ( messages != NULL ){
-            
-        }
-
         // check for nearby drops so we don't draw a mess of drops on top of each other
         float rad = 175;
         bool bFound = false;
