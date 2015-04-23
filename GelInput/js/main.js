@@ -370,9 +370,7 @@ var App = function(){
 		if ( name == "gameevent" || name == "statusupdate" ){
 			// console.log( value );
 			// value = JSON.parse( value );
-			
-			console.log( data );
-
+		
 			if ( data.name == "level" ){
 				if ( data.value == "level one"){
 					if ( current_level != 1){
@@ -391,6 +389,8 @@ var App = function(){
 						setupLevelThree();
 						current_level = 3;
 					}
+				} else {
+					orientationChange();
 				}
 			} else if ( data.name == "trigger"){
 				// this should be a partial match, duh
